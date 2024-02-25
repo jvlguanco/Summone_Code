@@ -174,12 +174,6 @@ public class SyntaxTokenizer : Tokenizer {
                                     "%");
         AddPattern(pattern);
 
-        pattern = new TokenPattern((int) SyntaxConstants.NEGATE,
-                                    "NEGATE",
-                                    TokenPattern.PatternType.STRING,
-                                    "~");
-        AddPattern(pattern);
-
         pattern = new TokenPattern((int) SyntaxConstants.O_PAREN,
                                     "O_PAREN",
                                     TokenPattern.PatternType.STRING,
@@ -322,27 +316,6 @@ public class SyntaxTokenizer : Tokenizer {
                                     "COMMENT",
                                     TokenPattern.PatternType.STRING,
                                     "Comment");
-        pattern.Ignore = true;
-        AddPattern(pattern);
-
-        pattern = new TokenPattern((int) SyntaxConstants.NEWLINE,
-                                    "NEWLINE",
-                                    TokenPattern.PatternType.STRING,
-                                    "newline");
-        pattern.Ignore = true;
-        AddPattern(pattern);
-
-        pattern = new TokenPattern((int) SyntaxConstants.TAB,
-                                    "TAB",
-                                    TokenPattern.PatternType.STRING,
-                                    "tab");
-        pattern.Ignore = true;
-        AddPattern(pattern);
-
-        pattern = new TokenPattern((int) SyntaxConstants.SPACE,
-                                    "SPACE",
-                                    TokenPattern.PatternType.STRING,
-                                    "space");
         pattern.Ignore = true;
         AddPattern(pattern);
 
