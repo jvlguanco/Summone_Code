@@ -152,4 +152,9 @@ public partial class Form1 : Form
     {
 
     }
+
+    private void semantic_Click(object sender, EventArgs e)
+    {
+
+    }
 }

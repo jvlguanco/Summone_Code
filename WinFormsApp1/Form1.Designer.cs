@@ -100,6 +100,7 @@ partial class Form1
         semantic.TabIndex = 3;
         semantic.Text = "Semantic Analyzer";
         semantic.UseVisualStyleBackColor = true;
+        semantic.Click += semantic_Click;
         // 
         // clear
         // 
