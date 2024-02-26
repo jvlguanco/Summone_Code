@@ -13,7 +13,11 @@ public class Initializer
         while (text != "")
         {
             if (text.ElementAt(0) == '\t')
-            {
+            {   
+                token = new Tokens();
+                token.setTokens("tab");
+                token.setLexemes("\\t");
+                lex._token.Add(token);
                 text = text.Remove(0, 1);
                 continue;
             }

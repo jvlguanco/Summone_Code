@@ -2010,7 +2010,7 @@ public class SyntaxParser : RecursiveDescentParser {
         alt.AddToken((int) SyntaxConstants.O_SQR, 1, 1);
         alt.AddProduction((int) SyntaxConstants.PROD_INDEX_VALUE, 1, 1);
         alt.AddToken((int) SyntaxConstants.C_SQR, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_2D_VALUE_TYPE, 1, 1);
+        alt.AddProduction((int) SyntaxConstants.PROD_2D_VALUE_TYPE, 0, 1);
         pattern.AddAlternative(alt);
         alt = new ProductionPatternAlternative();
         alt.AddToken((int) SyntaxConstants.PER, 1, 1);

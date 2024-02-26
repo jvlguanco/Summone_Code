@@ -33,11 +33,19 @@ public class Analyzer
             _tokenLine.Add(counter);
             hasLines = true;
             _count = 1;
+            token = new Tokens();
+            token.setTokens("newline");
+            token.setLexemes("\\n");
+            _token.Add(token);
         }
         else if (text.ElementAt(0) == ' ')
         {
             hasLines = true;
             _count = 1;
+            token = new Tokens();
+            token.setTokens("space");
+            token.setLexemes(" ");
+            _token.Add(token);
         }
 
         return hasLines;

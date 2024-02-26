@@ -118,7 +118,7 @@ public class PredictSets
     string l_ping_element = "ping hold Identifier PingLiteral";
     string l_add_ping_1d = ", }";
     string l_ping_2d_tail = "= , ;";
-    string l_add_ping_2d = "= , ;";
+    string l_add_ping_2d = ", }";
     string add_lv_ping_tail = ", ;";
     string lv_pool = "Identifier";
     string lv_pool_tail = "= [ , ;";
