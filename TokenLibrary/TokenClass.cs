@@ -5,7 +5,6 @@ public abstract class TokensClass
     int lines;
     string tokens;
     string lexemes;
-    string attributes;
 
     public void setTokens(string token)
     {
