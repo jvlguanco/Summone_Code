@@ -52,6 +52,10 @@ partial class Form1
         Column1 = new DataGridViewTextBoxColumn();
         Column3 = new DataGridViewTextBoxColumn();
         tabPage5 = new TabPage();
+        semanticError = new DataGridView();
+        dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+        dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
+        Line = new DataGridViewTextBoxColumn();
         tabControl1.SuspendLayout();
         tabPage1.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)LexGrid).BeginInit();
@@ -60,6 +64,8 @@ partial class Form1
         ((System.ComponentModel.ISupportInitialize)DataLexicalError).BeginInit();
         tabPage4.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)DataSyntaxError).BeginInit();
+        tabPage5.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)semanticError).BeginInit();
         SuspendLayout();
         // 
         // label1
@@ -276,13 +282,48 @@ partial class Form1
         // 
         // tabPage5
         // 
+        tabPage5.Controls.Add(semanticError);
         tabPage5.Location = new Point(4, 30);
         tabPage5.Name = "tabPage5";
         tabPage5.Padding = new Padding(3);
         tabPage5.Size = new Size(1157, 122);
         tabPage5.TabIndex = 2;
-        tabPage5.Text = "tabPage5";
+        tabPage5.Text = "Semantic Error";
         tabPage5.UseVisualStyleBackColor = true;
+        // 
+        // semanticError
+        // 
+        semanticError.AllowUserToAddRows = false;
+        semanticError.AllowUserToDeleteRows = false;
+        semanticError.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+        semanticError.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, Line });
+        semanticError.Location = new Point(0, 2);
+        semanticError.Name = "semanticError";
+        semanticError.ReadOnly = true;
+        semanticError.RowHeadersVisible = false;
+        semanticError.Size = new Size(1157, 119);
+        semanticError.TabIndex = 4;
+        semanticError.CellContentClick += semanticError_CellContentClick;
+        // 
+        // dataGridViewTextBoxColumn1
+        // 
+        dataGridViewTextBoxColumn1.HeaderText = "ID";
+        dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+        dataGridViewTextBoxColumn1.ReadOnly = true;
+        dataGridViewTextBoxColumn1.Width = 50;
+        // 
+        // dataGridViewTextBoxColumn2
+        // 
+        dataGridViewTextBoxColumn2.HeaderText = "Message";
+        dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+        dataGridViewTextBoxColumn2.ReadOnly = true;
+        dataGridViewTextBoxColumn2.Width = 1000;
+        // 
+        // Line
+        // 
+        Line.HeaderText = "Line";
+        Line.Name = "Line";
+        Line.ReadOnly = true;
         // 
         // Form1
         // 
@@ -307,6 +348,8 @@ partial class Form1
         ((System.ComponentModel.ISupportInitialize)DataLexicalError).EndInit();
         tabPage4.ResumeLayout(false);
         ((System.ComponentModel.ISupportInitialize)DataSyntaxError).EndInit();
+        tabPage5.ResumeLayout(false);
+        ((System.ComponentModel.ISupportInitialize)semanticError).EndInit();
         ResumeLayout(false);
         PerformLayout();
     }
@@ -336,4 +379,8 @@ partial class Form1
     private DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
     private DataGridViewTextBoxColumn Column1;
     private DataGridViewTextBoxColumn Column3;
+    private DataGridView semanticError;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+    private DataGridViewTextBoxColumn Line;
 }
