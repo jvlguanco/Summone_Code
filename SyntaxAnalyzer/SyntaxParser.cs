@@ -1054,7 +1054,7 @@ public class SyntaxParser : RecursiveDescentParser {
                                         "Prod_additional_args");
         alt = new ProductionPatternAlternative();
         alt.AddToken((int) SyntaxConstants.COMMA, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_ARGUMENT, 0, 1);
+        alt.AddProduction((int) SyntaxConstants.PROD_ARGUMENT, 1, 1);
         pattern.AddAlternative(alt);
         AddPattern(pattern);
 
@@ -1999,7 +1999,7 @@ public class SyntaxParser : RecursiveDescentParser {
         pattern.AddAlternative(alt);
         alt = new ProductionPatternAlternative();
         alt.AddToken((int) SyntaxConstants.O_PAREN, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_ARGUMENT, 1, 1);
+        alt.AddProduction((int) SyntaxConstants.PROD_ARGUMENT, 0, 1);
         alt.AddToken((int) SyntaxConstants.C_PAREN, 1, 1);
         pattern.AddAlternative(alt);
         AddPattern(pattern);
