@@ -168,7 +168,7 @@ public class Constants
     }
     public class IdentifierDelims
     {
-        public List<char> delim_end = new List<char> { '.','\n', '=', '\t','(' , ':', ',', '[', ']', '?', '#', '$', '%',
-                                                       ')', '"', ';', '@', '^', '~', '`', '_', '!', '<', '>','*', '/', '+', '-',' '};
+        public List<char> delim_end = new List<char> { '.','\n', '=', '\t','(' , ':', ',', '[', ']', '#', '%',
+                                                       ')', '"', ';', '^', '~', '!', '<', '>','*', '/', '+', '-',' '};
     }
 }
