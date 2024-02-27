@@ -56,6 +56,13 @@ partial class Form1
         dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
         dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
         Line = new DataGridViewTextBoxColumn();
+        tabPage2 = new TabPage();
+        OutputText = new RichTextBox();
+        run = new Button();
+        TempGrid = new DataGridView();
+        dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
+        dataGridViewTextBoxColumn7 = new DataGridViewTextBoxColumn();
+        dataGridViewTextBoxColumn8 = new DataGridViewTextBoxColumn();
         tabControl1.SuspendLayout();
         tabPage1.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)LexGrid).BeginInit();
@@ -66,6 +73,8 @@ partial class Form1
         ((System.ComponentModel.ISupportInitialize)DataSyntaxError).BeginInit();
         tabPage5.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)semanticError).BeginInit();
+        tabPage2.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)TempGrid).BeginInit();
         SuspendLayout();
         // 
         // label1
@@ -110,7 +119,7 @@ partial class Form1
         // 
         // clear
         // 
-        clear.Location = new Point(485, 73);
+        clear.Location = new Point(633, 73);
         clear.Name = "clear";
         clear.Size = new Size(142, 40);
         clear.TabIndex = 4;
@@ -123,7 +132,7 @@ partial class Form1
         Code.BackColor = SystemColors.Window;
         Code.BorderStyle = BorderStyle.Fixed3D;
         Code.Font = new Font("Segoe UI", 12F);
-        Code.Location = new Point(43, 120);
+        Code.Location = new Point(41, 117);
         Code.Margin = new Padding(4);
         Code.Name = "Code";
         Code.Size = new Size(767, 476);
@@ -189,6 +198,7 @@ partial class Form1
         tabControl2.Controls.Add(tabPage3);
         tabControl2.Controls.Add(tabPage4);
         tabControl2.Controls.Add(tabPage5);
+        tabControl2.Controls.Add(tabPage2);
         tabControl2.Font = new Font("Segoe UI", 12F);
         tabControl2.Location = new Point(1, 603);
         tabControl2.Name = "tabControl2";
@@ -325,11 +335,76 @@ partial class Form1
         Line.Name = "Line";
         Line.ReadOnly = true;
         // 
+        // tabPage2
+        // 
+        tabPage2.Controls.Add(TempGrid);
+        tabPage2.Controls.Add(OutputText);
+        tabPage2.Location = new Point(4, 30);
+        tabPage2.Name = "tabPage2";
+        tabPage2.Padding = new Padding(3);
+        tabPage2.Size = new Size(1157, 122);
+        tabPage2.TabIndex = 3;
+        tabPage2.Text = "tabPage2";
+        tabPage2.UseVisualStyleBackColor = true;
+        // 
+        // OutputText
+        // 
+        OutputText.Location = new Point(0, 0);
+        OutputText.Name = "OutputText";
+        OutputText.Size = new Size(815, 122);
+        OutputText.TabIndex = 9;
+        OutputText.Text = "";
+        // 
+        // run
+        // 
+        run.Location = new Point(485, 73);
+        run.Name = "run";
+        run.Size = new Size(142, 40);
+        run.TabIndex = 8;
+        run.Text = "Run";
+        run.UseVisualStyleBackColor = true;
+        run.Click += run_Click;
+        // 
+        // TempGrid
+        // 
+        TempGrid.AllowUserToAddRows = false;
+        TempGrid.AllowUserToDeleteRows = false;
+        TempGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+        TempGrid.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn7, dataGridViewTextBoxColumn8 });
+        TempGrid.Location = new Point(816, 0);
+        TempGrid.Name = "TempGrid";
+        TempGrid.ReadOnly = true;
+        TempGrid.RowHeadersVisible = false;
+        TempGrid.Size = new Size(341, 119);
+        TempGrid.TabIndex = 10;
+        // 
+        // dataGridViewTextBoxColumn3
+        // 
+        dataGridViewTextBoxColumn3.HeaderText = "ID";
+        dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+        dataGridViewTextBoxColumn3.ReadOnly = true;
+        dataGridViewTextBoxColumn3.Width = 35;
+        // 
+        // dataGridViewTextBoxColumn7
+        // 
+        dataGridViewTextBoxColumn7.HeaderText = "Lexeme";
+        dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+        dataGridViewTextBoxColumn7.ReadOnly = true;
+        dataGridViewTextBoxColumn7.Width = 140;
+        // 
+        // dataGridViewTextBoxColumn8
+        // 
+        dataGridViewTextBoxColumn8.HeaderText = "Token";
+        dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+        dataGridViewTextBoxColumn8.ReadOnly = true;
+        dataGridViewTextBoxColumn8.Width = 140;
+        // 
         // Form1
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(1170, 759);
+        Controls.Add(run);
         Controls.Add(tabControl2);
         Controls.Add(tabControl1);
         Controls.Add(Code);
@@ -350,6 +425,8 @@ partial class Form1
         ((System.ComponentModel.ISupportInitialize)DataSyntaxError).EndInit();
         tabPage5.ResumeLayout(false);
         ((System.ComponentModel.ISupportInitialize)semanticError).EndInit();
+        tabPage2.ResumeLayout(false);
+        ((System.ComponentModel.ISupportInitialize)TempGrid).EndInit();
         ResumeLayout(false);
         PerformLayout();
     }
@@ -383,4 +460,11 @@ partial class Form1
     private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
     private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
     private DataGridViewTextBoxColumn Line;
+    private TabPage tabPage2;
+    private RichTextBox OutputText;
+    private Button run;
+    private DataGridView TempGrid;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
 }
