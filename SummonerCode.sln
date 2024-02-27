@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormsApp1", "WinFormsApp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SemanticAnalyzer", "SemanticAnalyzer\SemanticAnalyzer.csproj", "{43F1612E-20CC-40B7-909D-B89968E4D48B}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup1", "Setup1\Setup1.vdproj", "{F11245EC-8539-4DF1-B908-B97B2DAA50CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,8 @@ Global
 		{43F1612E-20CC-40B7-909D-B89968E4D48B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43F1612E-20CC-40B7-909D-B89968E4D48B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43F1612E-20CC-40B7-909D-B89968E4D48B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F11245EC-8539-4DF1-B908-B97B2DAA50CB}.Debug|Any CPU.ActiveCfg = Debug
+		{F11245EC-8539-4DF1-B908-B97B2DAA50CB}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
