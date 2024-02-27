@@ -281,7 +281,7 @@ public class Analyzer
             tempctr++;
         }
 
-        for (int i = 0; i < 13; i++)
+        for (int i = 0; i < 14; i++)
         {
             symctr = 0;
             words = new List<String>();
@@ -341,6 +341,10 @@ public class Analyzer
                 case 12:
                     words = resSym.rs_14;
                     delims = resSymDelim.del14;
+                    break;
+                case 13:
+                    words = resSym.rs_3;
+                    delims = resSymDelim.del3;
                     break;
             }
             
@@ -563,6 +567,7 @@ public class Analyzer
 
                     id.id.AddRange(id.delim_caplet);
                     int value = 0;
+                    int decValue = 0;
 
                     if (text.ElementAt(lctr) == '~')
                     {
@@ -592,6 +597,7 @@ public class Analyzer
                                         {
                                             continue;
                                         }
+
                                         value++;
                                         if (value <= 8)
                                         {
@@ -630,8 +636,16 @@ public class Analyzer
                                     if ((text.Length - 1) > lctr)
                                         if (text.ElementAt(lctr + 1) == n)
                                         {
-                                            lctr++;
-                                            isNum = true;
+                                            decValue++;
+                                            if (decValue <= 9)
+                                            {
+                                                lctr++;
+                                                isNum = true;
+                                            }
+                                            else if(decValue > 9) {
+                                                isNum = false;
+                                                hasToken = false;
+                                            }
                                         }
                                 }
                             }

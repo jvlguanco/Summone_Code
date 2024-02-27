@@ -29,6 +29,7 @@ public class Constants
     {
         public List<string> rs_1 = new List<string> { "+" };
         public List<string> rs_2 = new List<string> { "-", "*", "%" , "/"};
+        public List<string> rs_3 = new List<string> { "." };
         public List<string> rs_4 = new List<string> { "||", "&&", "=", "==", "!="};
         public List<string> rs_5 = new List<string> { "!" };
         public List<string> rs_6 = new List<string> { "<=", "<", ">=", ">" };
@@ -38,7 +39,7 @@ public class Constants
         public List<string> rs_10 = new List<string> { "}" };
         public List<string> rs_11 = new List<string> { ";" };
         public List<string> rs_12 = new List<string> { "," };
-        public List<string> rs_13 = new List<string> { "[", "."};
+        public List<string> rs_13 = new List<string> { "[" };
         public List<string> rs_14 = new List<string> { "]" };
     }
 
@@ -55,6 +56,11 @@ public class Constants
                                                 'a','b','c','d','e','f','g','h','i','j','k','l','m',
                                                 'n','o','p','q','r','s','t','u','v','w','x','y','z',
                                                 '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 
+                                                'A','B','C','D','E','F','G','H','I','J','K','L','M',
+                                                'N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+
+        public List<char> del3 = new List<char> { 'a','b','c','d','e','f','g','h','i','j','k','l','m',
+                                                'n','o','p','q','r','s','t','u','v','w','x','y','z',
                                                 'A','B','C','D','E','F','G','H','I','J','K','L','M',
                                                 'N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
         
@@ -153,7 +159,7 @@ public class Constants
     public class LiteralsDelims
     {
         public List<char> delim_txt = new List<char> { ' ', '\n', ';', ',', ')', '.', '<', '=', '[' };
-        public List<char> delim_num = new List<char> { '+', '-', '*', '/', '.', ' ', '\n', ';', '&', '|', ')', ',', '&', ']', '=', '>', '<', '!', '}' };
+        public List<char> delim_num = new List<char> { '+', '-', '*', '/', ' ', '\n', ';', '&', '|', ')', ',', '&', ']', '=', '>', '<', '!', '}' };
     }
     
     public class Identifier
