@@ -20,8 +20,8 @@ public class Constants
         public List<char> delim_4 = new List<char> { ';' };
         public List<char> delim_5 = new List<char> { ' ', '\n', '{' };
         public List<char> delim_6 = new List<char> { ' ', '(' };
-        public List<char> delim_end = new List<char> { '.', ' ', '\n', '\t','(' , ':', ',', '\'', '[', ']', '?', '#', '$', '%', '\\',
-            ')', '"', ';', '@', '^', '~', '`', '_', '!', '<', '>','*', '/', '+', '-','{', '}', '&', '|', '=' };
+        public List<char> delim_end = new List<char> { '.', ' ', '\n', '\t','(' , ':', ',', '\'', '[', ']', '#', '%', '\\',
+            ')', '"', ';', '^', '~', '`', '_', '!', '<', '>','*', '/', '+', '-','{', '}', '&', '|' , '='};
 
     }
 
