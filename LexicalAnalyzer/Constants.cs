@@ -10,7 +10,7 @@ public class Constants
         public List<string> rw_4 = new List<string> { "commit", "destroy" };
         public List<string> rw_5 = new List<string> { "do", "else" };
         public List<string> rw_6 = new List<string> { "if", "while", "recall", "bloat", "inter", "pool", "ping", };
-     }
+    }
 
     public class ReservedWordsDelims
     {
@@ -22,7 +22,6 @@ public class Constants
         public List<char> delim_6 = new List<char> { ' ', '(' };
         public List<char> delim_end = new List<char> { '.', ' ', '\n', '\t','(' , ':', ',', '\'', '[', ']', '#', '%', '\\',
             ')', '"', ';', '^', '~', '`', '_', '!', '<', '>','*', '/', '+', '-','{', '}', '&', '|' , '='};
-
     }
 
     public class ReservedSymbols
@@ -147,8 +146,6 @@ public class Constants
                                                    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
                                                    'A','B','C','D','E','F','G','H','I','J','K','L','M',
                                                    'N','O','P','Q','R','S','T','U','V','W','X','Y','Z' };
-        
-
     }
     
     public class Literals

@@ -370,7 +370,6 @@ public class Analyzer
                                                 _token.Add(token);
                                                 _valid++;
                                                 break;
-
                                             }
                                         }
                                         else if (w == words[limit] && hasToken == false)
@@ -812,19 +811,6 @@ public class Analyzer
     {
         Boolean result = false;
         foreach (var item in rsd.delim_end)
-        {
-            if (item == c)
-            {
-                result = true;
-                break;
-            }
-        }
-        return result;
-    }
-    public Boolean isEnd(char c, List<char> ld)
-    {
-        Boolean result = false;
-        foreach (var item in ld)
         {
             if (item == c)
             {
