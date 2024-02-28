@@ -15,6 +15,7 @@ public class Initializer
             if (text.ElementAt(0) == '\t')
             {   
                 text = text.Remove(0, 1);
+                tokens--;
             }
             else if (hasToken = lex.GetTokenLines(text, tokens))
             {

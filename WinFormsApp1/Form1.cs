@@ -17,7 +17,6 @@ public partial class Form1 : Form
     }
 
     Analyzer lex = new Analyzer();
-    Initializer Lexical = new Initializer();
     string txt;
     List<int> linetokens = new List<int>();
     List<string> intList = new List<string>();
@@ -41,7 +40,9 @@ public partial class Form1 : Form
 
         if (Code.RichTextBox.Text != "")
         {
-            txt = Code.RichTextBox.Text;
+            lex = new Analyzer();
+            Initializer Lexical = new Initializer();
+            txt = Code.RichTextBox.Text + "\n";
 
             lex = Lexical.InitializeAnalyzer(txt, lex);
 
@@ -168,1234 +169,471 @@ public partial class Form1 : Form
     {
 
     }
-
     private void semantic_Click(object sender, EventArgs e)
     {
-        Dictionary<string, string[]> functionVariables = new Dictionary<string, string[]>();
-        List<string> globalConstList = new List<string>();
-        List<string> globalVarList = new List<string>();
-        List<string> localVarList = new List<string>();
-        List<string> localConstList = new List<string>();
-        List<string> funcList = new List<string>();
-        List<string> reservedWords = new List<string> { "base", "hold", "push", "comp", "for", "spawn", "to", "tower", "void", "buff", "debuff", "commit", "destroy", "do", "else", "if", "while", "recall", "bloat", "inter", "pool", "ping" };
-        List<string> operators = new List<string> { "+", "-", "*", "/", "=" };
-        List<string> display = new List<string>();
-
-        bool globalCompExist;
-        bool globalVarExist;
-        bool localVarExist;
-        bool localConstExist;
-        int idn = 0;
-        int line = 1;
-        int x = 0;
-
-        semanticError.Rows.Clear();
-
-        int endOfFuntion = 0;
-
-        globalConstList.Clear();
-        globalVarList.Clear();
-        localVarList.Clear();
-        localConstList.Clear();
-        functionVariables.Clear();
-        funcList.Clear();
-
-        tabControl2.SelectTab("tabPage5");
-        for (x = 0; x < LexGrid.Rows.Count; x++)
-        {
-            if (LexGrid.Rows[x].Cells[2].Value.ToString() == "newline")
-            {
-                line++;
-                continue;
-            }
-
-            // Global Constants
-            if (LexGrid.Rows[x].Cells[2].Value.ToString() == "comp")
-            {
-                x++;
-
-                if (LexGrid.Rows[x].Cells[2].Value.ToString() == "inter")
-                {
-                    do
-                    {
-                        if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                        {
-                            if (globalCompExist = globalConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
-                            {
-                                semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                            }
-                            else
-                            {
-                                globalConstList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                intList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                            }
-                        }
-                        else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "=" || LexGrid.Rows[x].Cells[2].Value.ToString() == "Inter Literal" || LexGrid.Rows[x].Cells[2].Value.ToString() == ";" || LexGrid.Rows[x].Cells[2].Value.ToString() == "(" || LexGrid.Rows[x].Cells[2].Value.ToString() == ")" || LexGrid.Rows[x].Cells[2].Value.ToString() == "{" || LexGrid.Rows[x].Cells[2].Value.ToString() == "[" || LexGrid.Rows[x].Cells[2].Value.ToString() == "]")
-                        {
-
-                        }
-                        else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "inter" || LexGrid.Rows[x].Cells[2].Value.ToString() == "," || LexGrid.Rows[x].Cells[2].Value.ToString() == "space")
-                        {
-
-                        }
-                        else
-                        {
-                            semanticError.Rows.Add(idn++, "TypeMismatch: " + LexGrid.Rows[x].Cells[2].Value.ToString(), line);
-                        }
-
-                        x++;
-
-                    } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
-                }
-
-                if (LexGrid.Rows[x].Cells[2].Value.ToString() == "bloat")
-                {
-                    do
-                    {
-                        if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                        {
-                            if (globalCompExist = globalConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
-                            {
-                                semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                            }
-                            else
-                            {
-                                globalConstList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                doubleList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                            }
-                        }
-                        else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "=" || LexGrid.Rows[x].Cells[2].Value.ToString() == "Bloat Literal" || LexGrid.Rows[x].Cells[2].Value.ToString() == ";" || LexGrid.Rows[x].Cells[2].Value.ToString() == "(" || LexGrid.Rows[x].Cells[2].Value.ToString() == ")" || LexGrid.Rows[x].Cells[2].Value.ToString() == "{" || LexGrid.Rows[x].Cells[2].Value.ToString() == "[" || LexGrid.Rows[x].Cells[2].Value.ToString() == "]")
-                        {
-
-                        }
-                        else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "bloat" || LexGrid.Rows[x].Cells[2].Value.ToString() == "," || LexGrid.Rows[x].Cells[2].Value.ToString() == "space")
-                        {
-
-                        }
-                        else
-                        {
-                            semanticError.Rows.Add(idn++, "TypeMismatch: " + LexGrid.Rows[x].Cells[2].Value.ToString(), line);
-                        }
-
-                        x++;
-
-                    } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
-                }
-
-                if (LexGrid.Rows[x].Cells[2].Value.ToString() == "pool")
-                {
-                    do
-                    {
-                        if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                        {
-                            if (globalCompExist = globalConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
-                            {
-                                semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                            }
-                            else
-                            {
-                                globalConstList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                boolList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                            }
-                        }
-                        else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "=" || LexGrid.Rows[x].Cells[2].Value.ToString() == "Pool Literal" || LexGrid.Rows[x].Cells[2].Value.ToString() == ";" || LexGrid.Rows[x].Cells[2].Value.ToString() == "(" || LexGrid.Rows[x].Cells[2].Value.ToString() == ")" || LexGrid.Rows[x].Cells[2].Value.ToString() == "{" || LexGrid.Rows[x].Cells[2].Value.ToString() == "[" || LexGrid.Rows[x].Cells[2].Value.ToString() == "]")
-                        {
-
-                        }
-                        else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "pool" || LexGrid.Rows[x].Cells[2].Value.ToString() == "," || LexGrid.Rows[x].Cells[2].Value.ToString() == "space")
-                        {
-
-                        }
-                        else
-                        {
-                            semanticError.Rows.Add(idn++, "TypeMismatch: " + LexGrid.Rows[x].Cells[2].Value.ToString(), line);
-                        }
-
-                        x++;
-
-                    } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
-                }
-
-                if (LexGrid.Rows[x].Cells[2].Value.ToString() == "ping")
-                {
-                    do
-                    {
-                        if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                        {
-                            if (globalCompExist = globalConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
-                            {
-                                semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                            }
-                            else
-                            {
-                                globalConstList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                stringList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                            }
-                        }
-                        else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "=" || LexGrid.Rows[x].Cells[2].Value.ToString() == "Ping Literal" || LexGrid.Rows[x].Cells[2].Value.ToString() == ";" || LexGrid.Rows[x].Cells[2].Value.ToString() == "(" || LexGrid.Rows[x].Cells[2].Value.ToString() == ")" || LexGrid.Rows[x].Cells[2].Value.ToString() == "{" || LexGrid.Rows[x].Cells[2].Value.ToString() == "[" || LexGrid.Rows[x].Cells[2].Value.ToString() == "]")
-                        {
-
-                        }
-                        else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "ping" || LexGrid.Rows[x].Cells[2].Value.ToString() == "," || LexGrid.Rows[x].Cells[2].Value.ToString() == "space")
-                        {
-
-                        }
-                        else
-                        {
-                            semanticError.Rows.Add(idn++, "TypeMismatch: " + LexGrid.Rows[x].Cells[2].Value.ToString(), line);
-                        }
-
-                        x++;
-
-                    } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
-                }
-            }
-
-            // Global Variables
-            if (LexGrid.Rows[x].Cells[2].Value.ToString() == "inter")
-            {
-                do
-                {
-                    if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                    {
-                        if (globalVarExist = globalVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
-                        {
-                            semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                        }
-                        else
-                        {
-                            globalVarList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                            intList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                        }
-                    }
-                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "=" || LexGrid.Rows[x].Cells[2].Value.ToString() == "Inter Literal" || LexGrid.Rows[x].Cells[2].Value.ToString() == ";" || LexGrid.Rows[x].Cells[2].Value.ToString() == "(" || LexGrid.Rows[x].Cells[2].Value.ToString() == ")" || LexGrid.Rows[x].Cells[2].Value.ToString() == "{" || LexGrid.Rows[x].Cells[2].Value.ToString() == "[" || LexGrid.Rows[x].Cells[2].Value.ToString() == "]")
-                    {
-
-                    }
-                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "inter" || LexGrid.Rows[x].Cells[2].Value.ToString() == "," || LexGrid.Rows[x].Cells[2].Value.ToString() == "space")
-                    {
-
-                    }
-                    else
-                    {
-                        semanticError.Rows.Add(idn++, "TypeMismatch: " + LexGrid.Rows[x].Cells[2].Value.ToString(), line);
-                    }
-
-                    x++;
-                } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
-            }
-
-            if (LexGrid.Rows[x].Cells[2].Value.ToString() == "bloat")
-            {
-                do
-                {
-                    if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                    {
-                        if (globalVarExist = globalVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
-                        {
-                            semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                        }
-                        else
-                        {
-                            globalVarList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                            doubleList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                        }
-                    }
-                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "=" || LexGrid.Rows[x].Cells[2].Value.ToString() == "Bloat Literal" || LexGrid.Rows[x].Cells[2].Value.ToString() == ";" || LexGrid.Rows[x].Cells[2].Value.ToString() == "(" || LexGrid.Rows[x].Cells[2].Value.ToString() == ")" || LexGrid.Rows[x].Cells[2].Value.ToString() == "{" || LexGrid.Rows[x].Cells[2].Value.ToString() == "[" || LexGrid.Rows[x].Cells[2].Value.ToString() == "]")
-                    {
-
-                    }
-                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "bloat" || LexGrid.Rows[x].Cells[2].Value.ToString() == "," || LexGrid.Rows[x].Cells[2].Value.ToString() == "space")
-                    {
-
-                    }
-                    else
-                    {
-                        semanticError.Rows.Add(idn++, "TypeMismatch: " + LexGrid.Rows[x].Cells[2].Value.ToString(), line);
-                    }
-
-                    x++;
-                } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
-            }
-
-            if (LexGrid.Rows[x].Cells[2].Value.ToString() == "pool")
-            {
-                do
-                {
-                    if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                    {
-                        if (globalVarExist = globalVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
-                        {
-                            semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                        }
-                        else
-                        {
-                            globalVarList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                            boolList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                        }
-                    }
-                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "=" || LexGrid.Rows[x].Cells[2].Value.ToString() == "Pool Literal" || LexGrid.Rows[x].Cells[2].Value.ToString() == ";" || LexGrid.Rows[x].Cells[2].Value.ToString() == "(" || LexGrid.Rows[x].Cells[2].Value.ToString() == ")" || LexGrid.Rows[x].Cells[2].Value.ToString() == "{" || LexGrid.Rows[x].Cells[2].Value.ToString() == "[" || LexGrid.Rows[x].Cells[2].Value.ToString() == "]")
-                    {
-
-                    }
-                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "pool" || LexGrid.Rows[x].Cells[2].Value.ToString() == "," || LexGrid.Rows[x].Cells[2].Value.ToString() == "space")
-                    {
-
-                    }
-                    else
-                    {
-                        semanticError.Rows.Add(idn++, "TypeMismatch: " + LexGrid.Rows[x].Cells[2].Value.ToString(), line);
-                    }
-
-                    x++;
-                } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
-            }
-
-            if (LexGrid.Rows[x].Cells[2].Value.ToString() == "ping")
-            {
-                do
-                {
-                    if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                    {
-                        if (globalVarExist = globalVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
-                        {
-                            semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                        }
-                        else
-                        {
-                            globalVarList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                            stringList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                        }
-                    }
-                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "=" || LexGrid.Rows[x].Cells[2].Value.ToString() == "Ping Literal" || LexGrid.Rows[x].Cells[2].Value.ToString() == ";" || LexGrid.Rows[x].Cells[2].Value.ToString() == "(" || LexGrid.Rows[x].Cells[2].Value.ToString() == ")" || LexGrid.Rows[x].Cells[2].Value.ToString() == "{" || LexGrid.Rows[x].Cells[2].Value.ToString() == "[" || LexGrid.Rows[x].Cells[2].Value.ToString() == "]")
-                    {
-
-                    }
-                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "ping" || LexGrid.Rows[x].Cells[2].Value.ToString() == "," || LexGrid.Rows[x].Cells[2].Value.ToString() == "space")
-                    {
-
-                    }
-                    else
-                    {
-                        semanticError.Rows.Add(idn++, "TypeMismatch: " + LexGrid.Rows[x].Cells[2].Value.ToString(), line);
-                    }
-
-                    x++;
-                } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
-            }
-
-            // Local Declaration
-            if (LexGrid.Rows[x].Cells[2].Value.ToString() == "spawn")
-            {
-                int y = x;
-
-                while (LexGrid.Rows[x].Cells[2].Value.ToString() != "void" && LexGrid.Rows[x].Cells[2].Value.ToString() != "inter" && LexGrid.Rows[x].Cells[2].Value.ToString() != "bloat" && LexGrid.Rows[x].Cells[2].Value.ToString() != "pool" && LexGrid.Rows[x].Cells[2].Value.ToString() != "ping")
-                {
-                    x++;
-                }
-
-                while (LexGrid.Rows[y].Cells[2].Value.ToString() != "base" && LexGrid.Rows[y].Cells[2].Value.ToString() != "Identifier")
-                {
-                    y++;
-                }
-
-                if (LexGrid.Rows[x].Cells[2].Value.ToString() == "void" && LexGrid.Rows[y].Cells[2].Value.ToString() == "base")
-                {
-                    while (LexGrid.Rows[x].Cells[2].Value.ToString() != "base")
-                    {
-
-                        x++;
-                    }
-
-                    if (LexGrid.Rows[x].Cells[2].Value.ToString() == "base")
-                    {
-
-                        while (LexGrid.Rows[x].Cells[2].Value.ToString() != "{")
-                        {
-                            x++;
-
-                            if (LexGrid.Rows[x].Cells[2].Value.ToString() == "newline")
-                            {
-                                line++;
-                            }
-                        }
-
-                        do
-                        {
-                            if (LexGrid.Rows[x].Cells[2].Value.ToString() == "{")
-                            {
-                                endOfFuntion++;
-                            }
-                            else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "}")
-                            {
-                                endOfFuntion--;
-                            }
-
-                            if (LexGrid.Rows[x].Cells[2].Value.ToString() == "newline")
-                            {
-                                line++;
-                            }
-
-                            if (LexGrid.Rows[x].Cells[2].Value.ToString() == "inter")
-                            {
-                                do
-                                {
-                                    if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                                    {
-                                        if (localVarExist = localVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
-                                        {
-                                            semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                                        }
-                                        else
-                                        {
-                                            localVarList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                            intList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                        }
-                                    }
-                                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "=" || LexGrid.Rows[x].Cells[2].Value.ToString() == "Inter Literal" || LexGrid.Rows[x].Cells[2].Value.ToString() == ";" || LexGrid.Rows[x].Cells[2].Value.ToString() == "(" || LexGrid.Rows[x].Cells[2].Value.ToString() == ")" || LexGrid.Rows[x].Cells[2].Value.ToString() == "{" || LexGrid.Rows[x].Cells[2].Value.ToString() == "[" || LexGrid.Rows[x].Cells[2].Value.ToString() == "]")
-                                    {
-
-                                    }
-                                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "inter" || LexGrid.Rows[x].Cells[2].Value.ToString() == "," || LexGrid.Rows[x].Cells[2].Value.ToString() == "space")
-                                    {
-
-                                    }
-                                    else
-                                    {
-                                        semanticError.Rows.Add(idn++, "TypeMismatch: " + LexGrid.Rows[x].Cells[2].Value.ToString(), line);
-                                    }
-
-                                    x++;
-
-                                } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
-                            }
-
-                            if (LexGrid.Rows[x].Cells[2].Value.ToString() == "bloat")
-                            {
-                                do
-                                {
-                                    if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                                    {
-                                        if (localVarExist = localVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
-                                        {
-                                            semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                                        }
-                                        else
-                                        {
-                                            localVarList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                            doubleList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                        }
-                                    }
-                                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "=" || LexGrid.Rows[x].Cells[2].Value.ToString() == "Bloat Literal" || LexGrid.Rows[x].Cells[2].Value.ToString() == ";" || LexGrid.Rows[x].Cells[2].Value.ToString() == "(" || LexGrid.Rows[x].Cells[2].Value.ToString() == ")" || LexGrid.Rows[x].Cells[2].Value.ToString() == "{" || LexGrid.Rows[x].Cells[2].Value.ToString() == "[" || LexGrid.Rows[x].Cells[2].Value.ToString() == "]")
-                                    {
-
-                                    }
-                                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "bloat" || LexGrid.Rows[x].Cells[2].Value.ToString() == "," || LexGrid.Rows[x].Cells[2].Value.ToString() == "space")
-                                    {
-
-                                    }
-                                    else
-                                    {
-                                        semanticError.Rows.Add(idn++, "TypeMismatch: " + LexGrid.Rows[x].Cells[2].Value.ToString(), line);
-                                    }
-
-                                    x++;
-                                } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
-                            }
-
-                            if (LexGrid.Rows[x].Cells[2].Value.ToString() == "pool")
-                            {
-                                do
-                                {
-                                    if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                                    {
-                                        if (localVarExist = localVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
-                                        {
-                                            semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                                        }
-                                        else
-                                        {
-                                            localVarList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                            boolList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                        }
-                                    }
-                                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "=" || LexGrid.Rows[x].Cells[2].Value.ToString() == "Pool Literal" || LexGrid.Rows[x].Cells[2].Value.ToString() == ";" || LexGrid.Rows[x].Cells[2].Value.ToString() == "(" || LexGrid.Rows[x].Cells[2].Value.ToString() == ")" || LexGrid.Rows[x].Cells[2].Value.ToString() == "{" || LexGrid.Rows[x].Cells[2].Value.ToString() == "[" || LexGrid.Rows[x].Cells[2].Value.ToString() == "]")
-                                    {
-
-                                    }
-                                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "pool" || LexGrid.Rows[x].Cells[2].Value.ToString() == "," || LexGrid.Rows[x].Cells[2].Value.ToString() == "space")
-                                    {
-
-                                    }
-                                    else
-                                    {
-                                        semanticError.Rows.Add(idn++, "TypeMismatch: " + LexGrid.Rows[x].Cells[2].Value.ToString(), line);
-                                    }
-
-                                    x++;
-                                } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
-                            }
-
-                            if (LexGrid.Rows[x].Cells[2].Value.ToString() == "ping")
-                            {
-                                do
-                                {
-                                    if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                                    {
-                                        if (localVarExist = localVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
-                                        {
-                                            semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                                        }
-                                        else
-                                        {
-                                            localVarList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                            stringList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                        }
-                                    }
-                                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "=" || LexGrid.Rows[x].Cells[2].Value.ToString() == "Ping Literal" || LexGrid.Rows[x].Cells[2].Value.ToString() == ";" || LexGrid.Rows[x].Cells[2].Value.ToString() == "(" || LexGrid.Rows[x].Cells[2].Value.ToString() == ")" || LexGrid.Rows[x].Cells[2].Value.ToString() == "{" || LexGrid.Rows[x].Cells[2].Value.ToString() == "[" || LexGrid.Rows[x].Cells[2].Value.ToString() == "]")
-                                    {
-
-                                    }
-                                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "ping" || LexGrid.Rows[x].Cells[2].Value.ToString() == "," || LexGrid.Rows[x].Cells[2].Value.ToString() == "space")
-                                    {
-
-                                    }
-                                    else
-                                    {
-                                        semanticError.Rows.Add(idn++, "TypeMismatch: " + LexGrid.Rows[x].Cells[2].Value.ToString(), line);
-                                    }
-
-                                    x++;
-                                } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
-                            }
-
-                            if (LexGrid.Rows[x].Cells[2].Value.ToString() == "comp")
-                            {
-                                x++;
-
-                                if (LexGrid.Rows[x].Cells[2].Value.ToString() == "inter")
-                                {
-                                    do
-                                    {
-                                        if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                                        {
-                                            if (localConstExist = localConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
-                                            {
-                                                semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                                            }
-                                            else
-                                            {
-                                                localConstList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                                intList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                            }
-                                        }
-                                        else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "=" || LexGrid.Rows[x].Cells[2].Value.ToString() == "Inter Literal" || LexGrid.Rows[x].Cells[2].Value.ToString() == ";" || LexGrid.Rows[x].Cells[2].Value.ToString() == "(" || LexGrid.Rows[x].Cells[2].Value.ToString() == ")" || LexGrid.Rows[x].Cells[2].Value.ToString() == "{" || LexGrid.Rows[x].Cells[2].Value.ToString() == "[" || LexGrid.Rows[x].Cells[2].Value.ToString() == "]")
-                                        {
-
-                                        }
-                                        else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "inter" || LexGrid.Rows[x].Cells[2].Value.ToString() == "," || LexGrid.Rows[x].Cells[2].Value.ToString() == "space")
-                                        {
-
-                                        }
-                                        else
-                                        {
-                                            semanticError.Rows.Add(idn++, "TypeMismatch: " + LexGrid.Rows[x].Cells[2].Value.ToString(), line);
-                                        }
-
-                                        x++;
-
-                                    } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
-                                }
-
-                                if (LexGrid.Rows[x].Cells[2].Value.ToString() == "bloat")
-                                {
-                                    do
-                                    {
-                                        if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                                        {
-                                            if (localConstExist = localConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
-                                            {
-                                                semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                                            }
-                                            else
-                                            {
-                                                localConstList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                                doubleList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                            }
-                                        }
-                                        else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "=" || LexGrid.Rows[x].Cells[2].Value.ToString() == "Bloat Literal" || LexGrid.Rows[x].Cells[2].Value.ToString() == ";" || LexGrid.Rows[x].Cells[2].Value.ToString() == "(" || LexGrid.Rows[x].Cells[2].Value.ToString() == ")" || LexGrid.Rows[x].Cells[2].Value.ToString() == "{" || LexGrid.Rows[x].Cells[2].Value.ToString() == "[" || LexGrid.Rows[x].Cells[2].Value.ToString() == "]")
-                                        {
-
-                                        }
-                                        else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "bloat" || LexGrid.Rows[x].Cells[2].Value.ToString() == "," || LexGrid.Rows[x].Cells[2].Value.ToString() == "space")
-                                        {
-
-                                        }
-                                        else
-                                        {
-                                            semanticError.Rows.Add(idn++, "TypeMismatch: " + LexGrid.Rows[x].Cells[2].Value.ToString(), line);
-                                        }
-
-                                        x++;
-
-                                    } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
-                                }
-
-                                if (LexGrid.Rows[x].Cells[2].Value.ToString() == "pool")
-                                {
-                                    do
-                                    {
-                                        if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                                        {
-                                            if (localConstExist = localConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
-                                            {
-                                                semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                                            }
-                                            else
-                                            {
-                                                localConstList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                                boolList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                            }
-                                        }
-                                        else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "=" || LexGrid.Rows[x].Cells[2].Value.ToString() == "Pool Literal" || LexGrid.Rows[x].Cells[2].Value.ToString() == ";" || LexGrid.Rows[x].Cells[2].Value.ToString() == "(" || LexGrid.Rows[x].Cells[2].Value.ToString() == ")" || LexGrid.Rows[x].Cells[2].Value.ToString() == "{" || LexGrid.Rows[x].Cells[2].Value.ToString() == "[" || LexGrid.Rows[x].Cells[2].Value.ToString() == "]")
-                                        {
-
-                                        }
-                                        else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "pool" || LexGrid.Rows[x].Cells[2].Value.ToString() == "," || LexGrid.Rows[x].Cells[2].Value.ToString() == "space")
-                                        {
-
-                                        }
-                                        else
-                                        {
-                                            semanticError.Rows.Add(idn++, "TypeMismatch: " + LexGrid.Rows[x].Cells[2].Value.ToString(), line);
-                                        }
-
-                                        x++;
-
-                                    } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
-                                }
-
-                                if (LexGrid.Rows[x].Cells[2].Value.ToString() == "ping")
-                                {
-                                    do
-                                    {
-                                        if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                                        {
-                                            if (localConstExist = localConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
-                                            {
-                                                semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                                            }
-                                            else
-                                            {
-                                                localConstList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                                stringList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                            }
-                                        }
-                                        else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "=" || LexGrid.Rows[x].Cells[2].Value.ToString() == "Ping Literal" || LexGrid.Rows[x].Cells[2].Value.ToString() == ";" || LexGrid.Rows[x].Cells[2].Value.ToString() == "(" || LexGrid.Rows[x].Cells[2].Value.ToString() == ")" || LexGrid.Rows[x].Cells[2].Value.ToString() == "{" || LexGrid.Rows[x].Cells[2].Value.ToString() == "[" || LexGrid.Rows[x].Cells[2].Value.ToString() == "]")
-                                        {
-
-                                        }
-                                        else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "ping" || LexGrid.Rows[x].Cells[2].Value.ToString() == "," || LexGrid.Rows[x].Cells[2].Value.ToString() == "space")
-                                        {
-
-                                        }
-                                        else
-                                        {
-                                            semanticError.Rows.Add(idn++, "TypeMismatch: " + LexGrid.Rows[x].Cells[2].Value.ToString(), line);
-                                        }
-
-
-                                        x++;
-
-                                    } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
-                                }
-                            }
-
-                            // if(LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                            // {
-                            //     bool exist;
-
-                            //     if(exist = localVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == false)
-                            //     {
-                            //         semanticError.Rows.Add(idn++, "Undeclared Identifier: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                            //     }
-                            //     else if(exist = localConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == false)
-                            //     {
-                            //         semanticError.Rows.Add(idn++, "Undeclared Identifier: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                            //     }
-                            //     else if(exist = globalVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == false)
-                            //     {
-                            //         semanticError.Rows.Add(idn++, "Undeclared Identifier: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                            //     }
-                            //     else if(exist = globalConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == false)
-                            //     {
-                            //         semanticError.Rows.Add(idn++, "Undeclared Identifier: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                            //     }
-                            // }
-                            x++;
-                        } while (endOfFuntion != 0);
-                    }
-                }
-                else
-                {
-                    string funcName;
-                    string[] variables = new string[100];
-
-                    semanticError.Rows.Add("TEST", "ENTERED" + LexGrid.Rows[x].Cells[1].Value.ToString(), 1);
-
-                    while (LexGrid.Rows[x].Cells[2].Value.ToString() != "Identifier")
-                    {
-                        x++;
-                    }
-
-                    if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                    {
-                        funcName = LexGrid.Rows[x].Cells[1].Value.ToString();
-                        funcList.Add(funcName);
-
-                        while (LexGrid.Rows[x].Cells[2].Value.ToString() != "(")
-                        {
-                            x++;
-                        }
-
-                        while (LexGrid.Rows[x].Cells[2].Value.ToString() != ")")
-                        {
-                            if (LexGrid.Rows[x].Cells[2].Value.ToString() == "inter")
-                            {
-                                do
-                                {
-                                    if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                                    {
-                                        if (localVarExist = variables.Contains(LexGrid.Rows[x].Cells[2].Value.ToString()))
-                                        {
-                                            semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                                        }
-                                        else
-                                        {
-                                            variables.Append(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                            intList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                        }
-                                    }
-                                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "inter" || LexGrid.Rows[x].Cells[2].Value.ToString() == "," || LexGrid.Rows[x].Cells[2].Value.ToString() == "space")
-                                    {
-
-                                    }
-                                    else
-                                    {
-                                        semanticError.Rows.Add(idn++, "TypeMismatch: " + LexGrid.Rows[x].Cells[2].Value.ToString(), line);
-                                    }
-
-                                    x++;
-
-                                } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ",");
-                            }
-
-                            if (LexGrid.Rows[x].Cells[2].Value.ToString() == "bloat")
-                            {
-                                do
-                                {
-                                    if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                                    {
-                                        if (localVarExist = variables.Contains(LexGrid.Rows[x].Cells[2].Value.ToString()))
-                                        {
-                                            semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                                        }
-                                        else
-                                        {
-                                            variables.Append(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                            doubleList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                        }
-                                    }
-                                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "=" || LexGrid.Rows[x].Cells[2].Value.ToString() == "Bloat Literal" || LexGrid.Rows[x].Cells[2].Value.ToString() == ";" || LexGrid.Rows[x].Cells[2].Value.ToString() == "(" || LexGrid.Rows[x].Cells[2].Value.ToString() == ")" || LexGrid.Rows[x].Cells[2].Value.ToString() == "{" || LexGrid.Rows[x].Cells[2].Value.ToString() == "[" || LexGrid.Rows[x].Cells[2].Value.ToString() == "]")
-                                    {
-
-                                    }
-                                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "bloat" || LexGrid.Rows[x].Cells[2].Value.ToString() == "," || LexGrid.Rows[x].Cells[2].Value.ToString() == "space")
-                                    {
-
-                                    }
-                                    else
-                                    {
-                                        semanticError.Rows.Add(idn++, "TypeMismatch: " + LexGrid.Rows[x].Cells[2].Value.ToString(), line);
-                                    }
-
-                                    x++;
-                                } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ",");
-                            }
-
-                            if (LexGrid.Rows[x].Cells[2].Value.ToString() == "pool")
-                            {
-                                do
-                                {
-                                    if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                                    {
-                                        if (localVarExist = variables.Contains(LexGrid.Rows[x].Cells[2].Value.ToString()))
-                                        {
-                                            semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                                        }
-                                        else
-                                        {
-                                            variables.Append(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                            boolList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                        }
-                                    }
-                                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "=" || LexGrid.Rows[x].Cells[2].Value.ToString() == "Pool Literal" || LexGrid.Rows[x].Cells[2].Value.ToString() == ";" || LexGrid.Rows[x].Cells[2].Value.ToString() == "(" || LexGrid.Rows[x].Cells[2].Value.ToString() == ")" || LexGrid.Rows[x].Cells[2].Value.ToString() == "{" || LexGrid.Rows[x].Cells[2].Value.ToString() == "[" || LexGrid.Rows[x].Cells[2].Value.ToString() == "]")
-                                    {
-
-                                    }
-                                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "pool" || LexGrid.Rows[x].Cells[2].Value.ToString() == "," || LexGrid.Rows[x].Cells[2].Value.ToString() == "space")
-                                    {
-
-                                    }
-                                    else
-                                    {
-                                        semanticError.Rows.Add(idn++, "TypeMismatch: " + LexGrid.Rows[x].Cells[2].Value.ToString(), line);
-                                    }
-
-                                    x++;
-                                } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ",");
-                            }
-
-                            if (LexGrid.Rows[x].Cells[2].Value.ToString() == "ping")
-                            {
-                                do
-                                {
-                                    if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                                    {
-                                        if (localVarExist = variables.Contains(LexGrid.Rows[x].Cells[2].Value.ToString()))
-                                        {
-                                            semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                                        }
-                                        else
-                                        {
-                                            variables.Append(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                            stringList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                        }
-                                    }
-                                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "=" || LexGrid.Rows[x].Cells[2].Value.ToString() == "Ping Literal" || LexGrid.Rows[x].Cells[2].Value.ToString() == ";" || LexGrid.Rows[x].Cells[2].Value.ToString() == "(" || LexGrid.Rows[x].Cells[2].Value.ToString() == ")" || LexGrid.Rows[x].Cells[2].Value.ToString() == "{" || LexGrid.Rows[x].Cells[2].Value.ToString() == "[" || LexGrid.Rows[x].Cells[2].Value.ToString() == "]")
-                                    {
-
-                                    }
-                                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "ping" || LexGrid.Rows[x].Cells[2].Value.ToString() == "," || LexGrid.Rows[x].Cells[2].Value.ToString() == "space")
-                                    {
-
-                                    }
-                                    else
-                                    {
-                                        semanticError.Rows.Add(idn++, "TypeMismatch: " + LexGrid.Rows[x].Cells[2].Value.ToString(), line);
-                                    }
-
-                                    x++;
-                                } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ",");
-                            }
-
-                            x++;
-                        }
-
-                        while (LexGrid.Rows[x].Cells[2].Value.ToString() != "{")
-                        {
-                            x++;
-                            if (LexGrid.Rows[x].Cells[2].Value.ToString() == "newline")
-                            {
-                                line++;
-                            }
-                        }
-
-                        do
-                        {
-                            if (LexGrid.Rows[x].Cells[2].Value.ToString() == "{")
-                            {
-                                endOfFuntion++;
-                            }
-                            else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "}")
-                            {
-                                endOfFuntion--;
-                            }
-
-                            if (LexGrid.Rows[x].Cells[2].Value.ToString() == "newline")
-                            {
-                                line++;
-                            }
-
-                            if (LexGrid.Rows[x].Cells[2].Value.ToString() == "inter")
-                            {
-                                do
-                                {
-                                    if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                                    {
-                                        if (localVarExist = localVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
-                                        {
-                                            semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                                        }
-                                        else
-                                        {
-                                            localVarList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                            intList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                        }
-                                    }
-                                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "=" || LexGrid.Rows[x].Cells[2].Value.ToString() == "Inter Literal" || LexGrid.Rows[x].Cells[2].Value.ToString() == ";" || LexGrid.Rows[x].Cells[2].Value.ToString() == "(" || LexGrid.Rows[x].Cells[2].Value.ToString() == ")" || LexGrid.Rows[x].Cells[2].Value.ToString() == "{" || LexGrid.Rows[x].Cells[2].Value.ToString() == "[" || LexGrid.Rows[x].Cells[2].Value.ToString() == "]")
-                                    {
-
-                                    }
-                                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "inter" || LexGrid.Rows[x].Cells[2].Value.ToString() == "," || LexGrid.Rows[x].Cells[2].Value.ToString() == "space")
-                                    {
-
-                                    }
-                                    else
-                                    {
-                                        semanticError.Rows.Add(idn++, "TypeMismatch: " + LexGrid.Rows[x].Cells[2].Value.ToString(), line);
-                                    }
-
-                                    x++;
-
-                                } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
-                            }
-
-                            if (LexGrid.Rows[x].Cells[2].Value.ToString() == "bloat")
-                            {
-                                do
-                                {
-                                    if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                                    {
-                                        if (localVarExist = localVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
-                                        {
-                                            semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                                        }
-                                        else
-                                        {
-                                            localVarList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                            doubleList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                        }
-                                    }
-                                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "=" || LexGrid.Rows[x].Cells[2].Value.ToString() == "Bloat Literal" || LexGrid.Rows[x].Cells[2].Value.ToString() == ";" || LexGrid.Rows[x].Cells[2].Value.ToString() == "(" || LexGrid.Rows[x].Cells[2].Value.ToString() == ")" || LexGrid.Rows[x].Cells[2].Value.ToString() == "{" || LexGrid.Rows[x].Cells[2].Value.ToString() == "[" || LexGrid.Rows[x].Cells[2].Value.ToString() == "]")
-                                    {
-
-                                    }
-                                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "bloat" || LexGrid.Rows[x].Cells[2].Value.ToString() == "," || LexGrid.Rows[x].Cells[2].Value.ToString() == "space")
-                                    {
-
-                                    }
-                                    else
-                                    {
-                                        semanticError.Rows.Add(idn++, "TypeMismatch: " + LexGrid.Rows[x].Cells[2].Value.ToString(), line);
-                                    }
-
-                                    x++;
-                                } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
-                            }
-
-                            if (LexGrid.Rows[x].Cells[2].Value.ToString() == "pool")
-                            {
-                                do
-                                {
-                                    if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                                    {
-                                        if (localVarExist = localVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
-                                        {
-                                            semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                                        }
-                                        else
-                                        {
-                                            localVarList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                            boolList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                        }
-                                    }
-                                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "=" || LexGrid.Rows[x].Cells[2].Value.ToString() == "Pool Literal" || LexGrid.Rows[x].Cells[2].Value.ToString() == ";" || LexGrid.Rows[x].Cells[2].Value.ToString() == "(" || LexGrid.Rows[x].Cells[2].Value.ToString() == ")" || LexGrid.Rows[x].Cells[2].Value.ToString() == "{" || LexGrid.Rows[x].Cells[2].Value.ToString() == "[" || LexGrid.Rows[x].Cells[2].Value.ToString() == "]")
-                                    {
-
-                                    }
-                                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "pool" || LexGrid.Rows[x].Cells[2].Value.ToString() == "," || LexGrid.Rows[x].Cells[2].Value.ToString() == "space")
-                                    {
-
-                                    }
-                                    else
-                                    {
-                                        semanticError.Rows.Add(idn++, "TypeMismatch: " + LexGrid.Rows[x].Cells[2].Value.ToString(), line);
-                                    }
-
-                                    x++;
-                                } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
-                            }
-
-                            if (LexGrid.Rows[x].Cells[2].Value.ToString() == "ping")
-                            {
-                                do
-                                {
-                                    if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                                    {
-                                        if (localVarExist = localVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
-                                        {
-                                            semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                                        }
-                                        else
-                                        {
-                                            localVarList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                            stringList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                        }
-                                    }
-                                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "=" || LexGrid.Rows[x].Cells[2].Value.ToString() == "Ping Literal" || LexGrid.Rows[x].Cells[2].Value.ToString() == ";" || LexGrid.Rows[x].Cells[2].Value.ToString() == "(" || LexGrid.Rows[x].Cells[2].Value.ToString() == ")" || LexGrid.Rows[x].Cells[2].Value.ToString() == "{" || LexGrid.Rows[x].Cells[2].Value.ToString() == "[" || LexGrid.Rows[x].Cells[2].Value.ToString() == "]")
-                                    {
-
-                                    }
-                                    else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "ping" || LexGrid.Rows[x].Cells[2].Value.ToString() == "," || LexGrid.Rows[x].Cells[2].Value.ToString() == "space")
-                                    {
-
-                                    }
-                                    else
-                                    {
-                                        semanticError.Rows.Add(idn++, "TypeMismatch: " + LexGrid.Rows[x].Cells[2].Value.ToString(), line);
-                                    }
-
-                                    x++;
-                                } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
-                            }
-
-                            if (LexGrid.Rows[x].Cells[2].Value.ToString() == "comp")
-                            {
-                                x++;
-
-                                if (LexGrid.Rows[x].Cells[2].Value.ToString() == "inter")
-                                {
-                                    do
-                                    {
-                                        if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                                        {
-                                            if (localConstExist = localConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
-                                            {
-                                                semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                                            }
-                                            else
-                                            {
-                                                localConstList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                                intList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                            }
-                                        }
-                                        else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "=" || LexGrid.Rows[x].Cells[2].Value.ToString() == "Inter Literal" || LexGrid.Rows[x].Cells[2].Value.ToString() == ";" || LexGrid.Rows[x].Cells[2].Value.ToString() == "(" || LexGrid.Rows[x].Cells[2].Value.ToString() == ")" || LexGrid.Rows[x].Cells[2].Value.ToString() == "{" || LexGrid.Rows[x].Cells[2].Value.ToString() == "[" || LexGrid.Rows[x].Cells[2].Value.ToString() == "]")
-                                        {
-
-                                        }
-                                        else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "inter" || LexGrid.Rows[x].Cells[2].Value.ToString() == "," || LexGrid.Rows[x].Cells[2].Value.ToString() == "space")
-                                        {
-
-                                        }
-                                        else
-                                        {
-                                            semanticError.Rows.Add(idn++, "TypeMismatch: " + LexGrid.Rows[x].Cells[2].Value.ToString(), line);
-                                        }
-
-                                        x++;
-
-                                    } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
-                                }
-
-                                if (LexGrid.Rows[x].Cells[2].Value.ToString() == "bloat")
-                                {
-                                    do
-                                    {
-                                        if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                                        {
-                                            if (localConstExist = localConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
-                                            {
-                                                semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                                            }
-                                            else
-                                            {
-                                                localConstList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                                doubleList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                            }
-                                        }
-                                        else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "=" || LexGrid.Rows[x].Cells[2].Value.ToString() == "Bloat Literal" || LexGrid.Rows[x].Cells[2].Value.ToString() == ";" || LexGrid.Rows[x].Cells[2].Value.ToString() == "(" || LexGrid.Rows[x].Cells[2].Value.ToString() == ")" || LexGrid.Rows[x].Cells[2].Value.ToString() == "{" || LexGrid.Rows[x].Cells[2].Value.ToString() == "[" || LexGrid.Rows[x].Cells[2].Value.ToString() == "]")
-                                        {
-
-                                        }
-                                        else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "bloat" || LexGrid.Rows[x].Cells[2].Value.ToString() == "," || LexGrid.Rows[x].Cells[2].Value.ToString() == "space")
-                                        {
-
-                                        }
-                                        else
-                                        {
-                                            semanticError.Rows.Add(idn++, "TypeMismatch: " + LexGrid.Rows[x].Cells[2].Value.ToString(), line);
-                                        }
-
-                                        x++;
-
-                                    } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
-                                }
-
-                                if (LexGrid.Rows[x].Cells[2].Value.ToString() == "pool")
-                                {
-                                    do
-                                    {
-                                        if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                                        {
-                                            if (localConstExist = localConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
-                                            {
-                                                semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                                            }
-                                            else
-                                            {
-                                                localConstList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                                boolList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                            }
-                                        }
-                                        else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "=" || LexGrid.Rows[x].Cells[2].Value.ToString() == "Pool Literal" || LexGrid.Rows[x].Cells[2].Value.ToString() == ";" || LexGrid.Rows[x].Cells[2].Value.ToString() == "(" || LexGrid.Rows[x].Cells[2].Value.ToString() == ")" || LexGrid.Rows[x].Cells[2].Value.ToString() == "{" || LexGrid.Rows[x].Cells[2].Value.ToString() == "[" || LexGrid.Rows[x].Cells[2].Value.ToString() == "]")
-                                        {
-
-                                        }
-                                        else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "pool" || LexGrid.Rows[x].Cells[2].Value.ToString() == "," || LexGrid.Rows[x].Cells[2].Value.ToString() == "space")
-                                        {
-
-                                        }
-                                        else
-                                        {
-                                            semanticError.Rows.Add(idn++, "TypeMismatch: " + LexGrid.Rows[x].Cells[2].Value.ToString(), line);
-                                        }
-
-                                        x++;
-
-                                    } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
-                                }
-
-                                if (LexGrid.Rows[x].Cells[2].Value.ToString() == "ping")
-                                {
-                                    do
-                                    {
-                                        if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
-                                        {
-                                            if (localConstExist = localConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
-                                            {
-                                                semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
-                                            }
-                                            else
-                                            {
-                                                localConstList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                                stringList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
-                                            }
-                                        }
-                                        else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "=" || LexGrid.Rows[x].Cells[2].Value.ToString() == "Ping Literal" || LexGrid.Rows[x].Cells[2].Value.ToString() == ";" || LexGrid.Rows[x].Cells[2].Value.ToString() == "(" || LexGrid.Rows[x].Cells[2].Value.ToString() == ")" || LexGrid.Rows[x].Cells[2].Value.ToString() == "{" || LexGrid.Rows[x].Cells[2].Value.ToString() == "[" || LexGrid.Rows[x].Cells[2].Value.ToString() == "]")
-                                        {
-
-                                        }
-                                        else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "ping" || LexGrid.Rows[x].Cells[2].Value.ToString() == "," || LexGrid.Rows[x].Cells[2].Value.ToString() == "space")
-                                        {
-
-                                        }
-                                        else
-                                        {
-                                            semanticError.Rows.Add(idn++, "TypeMismatch: " + LexGrid.Rows[x].Cells[2].Value.ToString(), line);
-                                        }
-
-
-                                        x++;
-
-                                    } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
-                                }
-                            }
-                            x++;
-                        } while (endOfFuntion != 0);
-                    }
-                }
-            }
-
-
-            // // Checking if it exists
-            // foreach (string conslist in globalConstList)
-            // {
-            //     if (globalVarList.Contains(conslist))
-            //     {
-            //         semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + conslist, line);
-            //     }
-            //     if (localVarList.Contains(conslist))
-            //     {
-            //         semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + conslist, line);
-            //     }
-            //     if (localConstList.Contains(conslist))
-            //     {
-            //         semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + conslist, line);
-            //     }
-            //     if (reservedWords.Contains(conslist))
-            //     {
-            //         semanticError.Rows.Add(idn++, "Reserved Identifier Misused: " + conslist, line);
-            //     }
-            //     else
-            //     {
-            //         continue;
-            //     }
-            // }
-
-            // foreach (string varlist in globalVarList)
-            // {
-            //     if (globalConstList.Contains(varlist))
-            //     {
-            //         semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + varlist, line);
-            //     }
-            //     if (localVarList.Contains(varlist))
-            //     {
-            //         semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + varlist, line);
-            //     }
-            //     if (localConstList.Contains(varlist))
-            //     {
-            //         semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + varlist, line);
-            //     }
-            //     if (reservedWords.Contains(varlist))
-            //     {
-            //         semanticError.Rows.Add(idn++, "Reserved Identifier Misused: " + varlist, line);
-            //     }
-            //     else
-            //     {
-            //         continue;
-            //     }
-            // }
-
-            // foreach (string loclist in localVarList)
-            // {
-            //     if (globalConstList.Contains(loclist))
-            //     {
-            //         semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + loclist, line);
-            //     }
-            //     if (globalVarList.Contains(loclist))
-            //     {
-            //         semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + loclist, line);
-            //     }
-            //     if (localConstList.Contains(loclist))
-            //     {
-            //         semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + loclist, line);
-            //     }
-            //     if (reservedWords.Contains(loclist))
-            //     {
-            //         semanticError.Rows.Add(idn++, "Reserved Identifier Misused: " + loclist, line);
-            //     }
-            //     else
-            //     {
-            //         continue;
-            //     }
-            // }
-
-            // foreach (string locList in localConstList)
-            // {
-            //     if (globalConstList.Contains(locList))
-            //     {
-            //         semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + locList, line);
-            //     }
-            //     if (globalVarList.Contains(locList))
-            //     {
-            //         semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + locList, line);
-            //     }
-            //     if (localVarList.Contains(locList))
-            //     {
-            //         semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + locList, line);
-            //     }
-            //     if (reservedWords.Contains(locList))
-            //     {
-            //         semanticError.Rows.Add(idn++, "Reserved Identifier Misused: " + locList, line);
-            //     }
-            //     else
-            //     {
-            //         continue;
-            //     }
-            // }
-        }
-    } 
+
+    }
+
+//     private void semantic_Click(object sender, EventArgs e)
+//     {
+//         List<string> globalList = new List<string>();
+//         List<string> localList = new List<string>();
+//         List<string> funcList = new List<string>();
+//         List<string> display = new List<string>();
+
+//         int idn = 0;
+//         int line = 1;
+//         int x = 0;
+
+//         string result = "You may push!";
+
+//         semanticError.Rows.Clear();
+
+//         int endOfFuntion = 0;
+
+//         globalList.Clear();
+//         localList.Clear();
+//         funcList.Clear();
+
+//         tabControl2.SelectTab("tabPage5");
+
+//         for (x = 0; x < LexGrid.Rows.Count; x++)
+//         {
+//             // Global Constants
+//             if (LexGrid.Rows[x].Cells[2].Value.ToString() == "comp")
+//             {
+//                 x++;
+
+//                 if (LexGrid.Rows[x].Cells[2].Value.ToString() == "inter")
+//                 {
+//                     do
+//                     {
+//                         if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+//                         {
+//                             if (globalConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
+//                             {
+//                                 semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
+//                             }
+//                             else if (globalVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
+//                             {
+//                                 semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
+//                             }
+//                             else
+//                             {
+//                                 globalConstList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                                 intList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                             }
+//                         }
+//                         x++;
+
+//                     } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
+//                 }
+
+//                 if (LexGrid.Rows[x].Cells[2].Value.ToString() == "bloat")
+//                 {
+//                     do
+//                     {
+//                         if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+//                         {
+//                             if (globalConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true || globalVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
+//                             {
+//                                 semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
+//                             }
+//                             else
+//                             {
+//                                 globalConstList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                                 doubleList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                             }
+//                         }
+
+//                         x++;
+
+//                     } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
+//                 }
+
+//                 if (LexGrid.Rows[x].Cells[2].Value.ToString() == "pool")
+//                 {
+//                     do
+//                     {
+//                         if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+//                         {
+//                             if (globalConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true || globalVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
+//                             {
+//                                 semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
+//                             }
+//                             else
+//                             {
+//                                 globalConstList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                                 boolList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                             }
+//                         }
+
+//                         x++;
+
+//                     } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
+//                 }
+
+//                 if (LexGrid.Rows[x].Cells[2].Value.ToString() == "ping")
+//                 {
+//                     do
+//                     {
+//                         if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+//                         {
+//                             if (globalConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true || globalVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
+//                             {
+//                                 semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
+//                             }
+//                             else
+//                             {
+//                                 globalConstList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                                 stringList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                             }
+//                         }
+
+//                         x++;
+
+//                     } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
+//                 }
+//             }
+
+//             // Global Variables
+//             if (LexGrid.Rows[x].Cells[2].Value.ToString() == "inter")
+//             {
+//                 do
+//                 {
+//                     if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+//                     {
+//                         if (globalConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true || globalVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
+//                         {
+//                             semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
+//                         }
+//                         else
+//                         {
+//                             globalVarList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                             intList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                         }
+//                     }
+
+//                     x++;
+//                 } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
+//             }
+
+//             if (LexGrid.Rows[x].Cells[2].Value.ToString() == "bloat")
+//             {
+//                 do
+//                 {
+//                     if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+//                     {
+//                         if (globalConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true || globalVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
+//                         {
+//                             semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
+//                         }
+//                         else
+//                         {
+//                             globalVarList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                             doubleList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                         }
+//                     }
+
+//                     x++;
+//                 } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
+//             }
+
+//             if (LexGrid.Rows[x].Cells[2].Value.ToString() == "pool")
+//             {
+//                 do
+//                 {
+//                     if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+//                     {
+//                         if (globalConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true || globalVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
+//                         {
+//                             semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
+//                         }
+//                         else
+//                         {
+//                             globalVarList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                             boolList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                         }
+//                     }
+
+//                     x++;
+//                 } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
+//             }
+
+//             if (LexGrid.Rows[x].Cells[2].Value.ToString() == "ping")
+//             {
+//                 do
+//                 {
+//                     if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+//                     {
+//                         if (globalConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true || globalVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
+//                         {
+//                             semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
+//                         }
+//                         else
+//                         {
+//                             globalVarList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                             stringList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                         }
+//                     }
+
+//                     x++;
+//                 } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
+//             }
+
+//             // Local Declaration
+//             if (LexGrid.Rows[x].Cells[2].Value.ToString() == "spawn")
+//             {
+//                 int y = x;
+
+//                 while (LexGrid.Rows[x].Cells[2].Value.ToString() != "void" && LexGrid.Rows[x].Cells[2].Value.ToString() != "inter" && LexGrid.Rows[x].Cells[2].Value.ToString() != "bloat" && LexGrid.Rows[x].Cells[2].Value.ToString() != "pool" && LexGrid.Rows[x].Cells[2].Value.ToString() != "ping")
+//                 {
+//                     x++;
+//                 }
+
+//                 while (LexGrid.Rows[y].Cells[2].Value.ToString() != "base" && LexGrid.Rows[y].Cells[2].Value.ToString() != "Identifier")
+//                 {
+//                     y++;
+//                 }
+
+//                 if (LexGrid.Rows[x].Cells[2].Value.ToString() == "void" && LexGrid.Rows[y].Cells[2].Value.ToString() == "base")
+//                 {
+//                     semanticError.Rows.Add(1, "TEST", 1);
+//                     while (LexGrid.Rows[x].Cells[2].Value.ToString() != "base")
+//                     {
+//                         x++;
+//                     }
+
+//                     if (LexGrid.Rows[x].Cells[2].Value.ToString() == "base")
+//                     {
+//                         semanticError.Rows.Add(1, "TEST", 2);
+//                         while (LexGrid.Rows[x].Cells[2].Value.ToString() != "{")
+//                         {
+//                             x++;
+
+//                             if (LexGrid.Rows[x].Cells[2].Value.ToString() == "newline")
+//                             {
+//                                 line++;
+//                             }
+//                         }
+
+//                         do
+//                         {
+//                             if (LexGrid.Rows[x].Cells[2].Value.ToString() == "{")
+//                             {
+//                                 endOfFuntion++;
+//                             }
+//                             else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "}")
+//                             {
+//                                 endOfFuntion--;
+//                             }
+
+//                             if (LexGrid.Rows[x].Cells[2].Value.ToString() == "newline")
+//                             {
+//                                 line++;
+//                             }
+
+//                             if (LexGrid.Rows[x].Cells[2].Value.ToString() == "inter")
+//                             {
+//                                 do
+//                                 {
+//                                     if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+//                                     {
+//                                         if (globalConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true || globalVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true || localVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
+//                                         {
+//                                             semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
+//                                         }
+//                                         else
+//                                         {
+//                                             localVarList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                                             intList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                                         }
+//                                     }
+//                                     else if (LexGrid.Rows[x].Cells[2].Value.ToString() == "[")
+//                                     {
+//                                         semanticError.Rows.Add(1, "TEST", 3);
+//                                         x++;
+
+//                                         if(LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+//                                         {
+//                                             if (globalConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == false || globalVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == false || localVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == false)
+//                                             {
+//                                                 semanticError.Rows.Add(idn++, "Undeclared Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
+//                                             }
+//                                         }
+//                                     }
+
+//                                     x++;
+
+//                                 } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
+//                             }
+
+//                             if (LexGrid.Rows[x].Cells[2].Value.ToString() == "bloat")
+//                             {
+//                                 do
+//                                 {
+//                                     if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+//                                     {
+//                                         if (globalConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true || globalVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true || localVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
+//                                         {
+//                                             semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
+//                                         }
+//                                         else
+//                                         {
+//                                             localVarList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                                             doubleList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                                         }
+//                                     }
+
+//                                     x++;
+//                                 } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
+//                             }
+
+//                             if (LexGrid.Rows[x].Cells[2].Value.ToString() == "pool")
+//                             {
+//                                 do
+//                                 {
+//                                     if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+//                                     {
+//                                         if (globalConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true || globalVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true || localVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
+//                                         {
+//                                             semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
+//                                         }
+//                                         else
+//                                         {
+//                                             localVarList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                                             boolList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                                         }
+//                                     }
+
+//                                     x++;
+//                                 } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
+//                             }
+
+//                             if (LexGrid.Rows[x].Cells[2].Value.ToString() == "ping")
+//                             {
+//                                 do
+//                                 {
+//                                     if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+//                                     {
+//                                         if (globalConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true || globalVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true || localVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
+//                                         {
+//                                             semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
+//                                         }
+//                                         else
+//                                         {
+//                                             localVarList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                                             stringList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                                         }
+//                                     }
+                                    
+//                                     x++;
+//                                 } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
+//                             }
+
+//                             if (LexGrid.Rows[x].Cells[2].Value.ToString() == "comp")
+//                             {
+//                                 x++;
+
+//                                 if (LexGrid.Rows[x].Cells[2].Value.ToString() == "inter")
+//                                 {
+//                                     do
+//                                     {
+//                                         if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+//                                         {
+//                                             if (globalConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true || globalVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true || localVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
+//                                             {
+//                                                 semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
+//                                             }
+//                                             else
+//                                             {
+//                                                 localConstList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                                                 intList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                                             }
+//                                         }
+
+//                                         x++;
+
+//                                     } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
+//                                 }
+
+//                                 if (LexGrid.Rows[x].Cells[2].Value.ToString() == "bloat")
+//                                 {
+//                                     do
+//                                     {
+//                                         if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+//                                         {
+//                                             if (globalConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true || globalVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true || localVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
+//                                             {
+//                                                 semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
+//                                             }
+//                                             else
+//                                             {
+//                                                 localConstList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                                                 doubleList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                                             }
+//                                         }
+
+//                                         x++;
+
+//                                     } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
+//                                 }
+
+//                                 if (LexGrid.Rows[x].Cells[2].Value.ToString() == "pool")
+//                                 {
+//                                     do
+//                                     {
+//                                         if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+//                                         {
+//                                             if (globalConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true || globalVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true || localVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
+//                                             {
+//                                                 semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
+//                                             }
+//                                             else
+//                                             {
+//                                                 localConstList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                                                 boolList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                                             }
+//                                         }
+
+//                                         x++;
+
+//                                     } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
+//                                 }
+
+//                                 if (LexGrid.Rows[x].Cells[2].Value.ToString() == "ping")
+//                                 {
+//                                     do
+//                                     {
+//                                         if (LexGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+//                                         {
+//                                             if (globalConstList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true || globalVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true || localVarList.Exists(element => element == LexGrid.Rows[x].Cells[1].Value.ToString()) == true)
+//                                             {
+//                                                 semanticError.Rows.Add(idn++, "Multiple Declaration of a Variable: " + LexGrid.Rows[x].Cells[1].Value.ToString(), line);
+//                                             }
+//                                             else
+//                                             {
+//                                                 localConstList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                                                 stringList.Add(LexGrid.Rows[x].Cells[1].Value.ToString());
+//                                             }
+//                                         }
+
+//                                         x++;
+
+//                                     } while (LexGrid.Rows[x].Cells[2].Value.ToString() != ";");
+//                                 }
+//                             }
+
+//                             x++;
+//                         } while (endOfFuntion != 0);
+//                     }
+//                 }
+//                 else
+//                 {
+//                 }
+//             }
+//         }
+//     } 
 
     private void semanticError_CellContentClick(object sender, DataGridViewCellEventArgs e)
     {
@@ -1404,136 +642,141 @@ public partial class Form1 : Form
 
     private async void run_Click(object sender, EventArgs e)
     {
-        OutputText.Text = "";
-        string codeTemp = "";
-        string[] funcArray = new string[100];
-        int checktemp = 0;
-        int checkfunc = 0;
-        List<string> disp = new List<string>();
-        List<string> outp = new List<string>();
+        
+    }
 
-        OutputText.Text = "using System; \nclass Program { \n";
+//     private async void run_Click(object sender, EventArgs e)
+//     {
+//         OutputText.Text = "";
+//         string codeTemp = "";
+//         string[] funcArray = new string[100];
+//         int checktemp = 0;
+//         int checkfunc = 0;
+//         List<string> disp = new List<string>();
+//         List<string> outp = new List<string>();
 
-        for (int x = 0; x < TempGrid.Rows.Count; x++)
-        {
-            switch(TempGrid.Rows[x].Cells[2].Value.ToString())
-            {
-                case "spawn":
-                    codeTemp += "public static ";
+//         OutputText.Text = "using System; \nclass Program { \n";
 
-                    x++;
+//         for (int x = 0; x < TempGrid.Rows.Count; x++)
+//         {
+//             switch(TempGrid.Rows[x].Cells[2].Value.ToString())
+//             {
+//                 case "spawn":
+//                     codeTemp += "public static ";
 
-                    if(TempGrid.Rows[x].Cells[2].Value.ToString() == "void")
-                    {
-                        codeTemp += "void ";
-                        x++;
+//                     x++;
 
-                        if(TempGrid.Rows[x].Cells[2].Value.ToString() == "base")
-                        {
-                            codeTemp += "Main() {\n";
-                            OutputText.Text += codeTemp;
-                            codeTemp = "";
-                            checktemp = 1;
-                            x += 3;
-                        }
-                        else
-                        {
+//                     if(TempGrid.Rows[x].Cells[2].Value.ToString() == "void")
+//                     {
+//                         codeTemp += "void ";
+//                         x++;
+
+//                         if(TempGrid.Rows[x].Cells[2].Value.ToString() == "base")
+//                         {
+//                             codeTemp += "Main() {\n";
+//                             OutputText.Text += codeTemp;
+//                             codeTemp = "";
+//                             checktemp = 1;
+//                             x += 3;
+//                         }
+//                         else
+//                         {
                             
-                        }
+//                         }
                         
-                    }
-                    break;
-                case "push":
-                    x++;
-                    if(TempGrid.Rows[x].Cells[2].Value.ToString() == "(")
-                    {
-                        codeTemp += "Console.WriteLine(";
+//                     }
+//                     break;
+//                 case "push":
+//                     x++;
+//                     if(TempGrid.Rows[x].Cells[2].Value.ToString() == "(")
+//                     {
+//                         codeTemp += "Console.WriteLine(";
                         
-                        do
-                        {
-                            x++;
+//                         do
+//                         {
+//                             x++;
 
-                            if(TempGrid.Rows[x].Cells[2].Value.ToString() == "Ping Literal")
-                            {
-                                do
-                                {
-                                    switch (TempGrid.Rows[x].Cells[2].Value.ToString())
-                                    {
-                                        case "Ping Literal":
-                                            codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
-                                            x++;
-                                            break;
-                                        case ")":
-                                            codeTemp += ")";
-                                            x++;
-                                            break;
-                                        default:
-                                            codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
-                                            x++;
-                                            break;
-                                    }
-                                } while (TempGrid.Rows[x].Cells[2].Value.ToString() != ";");
-                            }
-                        } while (TempGrid.Rows[x].Cells[2].Value.ToString() != ";");
+//                             if(TempGrid.Rows[x].Cells[2].Value.ToString() == "Ping Literal")
+//                             {
+//                                 do
+//                                 {
+//                                     switch (TempGrid.Rows[x].Cells[2].Value.ToString())
+//                                     {
+//                                         case "Ping Literal":
+//                                             codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+//                                             x++;
+//                                             break;
+//                                         case ")":
+//                                             codeTemp += ")";
+//                                             x++;
+//                                             break;
+//                                         default:
+//                                             codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+//                                             x++;
+//                                             break;
+//                                     }
+//                                 } while (TempGrid.Rows[x].Cells[2].Value.ToString() != ";");
+//                             }
+//                         } while (TempGrid.Rows[x].Cells[2].Value.ToString() != ";");
 
-                        codeTemp += ";\n";
-                        OutputText.Text += codeTemp;
-                        codeTemp = "";
-                    }
+//                         codeTemp += ";\n";
+//                         OutputText.Text += codeTemp;
+//                         codeTemp = "";
+//                     }
 
-                    break;
-            }
-        }
+//                     break;
+//             }
+//         }
 
-        OutputText.Text += "Console.ReadLine();\n} \n}";
+//         OutputText.Text += "Console.ReadLine();\n} \n}";
 
-        string code = OutputText.Text;
+//         string code = OutputText.Text;
 
-        // string code = @"using System; class Program { public static void Main() { Console.WriteLine(""Hello""); Console.ReadLine();} }";
-        await ExecuteCodeAsync(code);
-    }
+//         // string code = @"using System; class Program { public static void Main() { Console.WriteLine(""Hello""); Console.ReadLine();} }";
+//         await ExecuteCodeAsync(code);
+//     }
 
-    public async Task ExecuteCodeAsync(string code)
-    {
-        string tempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
-        Directory.CreateDirectory(tempDir);
+//     public async Task ExecuteCodeAsync(string code)
+//     {
+//         string tempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+//         Directory.CreateDirectory(tempDir);
 
-        try
-        {
-            string tempFilePath = Path.Combine(tempDir, "Program.cs");
-            await File.WriteAllTextAsync(tempFilePath, code);
+//         try
+//         {
+//             string tempFilePath = Path.Combine(tempDir, "Program.cs");
+//             await File.WriteAllTextAsync(tempFilePath, code);
 
-            string csprojContent = @"<Project Sdk=""Microsoft.NET.Sdk""><PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net8.0</TargetFramework></PropertyGroup></Project>";
-            string csprojPath = Path.Combine(tempDir, "TempProject.csproj");
-            await File.WriteAllTextAsync(csprojPath, csprojContent);
+//             string csprojContent = @"<Project Sdk=""Microsoft.NET.Sdk""><PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net8.0</TargetFramework></PropertyGroup></Project>";
+//             string csprojPath = Path.Combine(tempDir, "TempProject.csproj");
+//             await File.WriteAllTextAsync(csprojPath, csprojContent);
 
-            ProcessStartInfo startInfo = new ProcessStartInfo("dotnet")
-            {
-                Arguments = $"run --project \"{csprojPath}\"",
-                WorkingDirectory = tempDir,
-                UseShellExecute = true,
-                CreateNoWindow = false,
-            };
+//             ProcessStartInfo startInfo = new ProcessStartInfo("dotnet")
+//             {
+//                 Arguments = $"run --project \"{csprojPath}\"",
+//                 WorkingDirectory = tempDir,
+//                 UseShellExecute = true,
+//                 CreateNoWindow = false,
+//             };
 
-            using (Process process = Process.Start(startInfo))
-            {
-                if (process != null)
-                {
-                    await process.WaitForExitAsync();
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            // Log or display the exception
-            Console.WriteLine($"An error occurred: {ex.Message}");
-        }
-        finally
-        {
-            if (Directory.Exists(tempDir))
-            {
-                Directory.Delete(tempDir, true);
-            }
-        }
-    }
+//             using (Process process = Process.Start(startInfo))
+//             {
+//                 if (process != null)
+//                 {
+//                     await process.WaitForExitAsync();
+//                 }
+//             }
+//         }
+//         catch (Exception ex)
+//         {
+//             // Log or display the exception
+//             Console.WriteLine($"An error occurred: {ex.Message}");
+//         }
+//         finally
+//         {
+//             if (Directory.Exists(tempDir))
+//             {
+//                 Directory.Delete(tempDir, true);
+//             }
+//         }
+//     }
 }
