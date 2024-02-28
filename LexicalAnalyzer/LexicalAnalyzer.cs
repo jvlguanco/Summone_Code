@@ -724,7 +724,8 @@ public class Analyzer
         Constants.IdentifierDelims delims = new Constants.IdentifierDelims();
         Boolean hasToken = false, valID = false, isValid = true;
         Tokens token = new Tokens();
-       
+
+        string limitedText = text.Length > 25 ? text.Substring(0, 25) : text;
 
         id.id.AddRange(id.delim_lowlet);
         id.id.AddRange(id.delim_caplet);
@@ -750,18 +751,18 @@ public class Analyzer
                 isValid = false;
                 foreach (char n in id.id)
                 {
-                    if ((text.Length - 1) > ictr)
-                        if (text.ElementAt(ictr + 1) == n)
+                    if ((limitedText.Length - 1) > ictr)
+                        if (limitedText.ElementAt(ictr + 1) == n)
                         {
                             ictr++;
                             isValid = true;
                         }
                 }
+            }
 
-                if (ictr >= 25)
-                {
-                    valID = false;
-                }
+            if(limitedText.ElementAt(ictr) == '_')
+            {
+                valID = false;
             }
 
             if (valID)
@@ -784,7 +785,7 @@ public class Analyzer
                 _valid++;
                 token = new Tokens();
                 token.setTokens("Identifier");
-                token.setLexemes(text.Substring(0, (ictr + 1)));
+                token.setLexemes(limitedText.Substring(0, (ictr + 1)));
                 _token.Add(token);
                 _idNum++;
             }
