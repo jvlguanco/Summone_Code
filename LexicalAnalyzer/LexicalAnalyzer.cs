@@ -582,11 +582,6 @@ public class Analyzer
                                 if ((text.Length - 1) > lctr)
                                     if (text.ElementAt(lctr + 1) == n)
                                     {
-                                        if(text.ElementAt(0) == '~')
-                                        {
-                                            continue;
-                                        }
-
                                         value++;
                                         if (value <= 8)
                                         {
