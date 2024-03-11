@@ -57,12 +57,13 @@ partial class Form1
         dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
         Line = new DataGridViewTextBoxColumn();
         tabPage2 = new TabPage();
-        OutputText = new RichTextBox();
-        run = new Button();
         TempGrid = new DataGridView();
         dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
         dataGridViewTextBoxColumn7 = new DataGridViewTextBoxColumn();
         dataGridViewTextBoxColumn8 = new DataGridViewTextBoxColumn();
+        OutputText = new RichTextBox();
+        run = new Button();
+        codeTextBox = new RichTextBox();
         tabControl1.SuspendLayout();
         tabPage1.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)LexGrid).BeginInit();
@@ -337,6 +338,7 @@ partial class Form1
         // 
         // tabPage2
         // 
+        tabPage2.Controls.Add(codeTextBox);
         tabPage2.Controls.Add(TempGrid);
         tabPage2.Controls.Add(OutputText);
         tabPage2.Location = new Point(4, 30);
@@ -346,24 +348,6 @@ partial class Form1
         tabPage2.TabIndex = 3;
         tabPage2.Text = "tabPage2";
         tabPage2.UseVisualStyleBackColor = true;
-        // 
-        // OutputText
-        // 
-        OutputText.Location = new Point(0, 0);
-        OutputText.Name = "OutputText";
-        OutputText.Size = new Size(815, 122);
-        OutputText.TabIndex = 9;
-        OutputText.Text = "";
-        // 
-        // run
-        // 
-        run.Location = new Point(485, 73);
-        run.Name = "run";
-        run.Size = new Size(142, 40);
-        run.TabIndex = 8;
-        run.Text = "Run";
-        run.UseVisualStyleBackColor = true;
-        run.Click += run_Click;
         // 
         // TempGrid
         // 
@@ -398,6 +382,32 @@ partial class Form1
         dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
         dataGridViewTextBoxColumn8.ReadOnly = true;
         dataGridViewTextBoxColumn8.Width = 140;
+        // 
+        // OutputText
+        // 
+        OutputText.Location = new Point(0, 0);
+        OutputText.Name = "OutputText";
+        OutputText.Size = new Size(240, 122);
+        OutputText.TabIndex = 9;
+        OutputText.Text = "";
+        // 
+        // run
+        // 
+        run.Location = new Point(485, 73);
+        run.Name = "run";
+        run.Size = new Size(142, 40);
+        run.TabIndex = 8;
+        run.Text = "Run";
+        run.UseVisualStyleBackColor = true;
+        run.Click += run_Click;
+        // 
+        // codeTextBox
+        // 
+        codeTextBox.Location = new Point(234, 0);
+        codeTextBox.Name = "codeTextBox";
+        codeTextBox.Size = new Size(576, 122);
+        codeTextBox.TabIndex = 11;
+        codeTextBox.Text = "";
         // 
         // Form1
         // 
@@ -467,4 +477,5 @@ partial class Form1
     private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
     private DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
     private DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+    private RichTextBox codeTextBox;
 }
