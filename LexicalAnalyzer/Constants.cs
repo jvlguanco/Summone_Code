@@ -16,7 +16,7 @@ public class Constants
     {
         public List<char> delim_1 = new List<char> { '(' };
         public List<char> delim_2 = new List<char> { ' ' };
-        public List<char> delim_3 = new List<char> { ' ', '&', '|', ';', ')' };
+        public List<char> delim_3 = new List<char> { ' ', '&', '|', ';', ')', ',' };
         public List<char> delim_4 = new List<char> { ';' };
         public List<char> delim_5 = new List<char> { ' ', '\n', '{' };
         public List<char> delim_6 = new List<char> { ' ', '(', '[' };
