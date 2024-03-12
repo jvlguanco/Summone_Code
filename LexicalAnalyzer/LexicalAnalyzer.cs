@@ -24,9 +24,14 @@ public class Analyzer
 
     public Boolean GetTokenLines(string text, int counter)
     {
+        Tokens token = new Tokens();
         Boolean hasLines = false;
         if (text.ElementAt(0) == '\n')
         {
+            token = new Tokens();
+            token.setTokens("newline");
+            token.setLexemes("\\n");
+            _token.Add(token);
             _lines++;
             _tokenLine.Add(counter);
             hasLines = true;
@@ -34,6 +39,19 @@ public class Analyzer
         }
         else if (text.ElementAt(0) == ' ')
         {
+            token = new Tokens();
+            token.setTokens("space");
+            token.setLexemes("");
+            _token.Add(token);
+            hasLines = true;
+            _count = 1;
+        }
+        else if (text.ElementAt(0) == '\t')
+        {
+            token = new Tokens();
+            token.setTokens("tab");
+            token.setLexemes("\\t");
+            _token.Add(token);
             hasLines = true;
             _count = 1;
         }

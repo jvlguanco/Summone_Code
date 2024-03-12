@@ -4,6 +4,7 @@ using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
 using System.Diagnostics;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace WinFormsApp1;
 
@@ -19,13 +20,7 @@ public partial class Form1 : Form
 
     Analyzer lex = new Analyzer();
     string txt;
-    List<int> linetokens = new List<int>();
-    List<string> intList = new List<string>();
-    List<string> doubleList = new List<string>();
-    List<string> stringList = new List<string>();
-    List<string> boolList = new List<string>();
-
-    string codeOutput = "";
+    Dictionary<int, int> lineMapping = new Dictionary<int, int>();
 
     private void lexer_Click(object sender, EventArgs e)
     {
@@ -44,7 +39,7 @@ public partial class Form1 : Form
         {
             lex = new Analyzer();
             Initializer Lexical = new Initializer();
-            txt = Code.RichTextBox.Text + "\n";
+            txt = Code.RichTextBox.Text + " ";
 
             lex = Lexical.InitializeAnalyzer(txt, lex);
 
@@ -68,7 +63,7 @@ public partial class Form1 : Form
         SyntaxInitializer syntaxInitializer = new SyntaxInitializer();
         DataSyntaxError.Rows.Clear();
         semantic.Enabled = false;
-                // run.Enabled = false;
+        // run.Enabled = false;
 
         int i = 1;
         string s;
@@ -134,7 +129,7 @@ public partial class Form1 : Form
                 id++;
                 LexGrid.Rows.Add(id, token.getLexemes(), token.getTokens());
 
-                if(token.getTokens() != "newline" && token.getTokens() != "space" && token.getTokens() != "tab")
+                if(token.getTokens() != "space" && token.getTokens() != "tab")
                 {
                     TempGrid.Rows.Add(id, token.getLexemes(), token.getTokens());
                 }
@@ -184,8 +179,8 @@ public partial class Form1 : Form
 
     private async void semanticError_CellContentClick(object sender, DataGridViewCellEventArgs e)
     {
-        string code = @"using System; class Program { public static void Main() { int a; int b = 12.123; Console.WriteLine(a); Console.ReadLine();} }";
-        // string code = TranslateCode();
+        // string code = @"using System; class Program { public static void Main() { int a; int b = 12.123; Console.WriteLine(a); Console.ReadLine();} }";
+        string code = TranslateCode();
         
         await AnalyzeCodeAsync(code);
     }
@@ -193,10 +188,12 @@ public partial class Form1 : Form
     private async void run_Click(object sender, EventArgs e)
     {
         // string code = @"using System; class Program { public static void Main() { int a; int b = 12.123; Console.WriteLine(a); Console.ReadLine();} }";
+        tabControl2.SelectTab("tabPage5");
         
         string code = TranslateCode();
 
         // await ExecuteCodeAsync(code);
+        await AnalyzeCodeAsync(code);
     }
 
     public string TranslateCode()
@@ -204,14 +201,18 @@ public partial class Form1 : Form
         OutputText.Text = "";
         string codeTemp = "";
         string tempId = "";
+        string datatype = "";
         bool mainFlag = false;
         int lastValue = TempGrid.Rows.Count;
         int count = 0;
         int dimensions = 0;
         int tracker = 0;
         int[] size = new int[2];
+        int lineTracker = 2;
+        int currentLine = 1;
+        lineMapping.Clear();
 
-        OutputText.Text = "using System; \nclass Program { \n";
+        OutputText.Text = "using System; class Summoner { \n";
 
         for (int x = 0; x < TempGrid.Rows.Count; x++)
         {
@@ -220,13 +221,13 @@ public partial class Form1 : Form
                 switch(TempGrid.Rows[x].Cells[2].Value.ToString())
                 {
                     case "comp":
-                        codeTemp += "public const ";
+                        codeTemp += "public ";
                         x++;
                         count++;
 
                         if(TempGrid.Rows[x].Cells[2].Value.ToString() == "inter")
                         {
-                            codeTemp += "int";
+                            datatype += "int";
                             x++;
                             count++;
                             if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
@@ -238,9 +239,10 @@ public partial class Form1 : Form
 
                             if(TempGrid.Rows[x].Cells[2].Value.ToString() == "[")
                             {
-                                codeTemp += "[";
+                                codeTemp += "readonly " + datatype + "[";
                                 x++;
                                 count++;
+                                datatype = "";
 
                                 while(TempGrid.Rows[x].Cells[2].Value.ToString() != "=")
                                 {
@@ -301,12 +303,15 @@ public partial class Form1 : Form
                                     codeTemp += ";\n";
                                     OutputText.Text += codeTemp;
                                     codeTemp = "";
+                                    lineMapping.Add(currentLine, lineTracker);
+                                    lineTracker++;
                                 }
                             }
                             else
                             {
-                                codeTemp += " " + tempId + " ";
+                                codeTemp += "const " + datatype + " " + tempId + " ";
                                 tempId = "";
+                                datatype = "";
                                 while (TempGrid.Rows[x].Cells[2].Value.ToString() != ";")
                                 {
                                     codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
@@ -319,6 +324,8 @@ public partial class Form1 : Form
                                     codeTemp += ";\n";
                                     OutputText.Text += codeTemp;
                                     codeTemp = "";
+                                    lineMapping.Add(currentLine, lineTracker);
+                                    lineTracker++;
                                 }
                             }
                         }
@@ -773,7 +780,9 @@ public partial class Form1 : Form
                         count++;
 
                         break;
-        
+                    case "newline":
+                        currentLine++;
+                        break;
                 
                 }
 
@@ -1001,6 +1010,8 @@ public partial class Form1 : Form
         string tempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
         Directory.CreateDirectory(tempDir);
         bool hasError = false;
+        codeTextBox.Text = "";
+        
 
         try
         {
@@ -1015,9 +1026,9 @@ public partial class Form1 : Form
             {
                 Arguments = $"run --project \"{csprojPath}\"",
                 WorkingDirectory = tempDir,
-                UseShellExecute = false, // Important for redirecting output
-                RedirectStandardOutput = true, // Redirect standard output
-                RedirectStandardError = true, // Redirect standard error
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
                 CreateNoWindow = true,
             };
 
@@ -1028,14 +1039,22 @@ public partial class Form1 : Form
                     if (!string.IsNullOrEmpty(e.Data))
                     {
                         string output = e.Data;
+                        string pattern = @"\((-?\d+),(-?\d+)\)";
                         string[] parts = output.Split(':');
                         string result;
+
+                        Regex regex = new Regex(pattern);
+                        MatchCollection matches = regex.Matches(output);
+                        int originalLine = Convert.ToInt32(matches[0].Groups[1].Value);
+
+                        int codeLine = lineMapping.FirstOrDefault(x => x.Value == originalLine).Key;
 
                         if (parts[2].Contains("error"))
                         {
                             result = parts[3].Replace("[C", "");
                             result = result.Trim();
-                            codeTextBox.Invoke(new Action(() => codeTextBox.AppendText(result + Environment.NewLine + Environment.NewLine)));
+                            
+                            codeTextBox.Invoke(new Action(() => codeTextBox.AppendText(result + " ON LINE: " + codeLine + Environment.NewLine + Environment.NewLine)));
                             hasError = true;
                         }
                     }

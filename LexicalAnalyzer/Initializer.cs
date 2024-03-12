@@ -12,12 +12,7 @@ public class Initializer
         lex._valid = 0;
         while (text != "")
         {
-            if (text.ElementAt(0) == '\t')
-            {   
-                text = text.Remove(0, lex._count);
-                tokens--;
-            }
-            else if (hasToken = lex.GetTokenLines(text, tokens))
+            if (hasToken = lex.GetTokenLines(text, tokens))
             {
                 text = text.Remove(0, lex._count);
                 tokens--;
