@@ -193,7 +193,7 @@ public partial class Form1 : Form
         string code = TranslateCode();
 
         // await ExecuteCodeAsync(code);
-        await AnalyzeCodeAsync(code);
+        // await AnalyzeCodeAsync(code);
     }
 
     public string TranslateCode()
@@ -212,7 +212,7 @@ public partial class Form1 : Form
         int currentLine = 1;
         lineMapping.Clear();
 
-        OutputText.Text = "using System; class Summoner { \n";
+        OutputText.Text = "using System; using System.Collections.ObjectModel; class Summoner { \n";
 
         for (int x = 0; x < TempGrid.Rows.Count; x++)
         {
@@ -331,9 +331,10 @@ public partial class Form1 : Form
                         }
                         else if(TempGrid.Rows[x].Cells[2].Value.ToString() == "bloat")
                         {
-                            codeTemp += "double";
+                            datatype += "double";
                             x++;
                             count++;
+
                             if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
                             {
                                 tempId = TempGrid.Rows[x].Cells[1].Value.ToString();
@@ -343,9 +344,10 @@ public partial class Form1 : Form
 
                             if(TempGrid.Rows[x].Cells[2].Value.ToString() == "[")
                             {
-                                codeTemp += "[";
+                                codeTemp += "readonly " + datatype + "[";
                                 x++;
                                 count++;
+                                datatype = "";
 
                                 while(TempGrid.Rows[x].Cells[2].Value.ToString() != "=")
                                 {
@@ -406,12 +408,15 @@ public partial class Form1 : Form
                                     codeTemp += ";\n";
                                     OutputText.Text += codeTemp;
                                     codeTemp = "";
+                                    lineMapping.Add(currentLine, lineTracker);
+                                    lineTracker++;
                                 }
                             }
                             else
                             {
-                                codeTemp += " " + tempId + " ";
+                                codeTemp += "const " + datatype + " " + tempId + " ";
                                 tempId = "";
+                                datatype = "";
                                 while (TempGrid.Rows[x].Cells[2].Value.ToString() != ";")
                                 {
                                     codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
@@ -424,14 +429,17 @@ public partial class Form1 : Form
                                     codeTemp += ";\n";
                                     OutputText.Text += codeTemp;
                                     codeTemp = "";
+                                    lineMapping.Add(currentLine, lineTracker);
+                                    lineTracker++;
                                 }
                             }
                         }
                         else if(TempGrid.Rows[x].Cells[2].Value.ToString() == "ping")
                         {
-                            codeTemp += "string";
+                            datatype += "string";
                             x++;
                             count++;
+
                             if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
                             {
                                 tempId = TempGrid.Rows[x].Cells[1].Value.ToString();
@@ -441,9 +449,10 @@ public partial class Form1 : Form
 
                             if(TempGrid.Rows[x].Cells[2].Value.ToString() == "[")
                             {
-                                codeTemp += "[";
+                                codeTemp += "readonly " + datatype + "[";
                                 x++;
                                 count++;
+                                datatype = "";
 
                                 while(TempGrid.Rows[x].Cells[2].Value.ToString() != "=")
                                 {
@@ -504,12 +513,15 @@ public partial class Form1 : Form
                                     codeTemp += ";\n";
                                     OutputText.Text += codeTemp;
                                     codeTemp = "";
+                                    lineMapping.Add(currentLine, lineTracker);
+                                    lineTracker++;
                                 }
                             }
                             else
                             {
-                                codeTemp += " " + tempId + " ";
+                                codeTemp += "const " + datatype + " " + tempId + " ";
                                 tempId = "";
+                                datatype = "";
                                 while (TempGrid.Rows[x].Cells[2].Value.ToString() != ";")
                                 {
                                     codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
@@ -522,14 +534,17 @@ public partial class Form1 : Form
                                     codeTemp += ";\n";
                                     OutputText.Text += codeTemp;
                                     codeTemp = "";
+                                    lineMapping.Add(currentLine, lineTracker);
+                                    lineTracker++;
                                 }
                             }
                         }
                         else if(TempGrid.Rows[x].Cells[2].Value.ToString() == "pool")
                         {
-                            codeTemp += "bool";
+                            datatype += "bool";
                             x++;
                             count++;
+                            
                             if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
                             {
                                 tempId = TempGrid.Rows[x].Cells[1].Value.ToString();
@@ -539,9 +554,10 @@ public partial class Form1 : Form
 
                             if(TempGrid.Rows[x].Cells[2].Value.ToString() == "[")
                             {
-                                codeTemp += "[";
+                                codeTemp += "readonly " + datatype + "[";
                                 x++;
                                 count++;
+                                datatype = "";
 
                                 while(TempGrid.Rows[x].Cells[2].Value.ToString() != "=")
                                 {
@@ -592,20 +608,7 @@ public partial class Form1 : Form
 
                                 while(TempGrid.Rows[x].Cells[2].Value.ToString() != ";")
                                 {
-                                    if(TempGrid.Rows[x].Cells[2].Value.ToString() == "Pool Literal")
-                                    {
-                                        if (TempGrid.Rows[x].Cells[1].Value.ToString() == "buff")
-                                        {
-                                            codeTemp += "true";
-                                        }
-                                        else
-                                        {
-                                            codeTemp += "false";
-                                        }
-                                    }
-                                    else {
-                                        codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
-                                    }
+                                    codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
                                     x++;
                                     count++;
                                 }
@@ -615,12 +618,15 @@ public partial class Form1 : Form
                                     codeTemp += ";\n";
                                     OutputText.Text += codeTemp;
                                     codeTemp = "";
+                                    lineMapping.Add(currentLine, lineTracker);
+                                    lineTracker++;
                                 }
                             }
                             else
                             {
-                                codeTemp += " " + tempId + " ";
+                                codeTemp += "const " + datatype + " " + tempId + " ";
                                 tempId = "";
+                                datatype = "";
                                 while (TempGrid.Rows[x].Cells[2].Value.ToString() != ";")
                                 {
                                     if(TempGrid.Rows[x].Cells[2].Value.ToString() == "Pool Literal")
@@ -646,6 +652,8 @@ public partial class Form1 : Form
                                     codeTemp += ";\n";
                                     OutputText.Text += codeTemp;
                                     codeTemp = "";
+                                    lineMapping.Add(currentLine, lineTracker);
+                                    lineTracker++;
                                 }
                             }
                         }
@@ -762,32 +770,544 @@ public partial class Form1 : Form
                                     codeTemp += " = default;\n";
                                     OutputText.Text += codeTemp;
                                     codeTemp = "";
+                                    lineMapping.Add(currentLine, lineTracker);
+                                    lineTracker++;
                                 }
                                 else
                                 {
                                     codeTemp += ";\n";
                                     OutputText.Text += codeTemp;
                                     codeTemp = "";
+                                    lineMapping.Add(currentLine, lineTracker);
+                                    lineTracker++;
                                 }
                             }
                         }
                         break;
                     case "bloat":
-                    case "ping":
-                    case "pool":
-                        codeTemp += "public static ";
+                        codeTemp += "public static double ";
                         x++;
                         count++;
 
+                        if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+                        {
+                            tempId = TempGrid.Rows[x].Cells[1].Value.ToString();
+                            x++;
+                            count++;
+                        }
+
+                        if(TempGrid.Rows[x].Cells[2].Value.ToString() == "[")
+                        {
+                            codeTemp += "[";
+                            x++;
+                            count++;
+
+                            while(TempGrid.Rows[x].Cells[2].Value.ToString() != "=" && TempGrid.Rows[x].Cells[2].Value.ToString() != ";")
+                            {
+                                if(TempGrid.Rows[x].Cells[2].Value.ToString() == "Inter Literal")
+                                {
+                                    dimensions++;
+                                    size[tracker] = Convert.ToInt32(TempGrid.Rows[x].Cells[1].Value.ToString());
+                                    x++;
+                                    count++;
+                                    tracker++;
+                                }
+                                else
+                                {
+                                    x++;
+                                    count++;
+                                }
+                            }
+
+                            if (dimensions == 1)
+                            {
+                                codeTemp += "] ";
+                            }
+                            else if (dimensions == 2)
+                            {
+                                codeTemp += ",] ";
+                            }
+
+                            codeTemp += " " + tempId + " " + " = new int[" ;
+
+                            tempId = "";
+
+                            if (dimensions == 1)
+                            {
+                                codeTemp += size[0] + "] ";
+                            }
+                            else if (dimensions == 2)
+                            {
+                                codeTemp += size[0] + "," + size[1] +"] ";
+                            }
+
+                            tracker = 0;
+
+                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == "=")
+                            {
+                                x++;
+                                count++;
+                                while(TempGrid.Rows[x].Cells[2].Value.ToString() != ";")
+                                {
+                                    codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                                    x++;
+                                    count++;
+                                }
+                            }
+
+                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == ";")
+                            {
+                                codeTemp += ";\n";
+                                OutputText.Text += codeTemp;
+                                codeTemp = "";
+                            }
+                        }
+                        else
+                        {
+                            codeTemp += tempId + " ";
+                            tempId = "";
+                            while (TempGrid.Rows[x].Cells[2].Value.ToString() != ";")
+                            {
+                                if (TempGrid.Rows[x].Cells[2].Value.ToString() == "=")
+                                {
+                                    codeTemp += " = " + TempGrid.Rows[x+1].Cells[1].Value.ToString();
+                                    x = x + 2;
+                                    count = count + 2;
+                                }
+                                else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "," && TempGrid.Rows[x-1].Cells[2].Value.ToString() == "Identifier")
+                                {
+                                    codeTemp += "= default, ";
+                                    x++;
+                                    count++;
+                                }
+                                else
+                                {
+                                    codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                                    x++;
+                                    count++;
+                                }
+                            }
+
+                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == ";")
+                            {
+                                if (TempGrid.Rows[x-1].Cells[2].Value.ToString() == "Identifier")
+                                {
+                                    codeTemp += " = default;\n";
+                                    OutputText.Text += codeTemp;
+                                    codeTemp = "";
+                                    lineMapping.Add(currentLine, lineTracker);
+                                    lineTracker++;
+                                }
+                                else
+                                {
+                                    codeTemp += ";\n";
+                                    OutputText.Text += codeTemp;
+                                    codeTemp = "";
+                                    lineMapping.Add(currentLine, lineTracker);
+                                    lineTracker++;
+                                }
+                            }
+                        }
+                        break;
+                    case "ping":
+                        codeTemp += "public static string ";
+                        x++;
+                        count++;
+
+                        if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+                        {
+                            tempId = TempGrid.Rows[x].Cells[1].Value.ToString();
+                            x++;
+                            count++;
+                        }
+
+                        if(TempGrid.Rows[x].Cells[2].Value.ToString() == "[")
+                        {
+                            codeTemp += "[";
+                            x++;
+                            count++;
+
+                            while(TempGrid.Rows[x].Cells[2].Value.ToString() != "=" && TempGrid.Rows[x].Cells[2].Value.ToString() != ";")
+                            {
+                                if(TempGrid.Rows[x].Cells[2].Value.ToString() == "Inter Literal")
+                                {
+                                    dimensions++;
+                                    size[tracker] = Convert.ToInt32(TempGrid.Rows[x].Cells[1].Value.ToString());
+                                    x++;
+                                    count++;
+                                    tracker++;
+                                }
+                                else
+                                {
+                                    x++;
+                                    count++;
+                                }
+                            }
+
+                            if (dimensions == 1)
+                            {
+                                codeTemp += "] ";
+                            }
+                            else if (dimensions == 2)
+                            {
+                                codeTemp += ",] ";
+                            }
+
+                            codeTemp += " " + tempId + " " + " = new int[" ;
+
+                            tempId = "";
+
+                            if (dimensions == 1)
+                            {
+                                codeTemp += size[0] + "] ";
+                            }
+                            else if (dimensions == 2)
+                            {
+                                codeTemp += size[0] + "," + size[1] +"] ";
+                            }
+
+                            tracker = 0;
+
+                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == "=")
+                            {
+                                x++;
+                                count++;
+                                while(TempGrid.Rows[x].Cells[2].Value.ToString() != ";")
+                                {
+                                    codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                                    x++;
+                                    count++;
+                                }
+                            }
+
+                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == ";")
+                            {
+                                codeTemp += ";\n";
+                                OutputText.Text += codeTemp;
+                                codeTemp = "";
+                            }
+                        }
+                        else
+                        {
+                            codeTemp += tempId + " ";
+                            tempId = "";
+                            while (TempGrid.Rows[x].Cells[2].Value.ToString() != ";")
+                            {
+                                if (TempGrid.Rows[x].Cells[2].Value.ToString() == "=")
+                                {
+                                    codeTemp += " = " + TempGrid.Rows[x+1].Cells[1].Value.ToString();
+                                    x = x + 2;
+                                    count = count + 2;
+                                }
+                                else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "," && TempGrid.Rows[x-1].Cells[2].Value.ToString() == "Identifier")
+                                {
+                                    codeTemp += "= default, ";
+                                    x++;
+                                    count++;
+                                }
+                                else
+                                {
+                                    codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                                    x++;
+                                    count++;
+                                }
+                            }
+
+                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == ";")
+                            {
+                                if (TempGrid.Rows[x-1].Cells[2].Value.ToString() == "Identifier")
+                                {
+                                    codeTemp += " = default;\n";
+                                    OutputText.Text += codeTemp;
+                                    codeTemp = "";
+                                    lineMapping.Add(currentLine, lineTracker);
+                                    lineTracker++;
+                                }
+                                else
+                                {
+                                    codeTemp += ";\n";
+                                    OutputText.Text += codeTemp;
+                                    codeTemp = "";
+                                    lineMapping.Add(currentLine, lineTracker);
+                                    lineTracker++;
+                                }
+                            }
+                        }
+                        break;
+                    case "pool":
+                        codeTemp += "public static bool ";
+                        x++;
+                        count++;
+
+                        if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+                        {
+                            tempId = TempGrid.Rows[x].Cells[1].Value.ToString();
+                            x++;
+                            count++;
+                        }
+
+                        if(TempGrid.Rows[x].Cells[2].Value.ToString() == "[")
+                        {
+                            codeTemp += "[";
+                            x++;
+                            count++;
+
+                            while(TempGrid.Rows[x].Cells[2].Value.ToString() != "=" && TempGrid.Rows[x].Cells[2].Value.ToString() != ";")
+                            {
+                                if(TempGrid.Rows[x].Cells[2].Value.ToString() == "Inter Literal")
+                                {
+                                    dimensions++;
+                                    size[tracker] = Convert.ToInt32(TempGrid.Rows[x].Cells[1].Value.ToString());
+                                    x++;
+                                    count++;
+                                    tracker++;
+                                }
+                                else
+                                {
+                                    x++;
+                                    count++;
+                                }
+                            }
+
+                            if (dimensions == 1)
+                            {
+                                codeTemp += "] ";
+                            }
+                            else if (dimensions == 2)
+                            {
+                                codeTemp += ",] ";
+                            }
+
+                            codeTemp += " " + tempId + " " + " = new int[" ;
+
+                            tempId = "";
+
+                            if (dimensions == 1)
+                            {
+                                codeTemp += size[0] + "] ";
+                            }
+                            else if (dimensions == 2)
+                            {
+                                codeTemp += size[0] + "," + size[1] +"] ";
+                            }
+
+                            tracker = 0;
+
+                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == "=")
+                            {
+                                x++;
+                                count++;
+                                while(TempGrid.Rows[x].Cells[2].Value.ToString() != ";")
+                                {
+                                    codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                                    x++;
+                                    count++;
+                                }
+                            }
+
+                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == ";")
+                            {
+                                codeTemp += ";\n";
+                                OutputText.Text += codeTemp;
+                                codeTemp = "";
+                            }
+                        }
+                        else
+                        {
+                            codeTemp += tempId + " ";
+                            tempId = "";
+                            while (TempGrid.Rows[x].Cells[2].Value.ToString() != ";")
+                            {
+                                if (TempGrid.Rows[x].Cells[2].Value.ToString() == "=")
+                                {
+                                    codeTemp += " = " + TempGrid.Rows[x+1].Cells[1].Value.ToString();
+                                    x = x + 2;
+                                    count = count + 2;
+                                }
+                                else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "," && TempGrid.Rows[x-1].Cells[2].Value.ToString() == "Identifier")
+                                {
+                                    codeTemp += "= default, ";
+                                    x++;
+                                    count++;
+                                }
+                                else
+                                {
+                                    codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                                    x++;
+                                    count++;
+                                }
+                            }
+
+                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == ";")
+                            {
+                                if (TempGrid.Rows[x-1].Cells[2].Value.ToString() == "Identifier")
+                                {
+                                    codeTemp += " = default;\n";
+                                    OutputText.Text += codeTemp;
+                                    codeTemp = "";
+                                    lineMapping.Add(currentLine, lineTracker);
+                                    lineTracker++;
+                                }
+                                else
+                                {
+                                    codeTemp += ";\n";
+                                    OutputText.Text += codeTemp;
+                                    codeTemp = "";
+                                    lineMapping.Add(currentLine, lineTracker);
+                                    lineTracker++;
+                                }
+                            }
+                        }
                         break;
                     case "newline":
                         currentLine++;
                         break;
-                
+                    case "tower":
+                        codeTemp += "public struct ";
+                        x++;
+                        count++;
+
+                        if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+                        {
+                            codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString() + " {\n";
+                            x++;
+                            count++;
+                            lineMapping.Add(currentLine, lineTracker);
+                            lineTracker++;
+                        }
+
+                        while (TempGrid.Rows[x].Cells[2].Value.ToString() != "}")
+                        {
+                            switch(TempGrid.Rows[x].Cells[2].Value.ToString())
+                            {
+                                case "inter":
+                                    codeTemp += "public int";
+                                    x++;
+                                    count++;
+
+                                    if(TempGrid.Rows[x].Cells[2].Value.ToString() == "[" && TempGrid.Rows[x+1].Cells[2].Value.ToString() == "]")
+                                    {
+                                        codeTemp += "[] ";
+                                        x = x + 2;
+                                        count++;
+                                    }
+                                    else
+                                    {
+                                        codeTemp += " ";
+                                    }
+
+                                    if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+                                    {
+                                        codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString() + ";\n";
+                                        x++;
+                                        count++;
+                                        lineMapping.Add(currentLine, lineTracker);
+                                        lineTracker++;
+                                    }
+                                    break;
+                                case "bloat":
+                                    codeTemp += "public double";
+                                    x++;
+                                    count++;
+
+                                    if(TempGrid.Rows[x].Cells[2].Value.ToString() == "[" && TempGrid.Rows[x+1].Cells[2].Value.ToString() == "]")
+                                    {
+                                        codeTemp += "[] ";
+                                        x = x + 2;
+                                        count++;
+                                    }
+                                    else
+                                    {
+                                        codeTemp += " ";
+                                    }
+
+                                    if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+                                    {
+                                        codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString() + ";\n";
+                                        x++;
+                                        count++;
+                                        lineMapping.Add(currentLine, lineTracker);
+                                        lineTracker++;
+                                    }
+                                    break;
+                                case "pool":
+                                    codeTemp += "public bool";
+                                    x++;
+                                    count++;
+
+                                    if(TempGrid.Rows[x].Cells[2].Value.ToString() == "[" && TempGrid.Rows[x+1].Cells[2].Value.ToString() == "]")
+                                    {
+                                        codeTemp += "[] ";
+                                        x = x + 2;
+                                        count++;
+                                    }
+                                    else
+                                    {
+                                        codeTemp += " ";
+                                    }
+
+                                    if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+                                    {
+                                        codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString() + ";\n";
+                                        x++;
+                                        count++;
+                                        lineMapping.Add(currentLine, lineTracker);
+                                        lineTracker++;
+                                    }
+                                    break;
+                                case "ping":
+                                    codeTemp += "public ping";
+                                    x++;
+                                    count++;
+
+                                    if(TempGrid.Rows[x].Cells[2].Value.ToString() == "[" && TempGrid.Rows[x+1].Cells[2].Value.ToString() == "]")
+                                    {
+                                        codeTemp += "[] ";
+                                        x = x + 2;
+                                        count++;
+                                    }
+                                    else
+                                    {
+                                        codeTemp += " ";
+                                    }
+
+                                    if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+                                    {
+                                        codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString() + ";\n";
+                                        x++;
+                                        count++;
+                                        lineMapping.Add(currentLine, lineTracker);
+                                        lineTracker++;
+                                    }
+                                    break;
+                                case "newline":
+                                    x++;
+                                    count++;
+                                    currentLine++;
+                                    break;
+                                default:
+                                    x++;
+                                    count++;
+                                    break;
+                            }
+                        }
+
+                        if (TempGrid.Rows[x].Cells[2].Value.ToString() == "}")
+                        {
+                            codeTemp += "}\n";
+                            OutputText.Text += codeTemp;
+                            codeTemp = "";
+                            lineMapping.Add(currentLine, lineTracker);
+                            lineTracker++;
+                        }
+                    
+                        break;
                 }
 
                 if (TempGrid.Rows[x].Cells[2].Value.ToString() != "spawn")
                     break;
+                if (TempGrid.Rows[x].Cells[2].Value.ToString() == "newline")
+                    currentLine++;
             }
         }
 
@@ -811,6 +1331,8 @@ public partial class Form1 : Form
                             codeTemp = "";
                             mainFlag = true;
                             x += 3;
+                            lineMapping.Add(currentLine, lineTracker);
+                            lineTracker++;
                         }
                         else
                         {
@@ -867,10 +1389,35 @@ public partial class Form1 : Form
                                 OutputText.Text += codeTemp;
                                 codeTemp = "";
                                 x++;
+                                lineMapping.Add(currentLine, lineTracker);
+                                lineTracker++;
                             }
                         }
                         
                     }
+                    else
+                    {
+                        switch(TempGrid.Rows[x].Cells[2].Value.ToString())
+                        {
+                            case "inter":
+                                codeTemp += "int ";
+                                x++;
+                                break;
+                            case "bloat":
+                                codeTemp += "double ";
+                                x++;
+                                break;
+                            case "ping":
+                                codeTemp += "string ";
+                                x++;
+                                break;
+                            case "pool":
+                                codeTemp += "bool ";
+                                x++;
+                                break;
+                        }
+                    }
+                    
                     break;
                 case "push":
                     x++;
@@ -919,24 +1466,71 @@ public partial class Form1 : Form
                     }
 
                     break;
-
                 case "}":
-                    if(x != lastValue - 1)
+                    if (x != lastValue - 1)
                     {
-                        if(TempGrid.Rows[x+1].Cells[2].Value.ToString() == "spawn")
+                        while (TempGrid.Rows[x].Cells[2].Value.ToString() == "newline")
                         {
-                            if(!mainFlag)
+                            if(x == lastValue - 1)
                             {
-                                codeTemp += "}\n";
-                                OutputText.Text += codeTemp;
-                                codeTemp = "";
+                                break;
                             }
                             else
                             {
-                                codeTemp += "Console.ReadLine(); \n}\n";
-                                OutputText.Text += codeTemp;
-                                codeTemp = "";
+                                x++;
+                                currentLine++;
+                            }
+                        }
+
+                        if (x != lastValue - 1)
+                        {
+                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == "spawn")
+                            {
+                                if(mainFlag)
+                                {
+                                    OutputText.Text += "Console.ReadLine();}\n";
+                                    mainFlag = false;
+                                    lineMapping.Add(currentLine, lineTracker);
+                                    lineTracker++;
+                                }
+                                else
+                                {
+                                    OutputText.Text += "}\n";
+                                    lineMapping.Add(currentLine, lineTracker);
+                                    lineTracker++;
+                                }
+                            }
+                            else
+                            {
+                                if(mainFlag)
+                                {
+                                    OutputText.Text += "Console.ReadLine();}\n";
+                                    mainFlag = false;
+                                    lineMapping.Add(currentLine, lineTracker);
+                                    lineTracker++;
+                                }
+                                else
+                                {
+                                    OutputText.Text += "}\n";
+                                    lineMapping.Add(currentLine, lineTracker);
+                                    lineTracker++;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if(mainFlag)
+                            {
+                                OutputText.Text += "Console.ReadLine();}\n";
                                 mainFlag = false;
+                                lineMapping.Add(currentLine, lineTracker);
+                                lineTracker++;
+                            }
+                            else
+                            {
+                                OutputText.Text += "}\n";
+                                lineMapping.Add(currentLine, lineTracker);
+                                lineTracker++;
                             }
                         }
                     }
@@ -944,18 +1538,27 @@ public partial class Form1 : Form
                     {
                         if(mainFlag)
                         {
-                            codeTemp += "Console.ReadLine();";
-                            OutputText.Text += codeTemp;
-                            codeTemp = "";
+                            OutputText.Text += "Console.ReadLine();}\n";
                             mainFlag = false;
+                            lineMapping.Add(currentLine, lineTracker);
+                            lineTracker++;
+                        }
+                        else
+                        {
+                            OutputText.Text += "}\n";
+                            lineMapping.Add(currentLine, lineTracker);
+                            lineTracker++;
                         }
                     }
 
                     break;
+                case "newline":
+                    currentLine++;
+                    break;
             }
         }
 
-        OutputText.Text += "\n} \n}";
+        OutputText.Text += "\n}";
 
         string code = OutputText.Text;
         return code;
@@ -1028,7 +1631,6 @@ public partial class Form1 : Form
                 WorkingDirectory = tempDir,
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
-                RedirectStandardError = true,
                 CreateNoWindow = true,
             };
 
@@ -1039,31 +1641,27 @@ public partial class Form1 : Form
                     if (!string.IsNullOrEmpty(e.Data))
                     {
                         string output = e.Data;
-                        string pattern = @"\((-?\d+),(-?\d+)\)";
-                        string[] parts = output.Split(':');
-                        string result;
-
-                        Regex regex = new Regex(pattern);
-                        MatchCollection matches = regex.Matches(output);
-                        int originalLine = Convert.ToInt32(matches[0].Groups[1].Value);
-
-                        int codeLine = lineMapping.FirstOrDefault(x => x.Value == originalLine).Key;
-
-                        if (parts[2].Contains("error"))
+                        if (output.Contains("error"))
                         {
-                            result = parts[3].Replace("[C", "");
-                            result = result.Trim();
-                            
-                            codeTextBox.Invoke(new Action(() => codeTextBox.AppendText(result + " ON LINE: " + codeLine + Environment.NewLine + Environment.NewLine)));
-                            hasError = true;
+                            string pattern = @"\((-?\d+),(-?\d+)\)";
+                            string[] parts = output.Split(':');
+                            string result;
+
+                            Regex regex = new Regex(pattern);
+                            MatchCollection matches = regex.Matches(output);
+                            int originalLine = Convert.ToInt32(matches[0].Groups[1].Value);
+
+                            int codeLine = lineMapping.FirstOrDefault(x => x.Value == originalLine).Key;
+
+                            if (parts[2].Contains("error"))
+                            {
+                                result = parts[3].Replace("[C", "");
+                                result = result.Trim();
+                                
+                                codeTextBox.Invoke(new Action(() => codeTextBox.AppendText(result + " ON LINE: " + codeLine + Environment.NewLine + Environment.NewLine)));
+                                hasError = true;
+                            }
                         }
-                    }
-                };
-                process.ErrorDataReceived += (sender, e) =>
-                {
-                    if (!string.IsNullOrEmpty(e.Data))
-                    {
-                        codeTextBox.Invoke(new Action(() => codeTextBox.AppendText(e.Data + Environment.NewLine)));
                     }
                 };
 
@@ -1078,7 +1676,6 @@ public partial class Form1 : Form
 
                 process.Start();
                 process.BeginOutputReadLine();
-                process.BeginErrorReadLine();
                 await process.WaitForExitAsync();
             }
         }

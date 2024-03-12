@@ -15,7 +15,6 @@ public class Initializer
             if (hasToken = lex.GetTokenLines(text, tokens))
             {
                 text = text.Remove(0, lex._count);
-                tokens--;
             }
             else if (hasToken = lex.GetReservedWords(text))
             {

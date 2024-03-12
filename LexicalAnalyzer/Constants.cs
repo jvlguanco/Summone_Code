@@ -156,7 +156,7 @@ public class Constants
     
     public class LiteralsDelims
     {
-        public List<char> delim_txt = new List<char> { ' ', '\n', ';', ',', ')', '!', '=', '+' };
+        public List<char> delim_txt = new List<char> { ' ', '\n', ';', ',', ')', '!', '=', '+', '}' };
         public List<char> delim_num = new List<char> { '+', '-', '*', '/', ' ', '\n', ';', '&', '|', ')', ',', '&', ']', '=', '>', '<', '!', '}' };
     }
     
