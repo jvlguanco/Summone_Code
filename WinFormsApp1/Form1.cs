@@ -2144,10 +2144,55 @@ public partial class Form1 : Form
                     }
                     break;
                 case "commit":
+                    codeTemp += "continue;\n";
+                    OutputText.Text += codeTemp;
+                    codeTemp = "";
+                    lineMapping.Add(currentLine, lineTracker);
+                    lineTracker++;
+                    x = x + 2;
                     break;
                 case "destroy":
+                    codeTemp += "break;\n";
+                    OutputText.Text += codeTemp;
+                    codeTemp = "";
+                    lineMapping.Add(currentLine, lineTracker);
+                    lineTracker++;
+                    x = x + 2;
                     break;
                 case "recall":
+                    codeTemp += "return ";
+                    x++;
+
+                    while (TempGrid.Rows[x].Cells[2].Value.ToString() != ";")
+                    {
+                        if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Pool Literal")
+                        {
+                            if (TempGrid.Rows[x].Cells[1].Value.ToString() == "buff")
+                            {
+                                codeTemp += "true";
+                            }
+                            else
+                            {
+                                codeTemp += "false";
+                            }
+                        }
+                        else
+                        {
+                            codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                        }
+                        
+                        x++;
+                    }
+
+                    if (TempGrid.Rows[x].Cells[2].Value.ToString() == ";")
+                    {
+                        codeTemp += ";\n";
+                        OutputText.Text += codeTemp;
+                        codeTemp = "";
+                        lineMapping.Add(currentLine, lineTracker);
+                        lineTracker++;
+                    }
+                    
                     break;
                 case "}":
                     if (openBrace == 0 && openDo == 0)
