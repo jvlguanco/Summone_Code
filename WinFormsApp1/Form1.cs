@@ -210,7 +210,8 @@ public partial class Form1 : Form
         int[] size = new int[2];
         int lineTracker = 2;
         int currentLine = 1;
-        int openings = 0;
+        int openBrace = 0;
+        int openParen = 0;
         lineMapping.Clear();
 
         while (TempGrid.Rows[count].Cells[2].Value.ToString() != "spawn")
@@ -1523,6 +1524,182 @@ public partial class Form1 : Form
                 case "bloat":
                 case "ping":
                 case "pool":
+                    if(TempGrid.Rows[x].Cells[2].Value.ToString() == "inter")
+                    {
+                        codeTemp += "int";
+                        tempData = "int";
+                    }
+                    else if(TempGrid.Rows[x].Cells[2].Value.ToString() == "bloat")
+                    {
+                        codeTemp += "double";
+                        tempData = "double";
+                    }
+                    else if(TempGrid.Rows[x].Cells[2].Value.ToString() == "ping")
+                    {
+                        codeTemp += "string";
+                        tempData = "string";
+                    }
+                    else if(TempGrid.Rows[x].Cells[2].Value.ToString() == "pool")
+                    {
+                        codeTemp += "bool";
+                        tempData = "bool";
+                    }
+
+                    x++;
+
+                    if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+                    {
+                        tempId = TempGrid.Rows[x].Cells[1].Value.ToString();
+                        x++;
+                    }
+
+                    if(TempGrid.Rows[x].Cells[2].Value.ToString() == "[")
+                    {
+                        codeTemp += "[";
+                        x++;
+
+                        while(TempGrid.Rows[x].Cells[2].Value.ToString() != "=" && TempGrid.Rows[x].Cells[2].Value.ToString() != ";")
+                        {
+                            if(TempGrid.Rows[x].Cells[2].Value.ToString() == "Inter Literal")
+                            {
+                                dimensions++;
+                                size[tracker] = Convert.ToInt32(TempGrid.Rows[x].Cells[1].Value.ToString());
+                                x++;
+                                tracker++;
+                            }
+                            else
+                            {
+                                x++;
+                            }
+                        }
+
+                        if (dimensions == 1)
+                        {
+                            codeTemp += "] ";
+                        }
+                        else if (dimensions == 2)
+                        {
+                            codeTemp += ",] ";
+                        }
+
+                        codeTemp += " " + tempId + " " + " = new " + tempData + "[" ;
+
+                        tempId = "";
+
+                        if (dimensions == 1)
+                        {
+                            codeTemp += size[0] + "] ";
+                        }
+                        else if (dimensions == 2)
+                        {
+                            codeTemp += size[0] + "," + size[1] +"] ";
+                        }
+
+                        tracker = 0;
+                        dimensions = 0;
+
+                        if (TempGrid.Rows[x].Cells[2].Value.ToString() == "=")
+                        {
+                            x++;
+                            while(TempGrid.Rows[x].Cells[2].Value.ToString() != ";")
+                            {
+                                codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                                x++;
+                            }
+                        }
+
+                        if (TempGrid.Rows[x].Cells[2].Value.ToString() == ";")
+                        {
+                            codeTemp += ";\n";
+                            OutputText.Text += codeTemp;
+                            codeTemp = "";
+                        }
+                    }
+                    else
+                    {
+                        codeTemp += " " + tempId + " ";
+                        tempId = "";
+                        while (TempGrid.Rows[x].Cells[2].Value.ToString() != ";")
+                        {
+                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == "=")
+                            {
+                                codeTemp += " = " ;
+                                x++;
+                            }
+                            else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "," && TempGrid.Rows[x-1].Cells[2].Value.ToString() == "Identifier" && TempGrid.Rows[x-2].Cells[2].Value.ToString() == ".")
+                            {
+                                codeTemp += "= default, ";
+                                x++;
+                            }
+                            else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "hold")
+                            {
+                                codeTemp += "Console.ReadLine()";
+                                x = x + 3;
+                            }
+                            else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "inter" || TempGrid.Rows[x].Cells[2].Value.ToString() == "bloat" || TempGrid.Rows[x].Cells[2].Value.ToString() == "ping" || TempGrid.Rows[x].Cells[2].Value.ToString() == "pool")
+                            {
+                                if (TempGrid.Rows[x].Cells[2].Value.ToString() == "inter")
+                                {
+                                    tempData = "Int32";
+                                }
+                                else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "bloat")
+                                {
+                                    tempData = "Double";
+                                }
+                                else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "ping")
+                                {
+                                    tempData = "String";
+                                }
+                                else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "pool")
+                                {
+                                    tempData = "Boolean";
+                                }
+
+                                codeTemp += "Convert.To" + tempData;
+                                x++;
+
+                                while(TempGrid.Rows[x].Cells[2].Value.ToString() != ")")
+                                {
+                                    if (TempGrid.Rows[x].Cells[2].Value.ToString() == "hold")
+                                    {
+                                        codeTemp += "Console.ReadLine()";
+                                        x = x + 3;
+                                    }
+                                    else
+                                    {
+                                        codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                                        x++;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                                x++;
+                            }
+                        }
+
+                        if (TempGrid.Rows[x].Cells[2].Value.ToString() == ";")
+                        {
+                            if (TempGrid.Rows[x-1].Cells[2].Value.ToString() == "Identifier" && TempGrid.Rows[x-2].Cells[2].Value.ToString() != ".")
+                            {
+                                codeTemp += " = default;\n";
+                                OutputText.Text += codeTemp;
+                                codeTemp = "";
+                                lineMapping.Add(currentLine, lineTracker);
+                                lineTracker++;
+                            }
+                            else
+                            {
+                                codeTemp += ";\n";
+                                OutputText.Text += codeTemp;
+                                codeTemp = "";
+                                lineMapping.Add(currentLine, lineTracker);
+                                lineTracker++;
+                            }
+                        }
+                    }
+
                     break;
                 case "push":
                     x++;
@@ -1571,8 +1748,41 @@ public partial class Form1 : Form
                     }
 
                     break;
+                case "tower":
+                    x++;
+
+                    if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+                    {
+                        codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString() + " ";
+                        x++;
+                    }
+
+                    if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+                    {
+                        codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                        x++;
+                    }
+
+                    if (TempGrid.Rows[x].Cells[2].Value.ToString() == ";")
+                    {
+                        codeTemp += ";\n";
+                        OutputText.Text += codeTemp;
+                        x++;
+                        codeTemp = "";
+                        lineMapping.Add(currentLine, lineTracker);
+                        lineTracker++;
+                    }
+                    break;
+                case "hold":
+                    codeTemp += "Console.ReadLine();\n";
+                    OutputText.Text += codeTemp;
+                    codeTemp = "";
+                    lineMapping.Add(currentLine, lineTracker);
+                    lineTracker++;
+                    x = x + 3;
+                    break;
                 case "}":
-                    if (openings == 0)
+                    if (openBrace == 0)
                     {
                         if (x != lastValue - 1)
                         {
