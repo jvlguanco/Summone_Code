@@ -5,7 +5,7 @@ public class Constants
     public class ReservedWords
     {
         public List<string> rw_1 = new List<string> { "base", "hold", "push" };
-        public List<string> rw_2 = new List<string> { "comp", "for", "spawn", "to", "tower", "void" };
+        public List<string> rw_2 = new List<string> { "comp", "for", "spawn", "up", "tower", "void", "down" };
         public List<string> rw_3 = new List<string> { "buff", "debuff" };
         public List<string> rw_4 = new List<string> { "commit", "destroy" };
         public List<string> rw_5 = new List<string> { "do", "else" };

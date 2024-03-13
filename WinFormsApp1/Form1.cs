@@ -1846,6 +1846,66 @@ public partial class Form1 : Form
                     x = x + 3;
                     break;
                 case "for":
+                    codeTemp += "for (";
+                    x++;
+
+                    if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+                    {
+                        tempId = TempGrid.Rows[x].Cells[1].Value.ToString();
+                        codeTemp += "int " + tempId + " = ";
+                        x = x + 2;
+                    }
+                    
+                    while (TempGrid.Rows[x].Cells[2].Value.ToString() != "up" &&  TempGrid.Rows[x].Cells[2].Value.ToString() != "down")
+                    {
+                        codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                        x++;
+                    }
+
+                    if (TempGrid.Rows[x].Cells[2].Value.ToString() == "up")
+                    {
+                        codeTemp += "; " + tempId + " <= ";
+                        x++;
+
+                        while (TempGrid.Rows[x].Cells[2].Value.ToString() != "{")
+                        {
+                            codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                            x++;
+                        }
+
+                        if (TempGrid.Rows[x].Cells[2].Value.ToString() == "{")
+                        {
+                            codeTemp += "; " + tempId + "++) {\n";
+                            OutputText.Text += codeTemp;
+                            codeTemp = "";
+                            lineMapping.Add(currentLine, lineTracker);
+                            lineTracker++;
+                            openBrace++;
+                        }
+                    }
+                    else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "down")
+                    {
+                        codeTemp += "; " + tempId + " >= ";
+                        x++;
+
+                        while (TempGrid.Rows[x].Cells[2].Value.ToString() != "{")
+                        {
+                            codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                            x++;
+                        }
+
+                        if (TempGrid.Rows[x].Cells[2].Value.ToString() == "{")
+                        {
+                            codeTemp += "; " + tempId + "--) {\n";
+                            OutputText.Text += codeTemp;
+                            codeTemp = "";
+                            lineMapping.Add(currentLine, lineTracker);
+                            lineTracker++;
+                            openBrace++;
+                        }
+                    }
+
+
                     break;
                 case "}":
                     if (openBrace == 0)
@@ -1939,6 +1999,7 @@ public partial class Form1 : Form
                         OutputText.Text += "}\n";
                         lineMapping.Add(currentLine, lineTracker);
                         lineTracker++;
+                        openBrace--;
                     }
 
                     break;
