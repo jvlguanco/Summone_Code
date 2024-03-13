@@ -1773,6 +1773,70 @@ public partial class Form1 : Form
                         lineTracker++;
                     }
                     break;
+                case "Identifier":
+                    codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                    x++;
+
+                    while(TempGrid.Rows[x].Cells[1].Value.ToString() != ";")
+                    {
+                        if (TempGrid.Rows[x].Cells[1].Value.ToString() == "hold")
+                        {
+                            codeTemp += "Console.ReadLine()";
+                            x = x + 3;
+                        }
+                        else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "inter" || TempGrid.Rows[x].Cells[2].Value.ToString() == "bloat" || TempGrid.Rows[x].Cells[2].Value.ToString() == "ping" || TempGrid.Rows[x].Cells[2].Value.ToString() == "pool")
+                        {
+                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == "inter")
+                            {
+                                tempData = "Int32";
+                            }
+                            else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "bloat")
+                            {
+                                tempData = "Double";
+                            }
+                            else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "ping")
+                            {
+                                tempData = "String";
+                            }
+                            else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "pool")
+                            {
+                                tempData = "Boolean";
+                            }
+
+                            codeTemp += "Convert.To" + tempData;
+                            x++;
+
+                            while(TempGrid.Rows[x].Cells[2].Value.ToString() != ")")
+                            {
+                                if (TempGrid.Rows[x].Cells[2].Value.ToString() == "hold")
+                                {
+                                    codeTemp += "Console.ReadLine()";
+                                    x = x + 3;
+                                }
+                                else
+                                {
+                                    codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                                    x++;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                            x++;
+                        }
+                    }
+
+                    if (TempGrid.Rows[x].Cells[2].Value.ToString() == ";")
+                    {
+                        codeTemp += ";\n";
+                        OutputText.Text += codeTemp;
+                        codeTemp = "";
+                        lineMapping.Add(currentLine, lineTracker);
+                        lineTracker++;
+                    }
+
+                    break;
                 case "hold":
                     codeTemp += "Console.ReadLine();\n";
                     OutputText.Text += codeTemp;
@@ -1780,6 +1844,8 @@ public partial class Form1 : Form
                     lineMapping.Add(currentLine, lineTracker);
                     lineTracker++;
                     x = x + 3;
+                    break;
+                case "for":
                     break;
                 case "}":
                     if (openBrace == 0)
