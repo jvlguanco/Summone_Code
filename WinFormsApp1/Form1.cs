@@ -131,7 +131,15 @@ public partial class Form1 : Form
 
                 if(token.getTokens() != "space" && token.getTokens() != "tab")
                 {
-                    TempGrid.Rows.Add(id, token.getLexemes(), token.getTokens());
+                    if (token.getTokens() == "Inter Literal" || token.getTokens() == "Bloat Literal")
+                    {
+                        string temp = token.getLexemes().Replace("~", "-");
+                        TempGrid.Rows.Add(id, temp, token.getTokens());
+                    }
+                    else
+                    {
+                        TempGrid.Rows.Add(id, token.getLexemes(), token.getTokens());
+                    }
                 }
             
             }
