@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Core Library\Core Library.csproj" />
       <ProjectReference Include="..\SyntaxAnalyzer\SyntaxAnalyzer.csproj" />
       <ProjectReference Include="..\TokenLibrary\TokenLibrary.csproj" />
     </ItemGroup>

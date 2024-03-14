@@ -9,7 +9,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Core Library\Core Library.csproj" />
       <ProjectReference Include="..\LexicalAnalyzer\LexicalAnalyzer.csproj" />
       <ProjectReference Include="..\SyntaxAnalyzer\SyntaxAnalyzer.csproj" />
       <ProjectReference Include="..\TokenLibrary\TokenLibrary.csproj" />
