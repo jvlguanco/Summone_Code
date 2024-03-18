@@ -8,7 +8,7 @@ public class SyntaxTokenizer : Tokenizer {
 
         CreatePatterns();
     }
-    
+
     private void CreatePatterns() {
         TokenPattern  pattern;
 
@@ -100,6 +100,18 @@ public class SyntaxTokenizer : Tokenizer {
                                     "TOWER",
                                     TokenPattern.PatternType.STRING,
                                     "tower");
+        AddPattern(pattern);
+
+        pattern = new TokenPattern((int) SyntaxConstants.UP,
+                                    "UP",
+                                    TokenPattern.PatternType.STRING,
+                                    "up");
+        AddPattern(pattern);
+
+        pattern = new TokenPattern((int) SyntaxConstants.DOWN,
+                                    "DOWN",
+                                    TokenPattern.PatternType.STRING,
+                                    "down");
         AddPattern(pattern);
 
         pattern = new TokenPattern((int) SyntaxConstants.VOID,
@@ -326,17 +338,17 @@ public class SyntaxTokenizer : Tokenizer {
         pattern.Ignore = true;
         AddPattern(pattern);
 
-        pattern = new TokenPattern((int) SyntaxConstants.TAB,
-                                    "TAB",
-                                    TokenPattern.PatternType.STRING,
-                                    "tab");
-        pattern.Ignore = true;
-        AddPattern(pattern);
-
         pattern = new TokenPattern((int) SyntaxConstants.SPACE,
                                     "SPACE",
                                     TokenPattern.PatternType.STRING,
                                     "space");
+        pattern.Ignore = true;
+        AddPattern(pattern);
+
+        pattern = new TokenPattern((int) SyntaxConstants.TAB,
+                                    "TAB",
+                                    TokenPattern.PatternType.STRING,
+                                    "tab");
         pattern.Ignore = true;
         AddPattern(pattern);
 

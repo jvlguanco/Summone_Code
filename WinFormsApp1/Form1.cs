@@ -15,12 +15,13 @@ public partial class Form1 : Form
         InitializeComponent();
         syntax.Enabled = false;
         semantic.Enabled = false;
-        // run.Enabled = false;
+        run.Enabled = false;
     }
 
     Analyzer lex = new Analyzer();
     string txt;
     Dictionary<int, int> lineMapping = new Dictionary<int, int>();
+    string code;
 
     private void lexer_Click(object sender, EventArgs e)
     {
@@ -30,7 +31,7 @@ public partial class Form1 : Form
         DataSyntaxError.Rows.Clear();
         syntax.Enabled = false;
         semantic.Enabled = false;
-        // run.Enabled = false;
+        run.Enabled = false;
 
         tabControl1.SelectTab("tabPage1");
         tabControl2.SelectTab("tabPage3");
@@ -53,7 +54,7 @@ public partial class Form1 : Form
             {
                 syntax.Enabled = false;
                 semantic.Enabled = false;
-                // run.Enabled = false;
+                run.Enabled = false;
             }
         }
     }
@@ -63,7 +64,7 @@ public partial class Form1 : Form
         SyntaxInitializer syntaxInitializer = new SyntaxInitializer();
         DataSyntaxError.Rows.Clear();
         semantic.Enabled = false;
-        // run.Enabled = false;
+        run.Enabled = false;
 
         int i = 1;
         string s;
@@ -90,7 +91,7 @@ public partial class Form1 : Form
         {
             DataSyntaxError.Rows.Add(i, "", s);
             semantic.Enabled = true;
-            // run.Enabled = false;
+            run.Enabled = false;
         }
     }
 
@@ -168,11 +169,14 @@ public partial class Form1 : Form
     {
         syntax.Enabled = false;
         semantic.Enabled = false;
-            // run.Enabled = false;
+        run.Enabled = false;
         LexGrid.Rows.Clear();
         DataLexicalError.Rows.Clear();
         DataSyntaxError.Rows.Clear();
         Code.RichTextBox.Clear();
+        semanticError.Rows.Clear();
+        OutputText.Clear();
+        TempGrid.Rows.Clear();
     }
 
     private void DataLexicalError_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -180,28 +184,22 @@ public partial class Form1 : Form
 
     }
 
-    private void semantic_Click(object sender, EventArgs e)
+    private async void semantic_Click(object sender, EventArgs e)
     {
-        
-    } 
-
-    private async void semanticError_CellContentClick(object sender, DataGridViewCellEventArgs e)
-    {
-        // string code = @"using System; class Program { public static void Main() { int a; int b = 12.123; Console.WriteLine(a); Console.ReadLine();} }";
-        string code = TranslateCode();
+        code = TranslateCode();
+        tabControl2.SelectTab("tabPage5");
         
         await AnalyzeCodeAsync(code);
+    } 
+
+    private void semanticError_CellContentClick(object sender, DataGridViewCellEventArgs e)
+    {
+        // string code = @"using System; class Program { public static void Main() { int a; int b = 12.123; Console.WriteLine(a); Console.ReadLine();} }";
     }
 
     private async void run_Click(object sender, EventArgs e)
     {
-        // string code = @"using System; class Program { public static void Main() { int a; int b = 12.123; Console.WriteLine(a); Console.ReadLine();} }";
-        tabControl2.SelectTab("tabPage5");
-        
-        string code = TranslateCode();
-
-        // await ExecuteCodeAsync(code);
-        await AnalyzeCodeAsync(code);
+        await ExecuteCodeAsync(code);
     }
 
     public string TranslateCode()
@@ -2375,8 +2373,8 @@ public partial class Form1 : Form
         string tempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
         Directory.CreateDirectory(tempDir);
         bool hasError = false;
-        codeTextBox.Text = "";
-        
+        semanticError.Rows.Clear();
+        int id = 0;
 
         try
         {
@@ -2424,8 +2422,10 @@ public partial class Form1 : Form
                                 result = result.Replace("int", "inter");
                                 result = result.Replace("double", "bloat");
                                 result = result.Replace("string", "ping");
+
+                                semanticError.Rows.Add(id, result, codeLine);
+                                id++;
                                 
-                                codeTextBox.Invoke(new Action(() => codeTextBox.AppendText(result + " ON LINE: " + codeLine + Environment.NewLine + Environment.NewLine)));
                                 hasError = true;
                             }
                         }
@@ -2439,6 +2439,8 @@ public partial class Form1 : Form
                 else
                 {
                     run.Enabled = true;
+
+                    semanticError.Rows.Add(id, "You may run the code!!", 0);
                 }
 
                 process.Start();
@@ -2448,7 +2450,7 @@ public partial class Form1 : Form
         }
         catch (Exception ex)
         {
-            codeTextBox.Invoke(new Action(() => codeTextBox.AppendText($"An error occurred: {ex.Message}" + Environment.NewLine)));
+            semanticError.Rows.Add(id, ex.Message, 0);
         }
         finally
         {

@@ -56,14 +56,12 @@ partial class Form1
         dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
         dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
         Line = new DataGridViewTextBoxColumn();
-        tabPage2 = new TabPage();
         TempGrid = new DataGridView();
         dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
         dataGridViewTextBoxColumn7 = new DataGridViewTextBoxColumn();
         dataGridViewTextBoxColumn8 = new DataGridViewTextBoxColumn();
         OutputText = new RichTextBox();
         run = new Button();
-        codeTextBox = new RichTextBox();
         tabControl1.SuspendLayout();
         tabPage1.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)LexGrid).BeginInit();
@@ -74,7 +72,6 @@ partial class Form1
         ((System.ComponentModel.ISupportInitialize)DataSyntaxError).BeginInit();
         tabPage5.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)semanticError).BeginInit();
-        tabPage2.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)TempGrid).BeginInit();
         SuspendLayout();
         // 
@@ -199,7 +196,6 @@ partial class Form1
         tabControl2.Controls.Add(tabPage3);
         tabControl2.Controls.Add(tabPage4);
         tabControl2.Controls.Add(tabPage5);
-        tabControl2.Controls.Add(tabPage2);
         tabControl2.Font = new Font("Segoe UI", 12F);
         tabControl2.Location = new Point(1, 603);
         tabControl2.Name = "tabControl2";
@@ -294,6 +290,8 @@ partial class Form1
         // tabPage5
         // 
         tabPage5.Controls.Add(semanticError);
+        tabPage5.Controls.Add(TempGrid);
+        tabPage5.Controls.Add(OutputText);
         tabPage5.Location = new Point(4, 30);
         tabPage5.Name = "tabPage5";
         tabPage5.Padding = new Padding(3);
@@ -336,26 +334,13 @@ partial class Form1
         Line.Name = "Line";
         Line.ReadOnly = true;
         // 
-        // tabPage2
-        // 
-        tabPage2.Controls.Add(codeTextBox);
-        tabPage2.Controls.Add(TempGrid);
-        tabPage2.Controls.Add(OutputText);
-        tabPage2.Location = new Point(4, 30);
-        tabPage2.Name = "tabPage2";
-        tabPage2.Padding = new Padding(3);
-        tabPage2.Size = new Size(1157, 122);
-        tabPage2.TabIndex = 3;
-        tabPage2.Text = "tabPage2";
-        tabPage2.UseVisualStyleBackColor = true;
-        // 
         // TempGrid
         // 
         TempGrid.AllowUserToAddRows = false;
         TempGrid.AllowUserToDeleteRows = false;
         TempGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
         TempGrid.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn7, dataGridViewTextBoxColumn8 });
-        TempGrid.Location = new Point(816, 0);
+        TempGrid.Location = new Point(256, 7);
         TempGrid.Name = "TempGrid";
         TempGrid.ReadOnly = true;
         TempGrid.RowHeadersVisible = false;
@@ -385,7 +370,7 @@ partial class Form1
         // 
         // OutputText
         // 
-        OutputText.Location = new Point(0, 0);
+        OutputText.Location = new Point(86, 0);
         OutputText.Name = "OutputText";
         OutputText.Size = new Size(240, 122);
         OutputText.TabIndex = 9;
@@ -400,14 +385,6 @@ partial class Form1
         run.Text = "Run";
         run.UseVisualStyleBackColor = true;
         run.Click += run_Click;
-        // 
-        // codeTextBox
-        // 
-        codeTextBox.Location = new Point(234, 0);
-        codeTextBox.Name = "codeTextBox";
-        codeTextBox.Size = new Size(576, 122);
-        codeTextBox.TabIndex = 11;
-        codeTextBox.Text = "";
         // 
         // Form1
         // 
@@ -435,7 +412,6 @@ partial class Form1
         ((System.ComponentModel.ISupportInitialize)DataSyntaxError).EndInit();
         tabPage5.ResumeLayout(false);
         ((System.ComponentModel.ISupportInitialize)semanticError).EndInit();
-        tabPage2.ResumeLayout(false);
         ((System.ComponentModel.ISupportInitialize)TempGrid).EndInit();
         ResumeLayout(false);
         PerformLayout();
@@ -470,12 +446,10 @@ partial class Form1
     private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
     private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
     private DataGridViewTextBoxColumn Line;
-    private TabPage tabPage2;
     private RichTextBox OutputText;
     private Button run;
     private DataGridView TempGrid;
     private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
     private DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
     private DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-    private RichTextBox codeTextBox;
 }
