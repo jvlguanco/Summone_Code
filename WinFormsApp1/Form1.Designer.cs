@@ -135,6 +135,7 @@ partial class Form1
         Code.Name = "Code";
         Code.Size = new Size(767, 476);
         Code.TabIndex = 5;
+        Code.Load += Code_Load;
         // 
         // tabControl1
         // 
