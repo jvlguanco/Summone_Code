@@ -317,7 +317,7 @@ public partial class Form1 : Form
                                 codeTemp += ";\n";
                                 OutputText.Text += codeTemp;
                                 codeTemp = "";
-                                lineMapping.Add(currentLine, lineTracker);
+                                lineMapping.Add(lineTracker, currentLine);
                                 lineTracker++;
                             }
                         }
@@ -337,7 +337,7 @@ public partial class Form1 : Form
                                 codeTemp += ";\n";
                                 OutputText.Text += codeTemp;
                                 codeTemp = "";
-                                lineMapping.Add(currentLine, lineTracker);
+                                lineMapping.Add(lineTracker, currentLine);
                                 lineTracker++;
                             }
                         }
@@ -415,7 +415,7 @@ public partial class Form1 : Form
                                 codeTemp += ";\n";
                                 OutputText.Text += codeTemp;
                                 codeTemp = "";
-                                lineMapping.Add(currentLine, lineTracker);
+                                lineMapping.Add(lineTracker, currentLine);
                                 lineTracker++;
                             }
                         }
@@ -435,7 +435,7 @@ public partial class Form1 : Form
                                 codeTemp += ";\n";
                                 OutputText.Text += codeTemp;
                                 codeTemp = "";
-                                lineMapping.Add(currentLine, lineTracker);
+                                lineMapping.Add(lineTracker, currentLine);
                                 lineTracker++;
                             }
                         }
@@ -513,7 +513,7 @@ public partial class Form1 : Form
                                 codeTemp += ";\n";
                                 OutputText.Text += codeTemp;
                                 codeTemp = "";
-                                lineMapping.Add(currentLine, lineTracker);
+                                lineMapping.Add(lineTracker, currentLine);
                                 lineTracker++;
                             }
                         }
@@ -533,7 +533,7 @@ public partial class Form1 : Form
                                 codeTemp += ";\n";
                                 OutputText.Text += codeTemp;
                                 codeTemp = "";
-                                lineMapping.Add(currentLine, lineTracker);
+                                lineMapping.Add(lineTracker, currentLine);
                                 lineTracker++;
                             }
                         }
@@ -611,7 +611,7 @@ public partial class Form1 : Form
                                 codeTemp += ";\n";
                                 OutputText.Text += codeTemp;
                                 codeTemp = "";
-                                lineMapping.Add(currentLine, lineTracker);
+                                lineMapping.Add(lineTracker, currentLine);
                                 lineTracker++;
                             }
                         }
@@ -645,7 +645,7 @@ public partial class Form1 : Form
                                 codeTemp += ";\n";
                                 OutputText.Text += codeTemp;
                                 codeTemp = "";
-                                lineMapping.Add(currentLine, lineTracker);
+                                lineMapping.Add(lineTracker, currentLine);
                                 lineTracker++;
                             }
                         }
@@ -754,7 +754,7 @@ public partial class Form1 : Form
                                 codeTemp += " = default;\n";
                                 OutputText.Text += codeTemp;
                                 codeTemp = "";
-                                lineMapping.Add(currentLine, lineTracker);
+                                lineMapping.Add(lineTracker, currentLine);
                                 lineTracker++;
                             }
                             else
@@ -762,7 +762,7 @@ public partial class Form1 : Form
                                 codeTemp += ";\n";
                                 OutputText.Text += codeTemp;
                                 codeTemp = "";
-                                lineMapping.Add(currentLine, lineTracker);
+                                lineMapping.Add(lineTracker, currentLine);
                                 lineTracker++;
                             }
                         }
@@ -870,7 +870,7 @@ public partial class Form1 : Form
                                 codeTemp += " = default;\n";
                                 OutputText.Text += codeTemp;
                                 codeTemp = "";
-                                lineMapping.Add(currentLine, lineTracker);
+                                lineMapping.Add(lineTracker, currentLine);
                                 lineTracker++;
                             }
                             else
@@ -878,7 +878,7 @@ public partial class Form1 : Form
                                 codeTemp += ";\n";
                                 OutputText.Text += codeTemp;
                                 codeTemp = "";
-                                lineMapping.Add(currentLine, lineTracker);
+                                lineMapping.Add(lineTracker, currentLine);
                                 lineTracker++;
                             }
                         }
@@ -986,7 +986,7 @@ public partial class Form1 : Form
                                 codeTemp += " = default;\n";
                                 OutputText.Text += codeTemp;
                                 codeTemp = "";
-                                lineMapping.Add(currentLine, lineTracker);
+                                lineMapping.Add(lineTracker, currentLine);
                                 lineTracker++;
                             }
                             else
@@ -994,7 +994,7 @@ public partial class Form1 : Form
                                 codeTemp += ";\n";
                                 OutputText.Text += codeTemp;
                                 codeTemp = "";
-                                lineMapping.Add(currentLine, lineTracker);
+                                lineMapping.Add(lineTracker, currentLine);
                                 lineTracker++;
                             }
                         }
@@ -1102,7 +1102,7 @@ public partial class Form1 : Form
                                 codeTemp += " = default;\n";
                                 OutputText.Text += codeTemp;
                                 codeTemp = "";
-                                lineMapping.Add(currentLine, lineTracker);
+                                lineMapping.Add(lineTracker, currentLine);
                                 lineTracker++;
                             }
                             else
@@ -1110,7 +1110,7 @@ public partial class Form1 : Form
                                 codeTemp += ";\n";
                                 OutputText.Text += codeTemp;
                                 codeTemp = "";
-                                lineMapping.Add(currentLine, lineTracker);
+                                lineMapping.Add(lineTracker, currentLine);
                                 lineTracker++;
                             }
                         }
@@ -1127,7 +1127,7 @@ public partial class Form1 : Form
                     {
                         codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString() + " {\n";
                         x++;
-                        lineMapping.Add(currentLine, lineTracker);
+                        lineMapping.Add(lineTracker, currentLine);
                         lineTracker++;
                     }
 
@@ -1153,7 +1153,7 @@ public partial class Form1 : Form
                                 {
                                     codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString() + ";\n";
                                     x++;
-                                    lineMapping.Add(currentLine, lineTracker);
+                                    lineMapping.Add(lineTracker, currentLine);
                                     lineTracker++;
                                 }
                                 break;
@@ -1175,7 +1175,7 @@ public partial class Form1 : Form
                                 {
                                     codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString() + ";\n";
                                     x++;
-                                    lineMapping.Add(currentLine, lineTracker);
+                                    lineMapping.Add(lineTracker, currentLine);
                                     lineTracker++;
                                 }
                                 break;
@@ -1197,7 +1197,7 @@ public partial class Form1 : Form
                                 {
                                     codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString() + ";\n";
                                     x++;
-                                    lineMapping.Add(currentLine, lineTracker);
+                                    lineMapping.Add(lineTracker, currentLine);
                                     lineTracker++;
                                 }
                                 break;
@@ -1219,7 +1219,7 @@ public partial class Form1 : Form
                                 {
                                     codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString() + ";\n";
                                     x++;
-                                    lineMapping.Add(currentLine, lineTracker);
+                                    lineMapping.Add(lineTracker, currentLine);
                                     lineTracker++;
                                 }
                                 break;
@@ -1238,7 +1238,7 @@ public partial class Form1 : Form
                         codeTemp += "}\n";
                         OutputText.Text += codeTemp;
                         codeTemp = "";
-                        lineMapping.Add(currentLine, lineTracker);
+                        lineMapping.Add(lineTracker, currentLine);
                         lineTracker++;
                     }
 
@@ -1271,7 +1271,7 @@ public partial class Form1 : Form
                             codeTemp = "";
                             mainFlag = true;
                             x += 3;
-                            lineMapping.Add(currentLine, lineTracker);
+                            lineMapping.Add(lineTracker, currentLine);
                             lineTracker++;
                         }
                         else
@@ -1329,7 +1329,7 @@ public partial class Form1 : Form
                                 OutputText.Text += codeTemp;
                                 codeTemp = "";
                                 x++;
-                                lineMapping.Add(currentLine, lineTracker);
+                                lineMapping.Add(lineTracker, currentLine);
                                 lineTracker++;
                             }
                         }
@@ -1408,7 +1408,7 @@ public partial class Form1 : Form
                             OutputText.Text += codeTemp;
                             codeTemp = "";
                             x++;
-                            lineMapping.Add(currentLine, lineTracker);
+                            lineMapping.Add(lineTracker, currentLine);
                             lineTracker++;
                         }
                     }
@@ -1514,7 +1514,7 @@ public partial class Form1 : Form
                             codeTemp += ");\n";
                             OutputText.Text += codeTemp;
                             codeTemp = "";
-                            lineMapping.Add(currentLine, lineTracker);
+                            lineMapping.Add(lineTracker, currentLine);
                             lineTracker++;
                         }
                     }
@@ -1547,7 +1547,7 @@ public partial class Form1 : Form
                             codeTemp += ";\n";
                             OutputText.Text += codeTemp;
                             codeTemp = "";
-                            lineMapping.Add(currentLine, lineTracker);
+                            lineMapping.Add(lineTracker, currentLine);
                             lineTracker++;
                         }
                     }
@@ -1747,7 +1747,7 @@ public partial class Form1 : Form
                                 codeTemp += " = default;\n";
                                 OutputText.Text += codeTemp;
                                 codeTemp = "";
-                                lineMapping.Add(currentLine, lineTracker);
+                                lineMapping.Add(lineTracker, currentLine);
                                 lineTracker++;
                             }
                             else
@@ -1755,7 +1755,7 @@ public partial class Form1 : Form
                                 codeTemp += ";\n";
                                 OutputText.Text += codeTemp;
                                 codeTemp = "";
-                                lineMapping.Add(currentLine, lineTracker);
+                                lineMapping.Add(lineTracker, currentLine);
                                 lineTracker++;
                             }
                         }
@@ -1772,7 +1772,7 @@ public partial class Form1 : Form
                         {
                             x++;
 
-                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Ping Literal" || TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Ping Literal" || TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier" || TempGrid.Rows[x].Cells[2].Value.ToString() == ")" || TempGrid.Rows[x].Cells[2].Value.ToString() == "+" || TempGrid.Rows[x].Cells[2].Value.ToString() == "Pool Literal")
                             {
                                 do
                                 {
@@ -1842,7 +1842,7 @@ public partial class Form1 : Form
                         OutputText.Text += codeTemp;
                         x++;
                         codeTemp = "";
-                        lineMapping.Add(currentLine, lineTracker);
+                        lineMapping.Add(lineTracker, currentLine);
                         lineTracker++;
                     }
                     break;
@@ -1917,7 +1917,7 @@ public partial class Form1 : Form
                         codeTemp += ";\n";
                         OutputText.Text += codeTemp;
                         codeTemp = "";
-                        lineMapping.Add(currentLine, lineTracker);
+                        lineMapping.Add(lineTracker, currentLine);
                         lineTracker++;
                     }
 
@@ -1926,7 +1926,7 @@ public partial class Form1 : Form
                     codeTemp += "Console.ReadLine();\n";
                     OutputText.Text += codeTemp;
                     codeTemp = "";
-                    lineMapping.Add(currentLine, lineTracker);
+                    lineMapping.Add(lineTracker, currentLine);
                     lineTracker++;
                     x = x + 3;
                     break;
@@ -1963,7 +1963,7 @@ public partial class Form1 : Form
                             codeTemp += "; " + tempId + "++) {\n";
                             OutputText.Text += codeTemp;
                             codeTemp = "";
-                            lineMapping.Add(currentLine, lineTracker);
+                            lineMapping.Add(lineTracker, currentLine);
                             lineTracker++;
                             openBrace++;
                         }
@@ -1984,7 +1984,7 @@ public partial class Form1 : Form
                             codeTemp += "; " + tempId + "--) {\n";
                             OutputText.Text += codeTemp;
                             codeTemp = "";
-                            lineMapping.Add(currentLine, lineTracker);
+                            lineMapping.Add(lineTracker, currentLine);
                             lineTracker++;
                             openBrace++;
                         }
@@ -1996,7 +1996,7 @@ public partial class Form1 : Form
                     codeTemp += "do {\n";
                     OutputText.Text += codeTemp;
                     codeTemp = "";
-                    lineMapping.Add(currentLine, lineTracker);
+                    lineMapping.Add(lineTracker, currentLine);
                     lineTracker++;
                     openBrace++;
                     openDo++;
@@ -2031,7 +2031,7 @@ public partial class Form1 : Form
                         codeTemp += ") {\n";
                         OutputText.Text += codeTemp;
                         codeTemp = "";
-                        lineMapping.Add(currentLine, lineTracker);
+                        lineMapping.Add(lineTracker, currentLine);
                         lineTracker++;
                         openBrace++;
                     }
@@ -2071,9 +2071,8 @@ public partial class Form1 : Form
                     {
                         codeTemp += " {\n";
                         OutputText.Text += codeTemp;
-                        x++;
                         codeTemp = "";
-                        lineMapping.Add(currentLine, lineTracker);
+                        lineMapping.Add(lineTracker, currentLine);
                         lineTracker++;
                         openBrace++;
                     }
@@ -2082,7 +2081,7 @@ public partial class Form1 : Form
                         codeTemp += "\n";
                         OutputText.Text += codeTemp;
                         codeTemp = "";
-                        lineMapping.Add(currentLine, lineTracker);
+                        lineMapping.Add(lineTracker, currentLine);
                         lineTracker++;
                     }
                     break;
@@ -2128,7 +2127,7 @@ public partial class Form1 : Form
                             OutputText.Text += codeTemp;
                             x++;
                             codeTemp = "";
-                            lineMapping.Add(currentLine, lineTracker);
+                            lineMapping.Add(lineTracker, currentLine);
                             lineTracker++;
                             openBrace++;
                         }
@@ -2137,7 +2136,7 @@ public partial class Form1 : Form
                             codeTemp += "\n";
                             OutputText.Text += codeTemp;
                             codeTemp = "";
-                            lineMapping.Add(currentLine, lineTracker);
+                            lineMapping.Add(lineTracker, currentLine);
                             lineTracker++;
                         }
                     }
@@ -2147,7 +2146,7 @@ public partial class Form1 : Form
                         OutputText.Text += codeTemp;
                         x++;
                         codeTemp = "";
-                        lineMapping.Add(currentLine, lineTracker);
+                        lineMapping.Add(lineTracker, currentLine);
                         lineTracker++;
                         openBrace++;
                     }
@@ -2156,7 +2155,7 @@ public partial class Form1 : Form
                         codeTemp += "\n";
                         OutputText.Text += codeTemp;
                         codeTemp = "";
-                        lineMapping.Add(currentLine, lineTracker);
+                        lineMapping.Add(lineTracker, currentLine);
                         lineTracker++;
                     }
                     break;
@@ -2164,7 +2163,7 @@ public partial class Form1 : Form
                     codeTemp += "continue;\n";
                     OutputText.Text += codeTemp;
                     codeTemp = "";
-                    lineMapping.Add(currentLine, lineTracker);
+                    lineMapping.Add(lineTracker, currentLine);
                     lineTracker++;
                     x = x + 2;
                     break;
@@ -2172,7 +2171,7 @@ public partial class Form1 : Form
                     codeTemp += "break;\n";
                     OutputText.Text += codeTemp;
                     codeTemp = "";
-                    lineMapping.Add(currentLine, lineTracker);
+                    lineMapping.Add(lineTracker, currentLine);
                     lineTracker++;
                     x = x + 2;
                     break;
@@ -2206,7 +2205,7 @@ public partial class Form1 : Form
                         codeTemp += ";\n";
                         OutputText.Text += codeTemp;
                         codeTemp = "";
-                        lineMapping.Add(currentLine, lineTracker);
+                        lineMapping.Add(lineTracker, currentLine);
                         lineTracker++;
                     }
 
@@ -2308,7 +2307,7 @@ public partial class Form1 : Form
                                 codeTemp += ");\n";
                                 OutputText.Text += codeTemp;
                                 codeTemp = "";
-                                lineMapping.Add(currentLine, lineTracker);
+                                lineMapping.Add(lineTracker, currentLine);
                                 lineTracker++;
                                 openBrace--;
                                 openDo--;
@@ -2421,7 +2420,7 @@ public partial class Form1 : Form
                             MatchCollection matches = regex.Matches(output);
                             int originalLine = Convert.ToInt32(matches[0].Groups[1].Value);
 
-                            int codeLine = lineMapping.FirstOrDefault(x => x.Value == originalLine).Key;
+                            int codeLine = lineMapping.FirstOrDefault(x => x.Key == originalLine).Value;
 
                             if (parts[2].Contains("error"))
                             {
@@ -2437,7 +2436,6 @@ public partial class Form1 : Form
                                 id++;
 
                                 hasError = true;
-                                process.Kill();
                             }
                         }
                     }
@@ -2464,7 +2462,7 @@ public partial class Form1 : Form
 
                 bool deleted = false;
                 int attempts = 0;
-                const int maxAttempts = 10;
+                const int maxAttempts = 5;
 
                 while (!deleted && attempts < maxAttempts)
                 {
