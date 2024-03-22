@@ -22,6 +22,7 @@ public partial class Form1 : Form
     string txt;
     Dictionary<int, int> lineMapping = new Dictionary<int, int>();
     string code;
+    bool hasError;
 
     private void lexer_Click(object sender, EventArgs e)
     {
@@ -29,6 +30,7 @@ public partial class Form1 : Form
         TempGrid.Rows.Clear();
         DataLexicalError.Rows.Clear();
         DataSyntaxError.Rows.Clear();
+        semanticError.Rows.Clear();
         syntax.Enabled = false;
         semantic.Enabled = false;
         run.Enabled = false;
@@ -190,6 +192,13 @@ public partial class Form1 : Form
         tabControl2.SelectTab("tabPage5");
 
         await AnalyzeCodeAsync(code);
+
+        if(hasError){
+            run.Enabled = false;
+        } else {
+            run.Enabled = true;
+            semanticError.Rows.Add(0, "No semantic errors found.", 0);
+        }
     }
 
     private void semanticError_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -248,7 +257,7 @@ public partial class Form1 : Form
 
                         if (TempGrid.Rows[x].Cells[2].Value.ToString() == "[")
                         {
-                            codeTemp += "readonly " + datatype + "[";
+                            codeTemp += "static readonly " + datatype + "[";
                             x++;
                             datatype = "";
 
@@ -346,7 +355,7 @@ public partial class Form1 : Form
 
                         if (TempGrid.Rows[x].Cells[2].Value.ToString() == "[")
                         {
-                            codeTemp += "readonly " + datatype + "[";
+                            codeTemp += "static readonly " + datatype + "[";
                             x++;
                             datatype = "";
 
@@ -444,7 +453,7 @@ public partial class Form1 : Form
 
                         if (TempGrid.Rows[x].Cells[2].Value.ToString() == "[")
                         {
-                            codeTemp += "readonly " + datatype + "[";
+                            codeTemp += "static readonly " + datatype + "[";
                             x++;
                             datatype = "";
 
@@ -542,7 +551,7 @@ public partial class Form1 : Form
 
                         if (TempGrid.Rows[x].Cells[2].Value.ToString() == "[")
                         {
-                            codeTemp += "readonly " + datatype + "[";
+                            codeTemp += "static readonly " + datatype + "[";
                             x++;
                             datatype = "";
 
@@ -2358,7 +2367,6 @@ public partial class Form1 : Form
         }
         catch (Exception ex)
         {
-            // Log or display the exception
             Console.WriteLine($"An error occurred: {ex.Message}");
         }
         finally
@@ -2374,7 +2382,7 @@ public partial class Form1 : Form
     {
         string tempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
         Directory.CreateDirectory(tempDir);
-        bool hasError = false;
+        hasError = false;
         semanticError.Rows.Clear();
         int id = 0;
 
@@ -2429,25 +2437,19 @@ public partial class Form1 : Form
                                 id++;
 
                                 hasError = true;
+                                process.Kill();
                             }
                         }
                     }
                 };
 
-                if (hasError)
-                {
-                    run.Enabled = false;
-                }
-                else
-                {
-                    run.Enabled = true;
-
-                    semanticError.Rows.Add(id, "You may run the code!!", 0);
-                }
-
                 process.Start();
                 process.BeginOutputReadLine();
-                await process.WaitForExitAsync();
+                bool exited = await Task.Run(() => process.WaitForExit(5000));
+                if (!exited)
+                {
+                    process.Kill();
+                }
             }
         }
         catch (Exception ex)
@@ -2458,7 +2460,30 @@ public partial class Form1 : Form
         {
             if (Directory.Exists(tempDir))
             {
-                Directory.Delete(tempDir, true);
+                await Task.Delay(500);
+
+                bool deleted = false;
+                int attempts = 0;
+                const int maxAttempts = 10;
+
+                while (!deleted && attempts < maxAttempts)
+                {
+                    try
+                    {
+                        Directory.Delete(tempDir, true);
+                        deleted = true;
+                    }
+                    catch (UnauthorizedAccessException)
+                    {
+                        attempts++;
+                        await Task.Delay(500);
+                    }
+                    catch (IOException)
+                    {
+                        attempts++;
+                        await Task.Delay(500);
+                    }
+                }
             }
         }
     }
