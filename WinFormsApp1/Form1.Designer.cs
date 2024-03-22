@@ -292,7 +292,6 @@ partial class Form1
         // 
         tabPage5.Controls.Add(semanticError);
         tabPage5.Controls.Add(TempGrid);
-        tabPage5.Controls.Add(OutputText);
         tabPage5.Location = new Point(4, 30);
         tabPage5.Name = "tabPage5";
         tabPage5.Padding = new Padding(3);
@@ -307,11 +306,11 @@ partial class Form1
         semanticError.AllowUserToDeleteRows = false;
         semanticError.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
         semanticError.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, Line });
-        semanticError.Location = new Point(0, 2);
+        semanticError.Location = new Point(0, 0);
         semanticError.Name = "semanticError";
         semanticError.ReadOnly = true;
         semanticError.RowHeadersVisible = false;
-        semanticError.Size = new Size(1157, 119);
+        semanticError.Size = new Size(1157, 121);
         semanticError.TabIndex = 4;
         semanticError.CellContentClick += semanticError_CellContentClick;
         // 
@@ -341,7 +340,7 @@ partial class Form1
         TempGrid.AllowUserToDeleteRows = false;
         TempGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
         TempGrid.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn7, dataGridViewTextBoxColumn8 });
-        TempGrid.Location = new Point(256, 7);
+        TempGrid.Location = new Point(386, 2);
         TempGrid.Name = "TempGrid";
         TempGrid.ReadOnly = true;
         TempGrid.RowHeadersVisible = false;
@@ -371,7 +370,7 @@ partial class Form1
         // 
         // OutputText
         // 
-        OutputText.Location = new Point(86, 0);
+        OutputText.Location = new Point(905, 12);
         OutputText.Name = "OutputText";
         OutputText.Size = new Size(240, 122);
         OutputText.TabIndex = 9;
@@ -394,6 +393,7 @@ partial class Form1
         ClientSize = new Size(1170, 759);
         Controls.Add(run);
         Controls.Add(tabControl2);
+        Controls.Add(OutputText);
         Controls.Add(tabControl1);
         Controls.Add(Code);
         Controls.Add(clear);

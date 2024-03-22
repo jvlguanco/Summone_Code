@@ -213,7 +213,7 @@ public partial class Form1 : Form
         int count = 0;
         int dimensions = 0;
         int tracker = 0;
-        int[] size = new int[2];
+        object[] size = new object[2];
         int lineTracker = 2;
         int currentLine = 1;
         int openBrace = 0;
@@ -798,7 +798,7 @@ public partial class Form1 : Form
                             codeTemp += ",] ";
                         }
 
-                        codeTemp += " " + tempId + " " + " = new int[";
+                        codeTemp += " " + tempId + " " + " = new double[";
 
                         tempId = "";
 
@@ -914,7 +914,7 @@ public partial class Form1 : Form
                             codeTemp += ",] ";
                         }
 
-                        codeTemp += " " + tempId + " " + " = new int[";
+                        codeTemp += " " + tempId + " " + " = new string[";
 
                         tempId = "";
 
@@ -1030,7 +1030,7 @@ public partial class Form1 : Form
                             codeTemp += ",] ";
                         }
 
-                        codeTemp += " " + tempId + " " + " = new int[";
+                        codeTemp += " " + tempId + " " + " = new bool[";
 
                         tempId = "";
 
@@ -1449,10 +1449,10 @@ public partial class Form1 : Form
 
                         while (TempGrid.Rows[x].Cells[2].Value.ToString() != "=")
                         {
-                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Inter Literal")
+                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Inter Literal" || TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
                             {
                                 dimensions++;
-                                size[tracker] = Convert.ToInt32(TempGrid.Rows[x].Cells[1].Value.ToString());
+                                size[tracker] = TempGrid.Rows[x].Cells[1].Value.ToString();
                                 x++;
                                 tracker++;
                             }
@@ -1584,10 +1584,10 @@ public partial class Form1 : Form
 
                         while (TempGrid.Rows[x].Cells[2].Value.ToString() != "=" && TempGrid.Rows[x].Cells[2].Value.ToString() != ";")
                         {
-                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Inter Literal")
+                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Inter Literal" || TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
                             {
                                 dimensions++;
-                                size[tracker] = Convert.ToInt32(TempGrid.Rows[x].Cells[1].Value.ToString());
+                                size[tracker] = TempGrid.Rows[x].Cells[1].Value.ToString();
                                 x++;
                                 tracker++;
                             }
