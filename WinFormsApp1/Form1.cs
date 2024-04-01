@@ -1806,6 +1806,22 @@ public partial class Form1 : Form
 
                                             x++;
                                             break;
+                                        case "ping":
+                                            codeTemp += "Convert.ToString";
+                                            x++;
+                                            break;
+                                        case "inter":
+                                            codeTemp += "Convert.ToInt32";
+                                            x++;
+                                            break;
+                                        case "bloat":
+                                            codeTemp += "Convert.ToDouble";
+                                            x++;
+                                            break;
+                                        case "pool":
+                                            codeTemp += "Convert.ToBoolean";
+                                            x++;
+                                            break;
                                         default:
                                             codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
                                             x++;
@@ -2431,6 +2447,8 @@ public partial class Form1 : Form
                                 result = result.Replace("int", "inter");
                                 result = result.Replace("double", "bloat");
                                 result = result.Replace("string", "ping");
+
+                                result = result.Replace("The type", "");
 
                                 semanticError.Rows.Add(id, result, codeLine);
                                 id++;
