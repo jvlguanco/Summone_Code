@@ -2559,14 +2559,14 @@ public class SyntaxParser : RecursiveDescentParser {
         pattern = new ProductionPattern((int) SyntaxConstants.PROD_2D_ARRAY,
                                         "Prod_2D_array");
         alt = new ProductionPatternAlternative();
-        alt.AddToken((int) SyntaxConstants.SEMICOL, 1, 1);
+        alt.AddToken((int) SyntaxConstants.COMMA, 1, 1);
         pattern.AddAlternative(alt);
         AddPattern(pattern);
 
         pattern = new ProductionPattern((int) SyntaxConstants.PROD_ADDITIONAL_PARAM,
                                         "Prod_additional_param");
         alt = new ProductionPatternAlternative();
-        alt.AddToken((int) SyntaxConstants.SEMICOL, 1, 1);
+        alt.AddToken((int) SyntaxConstants.COMMA, 1, 1);
         alt.AddProduction((int) SyntaxConstants.PROD_DATA_TYPE, 1, 1);
         alt.AddProduction((int) SyntaxConstants.PROD_OPTIONAL_ARRAY, 0, 1);
         alt.AddToken((int) SyntaxConstants.IDEN, 1, 1);
