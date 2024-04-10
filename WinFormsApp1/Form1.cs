@@ -1822,6 +1822,25 @@ public partial class Form1 : Form
                                             codeTemp += "Convert.ToBoolean";
                                             x++;
                                             break;
+                                        case "[":
+                                            codeTemp += "[";
+                                            x++;
+
+                                            while (TempGrid.Rows[x].Cells[2].Value.ToString() != "]")
+                                            {
+                                                codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                                                x++;
+
+                                                if (TempGrid.Rows[x+1].Cells[2].Value.ToString() == "[")
+                                                {
+                                                    codeTemp += ", ";
+                                                    x = x + 2;
+                                                }
+                                            }
+
+                                            codeTemp += "]";
+                                            x++;
+                                            break;
                                         default:
                                             codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
                                             x++;
@@ -1920,6 +1939,25 @@ public partial class Form1 : Form
                                 codeTemp += " false";
                             }
                             x++;
+                        }
+                        else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "["){
+                            codeTemp += "[";
+                            x++;
+
+                            while (TempGrid.Rows[x].Cells[2].Value.ToString() != "=")
+                            {
+                                if (TempGrid.Rows[x].Cells[2].Value.ToString() != "]" && TempGrid.Rows[x].Cells[2].Value.ToString() != "[")
+                                {
+                                    codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                                }
+                                if (TempGrid.Rows[x].Cells[2].Value.ToString() == "[")
+                                {
+                                    codeTemp += ", ";
+                                }
+
+                                x++;
+                            }
+                            codeTemp += "]";
                         }
                         else
                         {

@@ -307,11 +307,11 @@ partial class Form1
         semanticError.AllowUserToDeleteRows = false;
         semanticError.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
         semanticError.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, Line });
-        semanticError.Location = new Point(0, 0);
+        semanticError.Location = new Point(0, 3);
         semanticError.Name = "semanticError";
         semanticError.ReadOnly = true;
         semanticError.RowHeadersVisible = false;
-        semanticError.Size = new Size(1157, 121);
+        semanticError.Size = new Size(1157, 118);
         semanticError.TabIndex = 4;
         semanticError.CellContentClick += semanticError_CellContentClick;
         // 
@@ -371,9 +371,9 @@ partial class Form1
         // 
         // OutputText
         // 
-        OutputText.Location = new Point(502, 17);
+        OutputText.Location = new Point(501, 25);
         OutputText.Name = "OutputText";
-        OutputText.Size = new Size(240, 48);
+        OutputText.Size = new Size(240, 49);
         OutputText.TabIndex = 9;
         OutputText.Text = "";
         // 
