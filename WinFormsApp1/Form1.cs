@@ -5,6 +5,7 @@ using Microsoft.CodeAnalysis.Scripting;
 using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
+using Microsoft.CodeAnalysis;
 
 namespace WinFormsApp1;
 
@@ -23,6 +24,8 @@ public partial class Form1 : Form
     Dictionary<int, int> lineMapping = new Dictionary<int, int>();
     string code;
     bool hasError;
+    int lineTracker = 2;
+    int currentLine = 1;
 
     private void lexer_Click(object sender, EventArgs e)
     {
@@ -223,10 +226,10 @@ public partial class Form1 : Form
         int dimensions = 0;
         int tracker = 0;
         object[] size = new object[2];
-        int lineTracker = 2;
-        int currentLine = 1;
         int openBrace = 0;
         int openDo = 0;
+        lineTracker = 2;
+        currentLine = 1;
 
         lineMapping.Clear();
 
@@ -722,6 +725,8 @@ public partial class Form1 : Form
                             codeTemp += ";\n";
                             OutputText.Text += codeTemp;
                             codeTemp = "";
+                            lineMapping.Add(lineTracker, currentLine);
+                            lineTracker++;
                         }
                     }
                     else
@@ -838,6 +843,8 @@ public partial class Form1 : Form
                             codeTemp += ";\n";
                             OutputText.Text += codeTemp;
                             codeTemp = "";
+                            lineMapping.Add(lineTracker, currentLine);
+                            lineTracker++;
                         }
                     }
                     else
@@ -954,6 +961,8 @@ public partial class Form1 : Form
                             codeTemp += ";\n";
                             OutputText.Text += codeTemp;
                             codeTemp = "";
+                            lineMapping.Add(lineTracker, currentLine);
+                            lineTracker++;
                         }
                     }
                     else
@@ -1070,6 +1079,8 @@ public partial class Form1 : Form
                             codeTemp += ";\n";
                             OutputText.Text += codeTemp;
                             codeTemp = "";
+                            lineMapping.Add(lineTracker, currentLine);
+                            lineTracker++;
                         }
                     }
                     else
@@ -1661,6 +1672,8 @@ public partial class Form1 : Form
                             codeTemp += ";\n";
                             OutputText.Text += codeTemp;
                             codeTemp = "";
+                            lineMapping.Add(lineTracker, currentLine);
+                            lineTracker++;
                         }
                     }
                     else
@@ -1674,7 +1687,7 @@ public partial class Form1 : Form
                                 codeTemp += " = ";
                                 x++;
                             }
-                            else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "," && TempGrid.Rows[x - 1].Cells[2].Value.ToString() == "Identifier" && TempGrid.Rows[x - 2].Cells[2].Value.ToString() == ".")
+                            else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "," && TempGrid.Rows[x - 1].Cells[2].Value.ToString() == "Identifier")
                             {
                                 codeTemp += "= default, ";
                                 x++;
@@ -1853,6 +1866,8 @@ public partial class Form1 : Form
                         codeTemp += ";\n";
                         OutputText.Text += codeTemp;
                         codeTemp = "";
+                        lineMapping.Add(lineTracker, currentLine);
+                        lineTracker++;
                     }
 
                     break;
@@ -1944,20 +1959,17 @@ public partial class Form1 : Form
                             codeTemp += "[";
                             x++;
 
-                            while (TempGrid.Rows[x].Cells[2].Value.ToString() != "=")
+                            while (TempGrid.Rows[x].Cells[2].Value.ToString() != "]")
                             {
-                                if (TempGrid.Rows[x].Cells[2].Value.ToString() != "]" && TempGrid.Rows[x].Cells[2].Value.ToString() != "[")
-                                {
-                                    codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
-                                }
-                                if (TempGrid.Rows[x].Cells[2].Value.ToString() == "[")
+                                codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                                x++;
+
+                                if (TempGrid.Rows[x+1].Cells[2].Value.ToString() == "[")
                                 {
                                     codeTemp += ", ";
+                                    x = x + 2;
                                 }
-
-                                x++;
                             }
-                            codeTemp += "]";
                         }
                         else
                         {
@@ -2464,6 +2476,12 @@ public partial class Form1 : Form
                     if (!string.IsNullOrEmpty(e.Data))
                     {
                         string output = e.Data;
+                        
+                        foreach (KeyValuePair<int, int> pair in lineMapping)
+                        {
+                            TempGrid.Rows.Add(0, pair.Key, pair.Value);
+                        }
+
                         if (output.Contains("error"))
                         {
                             string pattern = @"\((-?\d+),(-?\d+)\)";
@@ -2488,7 +2506,7 @@ public partial class Form1 : Form
 
                                 result = result.Replace("The type", "");
 
-                                semanticError.Rows.Add(id, result, codeLine);
+                                semanticError.Rows.Add(id, result + " "  + originalLine, codeLine);
                                 id++;
 
                                 hasError = true;
