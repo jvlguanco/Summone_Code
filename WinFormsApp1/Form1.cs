@@ -1202,7 +1202,7 @@ public partial class Form1 : Form
                                 }
                                 break;
                             case "ping":
-                                codeTemp += "public ping";
+                                codeTemp += "public string";
                                 x++;
 
                                 if (TempGrid.Rows[x].Cells[2].Value.ToString() == "[" && TempGrid.Rows[x + 1].Cells[2].Value.ToString() == "]")
