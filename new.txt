@@ -294,3 +294,18 @@ spawn void base(){
         push("HP = +0%");
     }
 }
+------------------------------------------------------------------------------------------------------
+Shows each title of each set in TFT based on input
+
+spawn void base(){
+    ping titles[10] = {"Rise of The Elements", "Fates", "Galaxies", "Reckoning", "Gizmos & Gadgets", "Dragonlands", " Monsters Attack!", "Reforged", "Remix Rumble", "Inkborn Fables"};
+
+    push("Current Number of Sets: 10");
+    push("What Set Title do you want to see? 1-10");
+    inter set = inter(hold());
+
+    if(set >= 1 && set <= 10)
+        push("Set " + set + ": " + titles[set - 1]);
+    else
+        push("Invalid Selection");
+}

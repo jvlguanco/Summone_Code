@@ -231,6 +231,9 @@ public partial class Form1 : Form
         lineTracker = 2;
         currentLine = 1;
 
+        Dictionary<string, string[,]> structArray = new Dictionary<string, string[,]>();
+        bool is2D = false;
+
         lineMapping.Clear();
 
         while (TempGrid.Rows[count].Cells[2].Value.ToString() != "spawn")
@@ -1147,18 +1150,8 @@ public partial class Form1 : Form
                         switch (TempGrid.Rows[x].Cells[2].Value.ToString())
                         {
                             case "inter":
-                                codeTemp += "public int";
+                                codeTemp += "public int ";
                                 x++;
-
-                                if (TempGrid.Rows[x].Cells[2].Value.ToString() == "[" && TempGrid.Rows[x + 1].Cells[2].Value.ToString() == "]")
-                                {
-                                    codeTemp += "[] ";
-                                    x = x + 2;
-                                }
-                                else
-                                {
-                                    codeTemp += " ";
-                                }
 
                                 if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
                                 {
@@ -1169,18 +1162,8 @@ public partial class Form1 : Form
                                 }
                                 break;
                             case "bloat":
-                                codeTemp += "public double";
+                                codeTemp += "public double ";
                                 x++;
-
-                                if (TempGrid.Rows[x].Cells[2].Value.ToString() == "[" && TempGrid.Rows[x + 1].Cells[2].Value.ToString() == "]")
-                                {
-                                    codeTemp += "[] ";
-                                    x = x + 2;
-                                }
-                                else
-                                {
-                                    codeTemp += " ";
-                                }
 
                                 if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
                                 {
@@ -1191,18 +1174,8 @@ public partial class Form1 : Form
                                 }
                                 break;
                             case "pool":
-                                codeTemp += "public bool";
+                                codeTemp += "public bool ";
                                 x++;
-
-                                if (TempGrid.Rows[x].Cells[2].Value.ToString() == "[" && TempGrid.Rows[x + 1].Cells[2].Value.ToString() == "]")
-                                {
-                                    codeTemp += "[] ";
-                                    x = x + 2;
-                                }
-                                else
-                                {
-                                    codeTemp += " ";
-                                }
 
                                 if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
                                 {
@@ -1213,18 +1186,8 @@ public partial class Form1 : Form
                                 }
                                 break;
                             case "ping":
-                                codeTemp += "public string";
+                                codeTemp += "public string ";
                                 x++;
-
-                                if (TempGrid.Rows[x].Cells[2].Value.ToString() == "[" && TempGrid.Rows[x + 1].Cells[2].Value.ToString() == "]")
-                                {
-                                    codeTemp += "[] ";
-                                    x = x + 2;
-                                }
-                                else
-                                {
-                                    codeTemp += " ";
-                                }
 
                                 if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
                                 {
@@ -1278,6 +1241,7 @@ public partial class Form1 : Form
                         if (TempGrid.Rows[x].Cells[2].Value.ToString() == "base")
                         {
                             codeTemp += "Main() {\n";
+
                             OutputText.Text += codeTemp;
                             codeTemp = "";
                             mainFlag = true;

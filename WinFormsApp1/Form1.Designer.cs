@@ -292,7 +292,6 @@ partial class Form1
         // 
         tabPage5.Controls.Add(semanticError);
         tabPage5.Controls.Add(TempGrid);
-        tabPage5.Controls.Add(OutputText);
         tabPage5.Location = new Point(4, 30);
         tabPage5.Name = "tabPage5";
         tabPage5.Padding = new Padding(3);
@@ -307,11 +306,11 @@ partial class Form1
         semanticError.AllowUserToDeleteRows = false;
         semanticError.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
         semanticError.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, Line });
-        semanticError.Location = new Point(0, 3);
+        semanticError.Location = new Point(0, 0);
         semanticError.Name = "semanticError";
         semanticError.ReadOnly = true;
         semanticError.RowHeadersVisible = false;
-        semanticError.Size = new Size(1157, 118);
+        semanticError.Size = new Size(1157, 121);
         semanticError.TabIndex = 4;
         semanticError.CellContentClick += semanticError_CellContentClick;
         // 
@@ -371,9 +370,9 @@ partial class Form1
         // 
         // OutputText
         // 
-        OutputText.Location = new Point(410, 36);
+        OutputText.Location = new Point(439, 310);
         OutputText.Name = "OutputText";
-        OutputText.Size = new Size(702, 44);
+        OutputText.Size = new Size(702, 283);
         OutputText.TabIndex = 9;
         OutputText.Text = "";
         // 
@@ -394,6 +393,7 @@ partial class Form1
         ClientSize = new Size(1170, 759);
         Controls.Add(run);
         Controls.Add(tabControl2);
+        Controls.Add(OutputText);
         Controls.Add(tabControl1);
         Controls.Add(Code);
         Controls.Add(clear);

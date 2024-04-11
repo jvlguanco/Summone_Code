@@ -896,7 +896,6 @@ public class SyntaxParser : RecursiveDescentParser {
                                         "Prod_tower_var");
         alt = new ProductionPatternAlternative();
         alt.AddProduction((int) SyntaxConstants.PROD_GT_DATA_TYPE, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_OPTIONAL_ARRAY, 0, 1);
         alt.AddToken((int) SyntaxConstants.IDEN, 1, 1);
         alt.AddToken((int) SyntaxConstants.SEMICOL, 1, 1);
         alt.AddProduction((int) SyntaxConstants.PROD_ADD_TOWER_VAR, 0, 1);
