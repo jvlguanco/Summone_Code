@@ -1749,7 +1749,7 @@ public partial class Form1 : Form
                         {
                             x++;
 
-                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Ping Literal" || TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier" || TempGrid.Rows[x].Cells[2].Value.ToString() == ")" || TempGrid.Rows[x].Cells[2].Value.ToString() == "+" || TempGrid.Rows[x].Cells[2].Value.ToString() == "Pool Literal")
+                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Ping Literal" || TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier" || TempGrid.Rows[x].Cells[2].Value.ToString() == ")" || TempGrid.Rows[x].Cells[2].Value.ToString() == "+" || TempGrid.Rows[x].Cells[2].Value.ToString() == "Pool Literal" || TempGrid.Rows[x].Cells[2].Value.ToString() == "ping")
                             {
                                 do
                                 {
