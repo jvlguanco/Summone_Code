@@ -2460,7 +2460,15 @@ public partial class Form1 : Form
 
                             if (parts[2].Contains("error"))
                             {
-                                result = parts[3].Replace("[C", "");
+                                if (parts.Count() == 6)
+                                {
+                                    result = parts[3] + ": " + parts[4].Replace("[C", "");
+                                }
+                                else
+                                {
+                                    result = parts[3].Replace("[C", "");
+                                }
+
                                 result = result.Trim();
 
                                 result = result.Replace("bool", "pool");
@@ -2470,7 +2478,7 @@ public partial class Form1 : Form
 
                                 result = result.Replace("The type", "");
 
-                                semanticError.Rows.Add(id, result + " "  + originalLine, codeLine);
+                                semanticError.Rows.Add(id, result, codeLine);
                                 id++;
 
                                 hasError = true;
@@ -2481,7 +2489,7 @@ public partial class Form1 : Form
 
                 process.Start();
                 process.BeginOutputReadLine();
-                bool exited = await Task.Run(() => process.WaitForExit(5000));
+                bool exited = await Task.Run(() => process.WaitForExit(1500));
                 if (!exited)
                 {
                     process.Kill();
@@ -2496,7 +2504,7 @@ public partial class Form1 : Form
         {
             if (Directory.Exists(tempDir))
             {
-                await Task.Delay(500);
+                await Task.Delay(100);
 
                 bool deleted = false;
                 int attempts = 0;
@@ -2512,12 +2520,12 @@ public partial class Form1 : Form
                     catch (UnauthorizedAccessException)
                     {
                         attempts++;
-                        await Task.Delay(500);
+                        await Task.Delay(100);
                     }
                     catch (IOException)
                     {
                         attempts++;
-                        await Task.Delay(500);
+                        await Task.Delay(100);
                     }
                 }
             }
