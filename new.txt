@@ -41,7 +41,7 @@ spawn void base(){
     else if (player == "Ikura")
         push("Verbal Abuse");
     else if (player == "Delphine")
-        push("Interntional Feeding");
+        push("Intentional Feeding");
     else
         push("Player not found");
 }

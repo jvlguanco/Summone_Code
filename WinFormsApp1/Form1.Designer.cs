@@ -62,6 +62,7 @@ partial class Form1
         dataGridViewTextBoxColumn8 = new DataGridViewTextBoxColumn();
         OutputText = new RichTextBox();
         run = new Button();
+        button1 = new Button();
         tabControl1.SuspendLayout();
         tabPage1.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)LexGrid).BeginInit();
@@ -87,7 +88,7 @@ partial class Form1
         // 
         // lexer
         // 
-        lexer.Location = new Point(41, 73);
+        lexer.Location = new Point(103, 134);
         lexer.Name = "lexer";
         lexer.Size = new Size(142, 40);
         lexer.TabIndex = 1;
@@ -97,7 +98,7 @@ partial class Form1
         // 
         // syntax
         // 
-        syntax.Location = new Point(189, 73);
+        syntax.Location = new Point(103, 239);
         syntax.Name = "syntax";
         syntax.Size = new Size(142, 40);
         syntax.TabIndex = 2;
@@ -107,7 +108,7 @@ partial class Form1
         // 
         // semantic
         // 
-        semantic.Location = new Point(337, 73);
+        semantic.Location = new Point(103, 331);
         semantic.Name = "semantic";
         semantic.Size = new Size(142, 40);
         semantic.TabIndex = 3;
@@ -117,7 +118,7 @@ partial class Form1
         // 
         // clear
         // 
-        clear.Location = new Point(633, 73);
+        clear.Location = new Point(337, 70);
         clear.Name = "clear";
         clear.Size = new Size(142, 40);
         clear.TabIndex = 4;
@@ -150,6 +151,9 @@ partial class Form1
         // tabPage1
         // 
         tabPage1.Controls.Add(LexGrid);
+        tabPage1.Controls.Add(lexer);
+        tabPage1.Controls.Add(syntax);
+        tabPage1.Controls.Add(semantic);
         tabPage1.Location = new Point(4, 29);
         tabPage1.Name = "tabPage1";
         tabPage1.Padding = new Padding(3);
@@ -292,7 +296,6 @@ partial class Form1
         // 
         tabPage5.Controls.Add(semanticError);
         tabPage5.Controls.Add(TempGrid);
-        tabPage5.Controls.Add(OutputText);
         tabPage5.Location = new Point(4, 30);
         tabPage5.Name = "tabPage5";
         tabPage5.Padding = new Padding(3);
@@ -371,15 +374,15 @@ partial class Form1
         // 
         // OutputText
         // 
-        OutputText.Location = new Point(275, 35);
+        OutputText.Location = new Point(387, 369);
         OutputText.Name = "OutputText";
-        OutputText.Size = new Size(702, 59);
+        OutputText.Size = new Size(702, 168);
         OutputText.TabIndex = 9;
         OutputText.Text = "";
         // 
         // run
         // 
-        run.Location = new Point(485, 73);
+        run.Location = new Point(189, 70);
         run.Name = "run";
         run.Size = new Size(142, 40);
         run.TabIndex = 8;
@@ -387,19 +390,28 @@ partial class Form1
         run.UseVisualStyleBackColor = true;
         run.Click += run_Click;
         // 
+        // button1
+        // 
+        button1.Location = new Point(41, 70);
+        button1.Name = "button1";
+        button1.Size = new Size(142, 40);
+        button1.TabIndex = 9;
+        button1.Text = "Analyze";
+        button1.UseVisualStyleBackColor = true;
+        button1.Click += button1_Click;
+        // 
         // Form1
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(1170, 759);
+        Controls.Add(button1);
         Controls.Add(run);
+        Controls.Add(OutputText);
         Controls.Add(tabControl2);
         Controls.Add(tabControl1);
         Controls.Add(Code);
         Controls.Add(clear);
-        Controls.Add(semantic);
-        Controls.Add(syntax);
-        Controls.Add(lexer);
         Controls.Add(label1);
         Name = "Form1";
         Text = "Form1";
@@ -453,4 +465,5 @@ partial class Form1
     private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
     private DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
     private DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+    private Button button1;
 }

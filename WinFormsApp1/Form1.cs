@@ -27,16 +27,93 @@ public partial class Form1 : Form
     int lineTracker = 2;
     int currentLine = 1;
 
-    private void lexer_Click(object sender, EventArgs e)
+    private async void button1_Click(object sender, EventArgs e)
     {
+        OutputText.Clear();
         LexGrid.Rows.Clear();
         TempGrid.Rows.Clear();
         DataLexicalError.Rows.Clear();
         DataSyntaxError.Rows.Clear();
         semanticError.Rows.Clear();
+        run.Enabled = false;
+
+        if (Code.RichTextBox.Text != "")
+        {
+            lex = new Analyzer();
+            Initializer Lexical = new Initializer();
+            txt = Code.RichTextBox.Text + " ";
+
+            lex = Lexical.InitializeAnalyzer(txt, lex);
+
+            DisplayTokens(lex);
+
+            if (lex._invalid == 0 && lex._token.Count != 0)
+            {
+                syntax.Enabled = true;
+
+                SyntaxInitializer syntaxInitializer = new SyntaxInitializer();
+                DataSyntaxError.Rows.Clear();
+
+                run.Enabled = false;
+
+                int i = 1;
+                string s;
+
+                s = syntaxInitializer.Start(tokenDump(lex._token));
+
+                if (s != "Analyzer has pushed the lane. Proceed!")
+                {
+                    int errornum = 1;
+                    DataSyntaxError.Rows.Clear();
+
+                    if (syntaxInitializer.errors.getColumn() == 1)
+                    {
+                        syntaxInitializer.errors.setLines(syntaxInitializer.errors.getLines() - 1);
+                    }
+
+                    DataSyntaxError.Rows.Add(errornum, syntaxInitializer.errors.getLines(), syntaxInitializer.errors.getErrorMessage());
+
+                    errornum++;
+
+                    tabControl2.SelectTab("tabPage4");
+                }
+                else
+                {
+                    DataSyntaxError.Rows.Add(i, "", s);
+                    run.Enabled = false;
+
+                    code = TranslateCode();
+
+                    await AnalyzeCodeAsync(code);
+
+                    if (hasError)
+                    {
+                        run.Enabled = false;
+                        tabControl2.SelectTab("tabPage5");
+                    }
+                    else
+                    {
+                        run.Enabled = true;
+                        semanticError.Rows.Add(0, "No semantic errors found. You may run the code!", 0);
+                        tabControl2.SelectTab("tabPage5");
+                    }
+                }
+            }
+            else
+            {
+                tabControl1.SelectTab("tabPage1");
+                tabControl2.SelectTab("tabPage3");
+                run.Enabled = false;
+            }
+        }
+    }
+
+    private void lexer_Click(object sender, EventArgs e)
+    {
+        
         syntax.Enabled = false;
         semantic.Enabled = false;
-        run.Enabled = false;
+        
 
         tabControl1.SelectTab("tabPage1");
         tabControl2.SelectTab("tabPage3");
@@ -196,9 +273,12 @@ public partial class Form1 : Form
 
         await AnalyzeCodeAsync(code);
 
-        if(hasError){
+        if (hasError)
+        {
             run.Enabled = false;
-        } else {
+        }
+        else
+        {
             run.Enabled = true;
             semanticError.Rows.Add(0, "No semantic errors found.", 0);
         }
@@ -1808,7 +1888,7 @@ public partial class Form1 : Form
                                                 codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
                                                 x++;
 
-                                                if (TempGrid.Rows[x+1].Cells[2].Value.ToString() == "[")
+                                                if (TempGrid.Rows[x + 1].Cells[2].Value.ToString() == "[")
                                                 {
                                                     codeTemp += ", ";
                                                     x = x + 2;
@@ -1919,7 +1999,8 @@ public partial class Form1 : Form
                             }
                             x++;
                         }
-                        else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "["){
+                        else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "[")
+                        {
                             codeTemp += "[";
                             x++;
 
@@ -1928,7 +2009,7 @@ public partial class Form1 : Form
                                 codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
                                 x++;
 
-                                if (TempGrid.Rows[x+1].Cells[2].Value.ToString() == "[")
+                                if (TempGrid.Rows[x + 1].Cells[2].Value.ToString() == "[")
                                 {
                                     codeTemp += ", ";
                                     x = x + 2;
@@ -2440,7 +2521,7 @@ public partial class Form1 : Form
                     if (!string.IsNullOrEmpty(e.Data))
                     {
                         string output = e.Data;
-                        
+
                         foreach (KeyValuePair<int, int> pair in lineMapping)
                         {
                             TempGrid.Rows.Add(0, pair.Key, pair.Value);
@@ -2475,7 +2556,7 @@ public partial class Form1 : Form
                                 result = result.Replace("int", "inter");
                                 result = result.Replace("double", "bloat");
                                 result = result.Replace("string", "ping");
-
+                                result = result.Replace(",property or indexer", "");
                                 result = result.Replace("The type", "");
 
                                 semanticError.Rows.Add(id, result, codeLine);
