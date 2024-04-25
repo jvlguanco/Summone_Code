@@ -309,3 +309,12 @@ spawn void base(){
     else
         push("Invalid Selection");
 }
+
+spawn void base(){
+	inter a;
+	inter b = 2;
+	inter c = a / b, d;
+	inter e = c / b;
+    inter f, g;
+    inter h = a;
+}

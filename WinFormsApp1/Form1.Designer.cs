@@ -296,7 +296,6 @@ partial class Form1
         // 
         tabPage5.Controls.Add(semanticError);
         tabPage5.Controls.Add(TempGrid);
-        tabPage5.Controls.Add(OutputText);
         tabPage5.Location = new Point(4, 30);
         tabPage5.Name = "tabPage5";
         tabPage5.Padding = new Padding(3);
@@ -375,9 +374,9 @@ partial class Form1
         // 
         // OutputText
         // 
-        OutputText.Location = new Point(332, 36);
+        OutputText.Location = new Point(427, 347);
         OutputText.Name = "OutputText";
-        OutputText.Size = new Size(702, 44);
+        OutputText.Size = new Size(702, 224);
         OutputText.TabIndex = 9;
         OutputText.Text = "";
         // 
@@ -408,6 +407,7 @@ partial class Form1
         ClientSize = new Size(1170, 759);
         Controls.Add(button1);
         Controls.Add(run);
+        Controls.Add(OutputText);
         Controls.Add(tabControl2);
         Controls.Add(tabControl1);
         Controls.Add(Code);

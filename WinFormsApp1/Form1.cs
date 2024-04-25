@@ -1612,6 +1612,7 @@ public partial class Form1 : Form
                 case "bloat":
                 case "ping":
                 case "pool":
+                    int openAssign = 0;
                     if (TempGrid.Rows[x].Cells[2].Value.ToString() == "inter")
                     {
                         codeTemp += "int";
@@ -1638,6 +1639,7 @@ public partial class Form1 : Form
                     if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
                     {
                         tempId = TempGrid.Rows[x].Cells[1].Value.ToString();
+                        openAssign++;
                         x++;
                     }
 
@@ -1729,11 +1731,21 @@ public partial class Form1 : Form
                             if (TempGrid.Rows[x].Cells[2].Value.ToString() == "=")
                             {
                                 codeTemp += " = ";
+                                openAssign--;
                                 x++;
                             }
-                            else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "," && TempGrid.Rows[x - 1].Cells[2].Value.ToString() == "Identifier")
+                            else if (TempGrid.Rows[x].Cells[2].Value.ToString() == ",")
                             {
-                                codeTemp += "= default, ";
+                                if(openAssign != 0)
+                                {
+                                    codeTemp += "= default, ";
+                                    openAssign--;
+                                }
+                                else
+                                {
+                                    codeTemp += ", ";
+                                }
+                                
                                 x++;
                             }
                             else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "hold")
@@ -1792,6 +1804,14 @@ public partial class Form1 : Form
                             }
                             else
                             {
+                                if(TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier" && TempGrid.Rows[x - 1].Cells[2].Value.ToString() != "/" && TempGrid.Rows[x - 1].Cells[2].Value.ToString() != "+" && TempGrid.Rows[x - 1].Cells[2].Value.ToString() != "-" && TempGrid.Rows[x - 1].Cells[2].Value.ToString() != "*" && TempGrid.Rows[x - 1].Cells[2].Value.ToString() != "=")
+                                {
+                                    if(TempGrid.Rows[x + 1].Cells[2].Value.ToString() == ";" || TempGrid.Rows[x + 1].Cells[2].Value.ToString() == ",")
+                                    {
+                                        openAssign++;
+                                    }
+                                }
+
                                 codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
                                 x++;
                             }
@@ -1799,7 +1819,7 @@ public partial class Form1 : Form
 
                         if (TempGrid.Rows[x].Cells[2].Value.ToString() == ";")
                         {
-                            if (TempGrid.Rows[x - 1].Cells[2].Value.ToString() == "Identifier" && TempGrid.Rows[x - 2].Cells[2].Value.ToString() != ".")
+                            if (TempGrid.Rows[x - 1].Cells[2].Value.ToString() == "Identifier" && TempGrid.Rows[x - 2].Cells[2].Value.ToString() != "." && openAssign != 0)
                             {
                                 codeTemp += " = default;\n";
                                 OutputText.Text += codeTemp;
