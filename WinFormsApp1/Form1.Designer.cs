@@ -46,6 +46,10 @@ partial class Form1
         DataLexicalError = new DataGridView();
         dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
         dataGridViewTextBoxColumn5 = new DataGridViewTextBoxColumn();
+        TempGrid = new DataGridView();
+        dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
+        dataGridViewTextBoxColumn7 = new DataGridViewTextBoxColumn();
+        dataGridViewTextBoxColumn8 = new DataGridViewTextBoxColumn();
         tabPage4 = new TabPage();
         DataSyntaxError = new DataGridView();
         dataGridViewTextBoxColumn6 = new DataGridViewTextBoxColumn();
@@ -56,10 +60,6 @@ partial class Form1
         dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
         dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
         Line = new DataGridViewTextBoxColumn();
-        TempGrid = new DataGridView();
-        dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
-        dataGridViewTextBoxColumn7 = new DataGridViewTextBoxColumn();
-        dataGridViewTextBoxColumn8 = new DataGridViewTextBoxColumn();
         OutputText = new RichTextBox();
         run = new Button();
         button1 = new Button();
@@ -69,11 +69,11 @@ partial class Form1
         tabControl2.SuspendLayout();
         tabPage3.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)DataLexicalError).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)TempGrid).BeginInit();
         tabPage4.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)DataSyntaxError).BeginInit();
         tabPage5.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)semanticError).BeginInit();
-        ((System.ComponentModel.ISupportInitialize)TempGrid).BeginInit();
         SuspendLayout();
         // 
         // label1
@@ -249,6 +249,40 @@ partial class Form1
         dataGridViewTextBoxColumn5.ReadOnly = true;
         dataGridViewTextBoxColumn5.Width = 1075;
         // 
+        // TempGrid
+        // 
+        TempGrid.AllowUserToAddRows = false;
+        TempGrid.AllowUserToDeleteRows = false;
+        TempGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+        TempGrid.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn7, dataGridViewTextBoxColumn8 });
+        TempGrid.Location = new Point(203, 19);
+        TempGrid.Name = "TempGrid";
+        TempGrid.ReadOnly = true;
+        TempGrid.RowHeadersVisible = false;
+        TempGrid.Size = new Size(313, 68);
+        TempGrid.TabIndex = 10;
+        // 
+        // dataGridViewTextBoxColumn3
+        // 
+        dataGridViewTextBoxColumn3.HeaderText = "ID";
+        dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+        dataGridViewTextBoxColumn3.ReadOnly = true;
+        dataGridViewTextBoxColumn3.Width = 35;
+        // 
+        // dataGridViewTextBoxColumn7
+        // 
+        dataGridViewTextBoxColumn7.HeaderText = "Lexeme";
+        dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+        dataGridViewTextBoxColumn7.ReadOnly = true;
+        dataGridViewTextBoxColumn7.Width = 140;
+        // 
+        // dataGridViewTextBoxColumn8
+        // 
+        dataGridViewTextBoxColumn8.HeaderText = "Token";
+        dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+        dataGridViewTextBoxColumn8.ReadOnly = true;
+        dataGridViewTextBoxColumn8.Width = 140;
+        // 
         // tabPage4
         // 
         tabPage4.Controls.Add(DataSyntaxError);
@@ -339,45 +373,11 @@ partial class Form1
         Line.Name = "Line";
         Line.ReadOnly = true;
         // 
-        // TempGrid
-        // 
-        TempGrid.AllowUserToAddRows = false;
-        TempGrid.AllowUserToDeleteRows = false;
-        TempGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-        TempGrid.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn7, dataGridViewTextBoxColumn8 });
-        TempGrid.Location = new Point(203, 19);
-        TempGrid.Name = "TempGrid";
-        TempGrid.ReadOnly = true;
-        TempGrid.RowHeadersVisible = false;
-        TempGrid.Size = new Size(313, 68);
-        TempGrid.TabIndex = 10;
-        // 
-        // dataGridViewTextBoxColumn3
-        // 
-        dataGridViewTextBoxColumn3.HeaderText = "ID";
-        dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-        dataGridViewTextBoxColumn3.ReadOnly = true;
-        dataGridViewTextBoxColumn3.Width = 35;
-        // 
-        // dataGridViewTextBoxColumn7
-        // 
-        dataGridViewTextBoxColumn7.HeaderText = "Lexeme";
-        dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-        dataGridViewTextBoxColumn7.ReadOnly = true;
-        dataGridViewTextBoxColumn7.Width = 140;
-        // 
-        // dataGridViewTextBoxColumn8
-        // 
-        dataGridViewTextBoxColumn8.HeaderText = "Token";
-        dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-        dataGridViewTextBoxColumn8.ReadOnly = true;
-        dataGridViewTextBoxColumn8.Width = 140;
-        // 
         // OutputText
         // 
-        OutputText.Location = new Point(438, 60);
+        OutputText.Location = new Point(385, 43);
         OutputText.Name = "OutputText";
-        OutputText.Size = new Size(702, 27);
+        OutputText.Size = new Size(702, 34);
         OutputText.TabIndex = 9;
         OutputText.Text = "";
         // 
@@ -421,11 +421,11 @@ partial class Form1
         tabControl2.ResumeLayout(false);
         tabPage3.ResumeLayout(false);
         ((System.ComponentModel.ISupportInitialize)DataLexicalError).EndInit();
+        ((System.ComponentModel.ISupportInitialize)TempGrid).EndInit();
         tabPage4.ResumeLayout(false);
         ((System.ComponentModel.ISupportInitialize)DataSyntaxError).EndInit();
         tabPage5.ResumeLayout(false);
         ((System.ComponentModel.ISupportInitialize)semanticError).EndInit();
-        ((System.ComponentModel.ISupportInitialize)TempGrid).EndInit();
         ResumeLayout(false);
         PerformLayout();
     }

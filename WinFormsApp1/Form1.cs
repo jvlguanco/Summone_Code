@@ -1804,7 +1804,7 @@ public partial class Form1 : Form
                             }
                             else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
                             {
-                                if (TempGrid.Rows[x-1].Cells[2].Value.ToString() != "+" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "-" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "*" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "/" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "%" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "=" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "&&" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "||" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "!=" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "==" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "!")
+                                if (TempGrid.Rows[x-1].Cells[2].Value.ToString() != "+" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "-" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "*" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "/" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "%" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "=" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "&&" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "||" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "!=" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "==" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "!" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "(")
                                 {
                                     openAssign++;
                                 }
