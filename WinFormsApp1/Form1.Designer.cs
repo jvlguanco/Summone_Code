@@ -211,6 +211,8 @@ partial class Form1
         // tabPage3
         // 
         tabPage3.Controls.Add(DataLexicalError);
+        tabPage3.Controls.Add(TempGrid);
+        tabPage3.Controls.Add(OutputText);
         tabPage3.Location = new Point(4, 30);
         tabPage3.Name = "tabPage3";
         tabPage3.Padding = new Padding(3);
@@ -295,7 +297,6 @@ partial class Form1
         // tabPage5
         // 
         tabPage5.Controls.Add(semanticError);
-        tabPage5.Controls.Add(TempGrid);
         tabPage5.Location = new Point(4, 30);
         tabPage5.Name = "tabPage5";
         tabPage5.Padding = new Padding(3);
@@ -344,11 +345,11 @@ partial class Form1
         TempGrid.AllowUserToDeleteRows = false;
         TempGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
         TempGrid.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn7, dataGridViewTextBoxColumn8 });
-        TempGrid.Location = new Point(7, 36);
+        TempGrid.Location = new Point(203, 19);
         TempGrid.Name = "TempGrid";
         TempGrid.ReadOnly = true;
         TempGrid.RowHeadersVisible = false;
-        TempGrid.Size = new Size(313, 58);
+        TempGrid.Size = new Size(313, 68);
         TempGrid.TabIndex = 10;
         // 
         // dataGridViewTextBoxColumn3
@@ -374,9 +375,9 @@ partial class Form1
         // 
         // OutputText
         // 
-        OutputText.Location = new Point(427, 347);
+        OutputText.Location = new Point(438, 60);
         OutputText.Name = "OutputText";
-        OutputText.Size = new Size(702, 224);
+        OutputText.Size = new Size(702, 27);
         OutputText.TabIndex = 9;
         OutputText.Text = "";
         // 
@@ -407,7 +408,6 @@ partial class Form1
         ClientSize = new Size(1170, 759);
         Controls.Add(button1);
         Controls.Add(run);
-        Controls.Add(OutputText);
         Controls.Add(tabControl2);
         Controls.Add(tabControl1);
         Controls.Add(Code);

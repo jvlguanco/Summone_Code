@@ -1735,7 +1735,7 @@ public partial class Form1 : Form
                                 x++;
                             }
                             else if (TempGrid.Rows[x].Cells[2].Value.ToString() == ",")
-                            {
+                            { 
                                 if(openAssign != 0)
                                 {
                                     codeTemp += "= default, ";
@@ -1802,16 +1802,18 @@ public partial class Form1 : Form
 
                                 x++;
                             }
-                            else
+                            else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
                             {
-                                if(TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier" && TempGrid.Rows[x - 1].Cells[2].Value.ToString() != "/" && TempGrid.Rows[x - 1].Cells[2].Value.ToString() != "+" && TempGrid.Rows[x - 1].Cells[2].Value.ToString() != "-" && TempGrid.Rows[x - 1].Cells[2].Value.ToString() != "*" && TempGrid.Rows[x - 1].Cells[2].Value.ToString() != "=")
+                                if (TempGrid.Rows[x-1].Cells[2].Value.ToString() != "+" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "-" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "*" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "/" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "%" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "=" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "&&" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "||" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "!=" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "==" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "!")
                                 {
-                                    if(TempGrid.Rows[x + 1].Cells[2].Value.ToString() == ";" || TempGrid.Rows[x + 1].Cells[2].Value.ToString() == ",")
-                                    {
-                                        openAssign++;
-                                    }
+                                    openAssign++;
                                 }
 
+                                codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                                x++;
+                            }
+                            else
+                            {
                                 codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
                                 x++;
                             }

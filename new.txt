@@ -318,3 +318,42 @@ spawn void base(){
     inter f, g;
     inter h = a;
 }
+
+spawn void base(){
+	inter a = 1;
+	inter b = 2;
+	inter c = 3;
+	inter d = 4;
+	inter e = 5;
+	inter f = 6;
+
+	push("Sample 1");
+	inter x = b * (c / d) / e + a + f;
+	push(x);
+}
+
+spawn void base(){
+	inter a = 1;
+	inter b = 2;
+	inter c = 3;
+	inter d = 4;
+	inter e = 5;
+	inter f = 6;
+
+	push("Sample 2");
+	inter y = a + b / (c - d) / e + f;
+	push(y);
+}
+
+spawn void base(){
+	inter a = 1;
+	inter b = 2;
+	inter c = 3;
+	inter d = 4;
+	inter e = 5;
+	inter f = 6;
+
+	push("Sample 3");
+	inter z = (a + b) * c / d - e + f;
+	push(z);
+}
