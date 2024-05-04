@@ -1753,7 +1753,10 @@ public partial class Form1 : Form
                                 codeTemp += "Console.ReadLine()";
                                 x = x + 3;
                             }
-                            else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "inter" || TempGrid.Rows[x].Cells[2].Value.ToString() == "bloat" || TempGrid.Rows[x].Cells[2].Value.ToString() == "ping" || TempGrid.Rows[x].Cells[2].Value.ToString() == "pool")
+                            else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "inter" || 
+                                    TempGrid.Rows[x].Cells[2].Value.ToString() == "bloat" || 
+                                    TempGrid.Rows[x].Cells[2].Value.ToString() == "ping" || 
+                                    TempGrid.Rows[x].Cells[2].Value.ToString() == "pool")
                             {
                                 if (TempGrid.Rows[x].Cells[2].Value.ToString() == "inter")
                                 {
@@ -1804,7 +1807,18 @@ public partial class Form1 : Form
                             }
                             else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
                             {
-                                if (TempGrid.Rows[x-1].Cells[2].Value.ToString() != "+" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "-" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "*" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "/" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "%" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "=" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "&&" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "||" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "!=" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "==" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "!" && TempGrid.Rows[x-1].Cells[2].Value.ToString() != "(")
+                                if (TempGrid.Rows[x-1].Cells[2].Value.ToString() != "+" && 
+                                    TempGrid.Rows[x-1].Cells[2].Value.ToString() != "-" && 
+                                    TempGrid.Rows[x-1].Cells[2].Value.ToString() != "*" && 
+                                    TempGrid.Rows[x-1].Cells[2].Value.ToString() != "/" && 
+                                    TempGrid.Rows[x-1].Cells[2].Value.ToString() != "%" && 
+                                    TempGrid.Rows[x-1].Cells[2].Value.ToString() != "=" && 
+                                    TempGrid.Rows[x-1].Cells[2].Value.ToString() != "&&" && 
+                                    TempGrid.Rows[x-1].Cells[2].Value.ToString() != "||" && 
+                                    TempGrid.Rows[x-1].Cells[2].Value.ToString() != "!=" && 
+                                    TempGrid.Rows[x-1].Cells[2].Value.ToString() != "==" && 
+                                    TempGrid.Rows[x-1].Cells[2].Value.ToString() != "!" && 
+                                    TempGrid.Rows[x-1].Cells[2].Value.ToString() != "(")
                                 {
                                     openAssign++;
                                 }
