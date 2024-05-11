@@ -375,9 +375,9 @@ partial class Form1
         // 
         // OutputText
         // 
-        OutputText.Location = new Point(385, 43);
+        OutputText.Location = new Point(599, 35);
         OutputText.Name = "OutputText";
-        OutputText.Size = new Size(702, 34);
+        OutputText.Size = new Size(392, 52);
         OutputText.TabIndex = 9;
         OutputText.Text = "";
         // 

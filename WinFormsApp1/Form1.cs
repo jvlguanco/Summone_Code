@@ -1818,7 +1818,10 @@ public partial class Form1 : Form
                                     TempGrid.Rows[x-1].Cells[2].Value.ToString() != "!=" && 
                                     TempGrid.Rows[x-1].Cells[2].Value.ToString() != "==" && 
                                     TempGrid.Rows[x-1].Cells[2].Value.ToString() != "!" && 
-                                    TempGrid.Rows[x-1].Cells[2].Value.ToString() != "(")
+                                    TempGrid.Rows[x-1].Cells[2].Value.ToString() != "(" &&
+                                    TempGrid.Rows[x-1].Cells[2].Value.ToString() != "<=" &&
+                                    TempGrid.Rows[x-1].Cells[2].Value.ToString() != ">="
+                                    )
                                 {
                                     openAssign++;
                                 }

@@ -326,7 +326,7 @@ public class SyntaxParser : RecursiveDescentParser {
                                         "Prod_gv_ping");
         alt = new ProductionPatternAlternative();
         alt.AddToken((int) SyntaxConstants.IDEN, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_G_PING_TAIL, 1, 1);
+        alt.AddProduction((int) SyntaxConstants.PROD_G_PING_TAIL, 0, 1);
         pattern.AddAlternative(alt);
         AddPattern(pattern);
 
