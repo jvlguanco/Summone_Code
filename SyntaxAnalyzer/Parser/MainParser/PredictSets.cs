@@ -192,9 +192,9 @@ public class PredictSets
     string add_assign_2d = ", }";
     string loop_stm = "for while do";
     string init = "Identifier";
-    string init_value = "\"Inter Literal\" \"Identifier\"";
+    string init_value = "Inter Literal Identifier";
     string for_keyword = "up down";
-    string end = "\"Inter Literal\" \"Identifier\"";
+    string end = "Inter Literal Identifier";
     string content = "inter bloat ping pool comp tower Identifier for while do if push destroy commit }";
     string condition =  "( ! inter bloat InterLiteral BloatLiteral PingLiteral buff debuff Identifier pool ping";
     string loop_terminator = "destroy commit";

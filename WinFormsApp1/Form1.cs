@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis;
+using System.Windows.Markup;
 
 namespace WinFormsApp1;
 
@@ -1648,18 +1649,45 @@ public partial class Form1 : Form
                         codeTemp += "[";
                         x++;
 
+                        string value = "";
+
                         while (TempGrid.Rows[x].Cells[2].Value.ToString() != "=" && TempGrid.Rows[x].Cells[2].Value.ToString() != ";")
                         {
-                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Inter Literal" || TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
+                            if (TempGrid.Rows[x].Cells[2].Value.ToString() != "]")
                             {
-                                dimensions++;
-                                size[tracker] = TempGrid.Rows[x].Cells[1].Value.ToString();
+                                if (TempGrid.Rows[x].Cells[2].Value.ToString() != "[")
+                                {
+                                    if (TempGrid.Rows[x].Cells[2].Value.ToString() == "inter")
+                                    {
+                                        value += "Convert.ToInt32";
+                                    }
+                                    else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "bloat")
+                                    {
+                                        value += "Convert.ToDouble";
+                                    }
+                                    else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "ping")
+                                    {
+                                        value += "Convert.ToString";
+                                    }
+                                    else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "pool")
+                                    {
+                                        value += "Convert.ToBoolean";
+                                    }
+                                    else
+                                    {
+                                        value += TempGrid.Rows[x].Cells[1].Value.ToString();
+                                    }
+                                }
+
                                 x++;
-                                tracker++;
                             }
                             else
                             {
+                                dimensions++;
+                                size[tracker] = value;
                                 x++;
+                                tracker++;
+                                value = "";
                             }
                         }
 
