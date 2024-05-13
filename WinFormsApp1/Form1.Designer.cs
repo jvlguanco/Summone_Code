@@ -50,7 +50,6 @@ partial class Form1
         dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
         dataGridViewTextBoxColumn7 = new DataGridViewTextBoxColumn();
         dataGridViewTextBoxColumn8 = new DataGridViewTextBoxColumn();
-        OutputText = new RichTextBox();
         tabPage4 = new TabPage();
         DataSyntaxError = new DataGridView();
         dataGridViewTextBoxColumn6 = new DataGridViewTextBoxColumn();
@@ -61,6 +60,7 @@ partial class Form1
         dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
         dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
         Line = new DataGridViewTextBoxColumn();
+        OutputText = new RichTextBox();
         run = new Button();
         button1 = new Button();
         tabControl1.SuspendLayout();
@@ -282,14 +282,6 @@ partial class Form1
         dataGridViewTextBoxColumn8.ReadOnly = true;
         dataGridViewTextBoxColumn8.Width = 140;
         // 
-        // OutputText
-        // 
-        OutputText.Location = new Point(599, 243);
-        OutputText.Name = "OutputText";
-        OutputText.Size = new Size(392, 111);
-        OutputText.TabIndex = 9;
-        OutputText.Text = "";
-        // 
         // tabPage4
         // 
         tabPage4.Controls.Add(DataSyntaxError);
@@ -379,6 +371,14 @@ partial class Form1
         Line.HeaderText = "Line";
         Line.Name = "Line";
         Line.ReadOnly = true;
+        // 
+        // OutputText
+        // 
+        OutputText.Location = new Point(599, 249);
+        OutputText.Name = "OutputText";
+        OutputText.Size = new Size(392, 105);
+        OutputText.TabIndex = 9;
+        OutputText.Text = "";
         // 
         // run
         // 
