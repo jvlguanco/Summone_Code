@@ -2476,7 +2476,22 @@ public partial class Form1 : Form
 
                             while (TempGrid.Rows[x].Cells[2].Value.ToString() != ")")
                             {
-                                codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                                if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Pool Literal")
+                                {
+                                    if (TempGrid.Rows[x].Cells[1].Value.ToString() == "buff")
+                                    {
+                                        codeTemp += "true";
+                                    }
+                                    else
+                                    {
+                                        codeTemp += "false";
+                                    }
+                                }
+                                else
+                                {
+                                    codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                                }
+
                                 x++;
                             }
 
