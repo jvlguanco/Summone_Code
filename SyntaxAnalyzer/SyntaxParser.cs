@@ -1911,9 +1911,9 @@ public class SyntaxParser : RecursiveDescentParser {
         alt.AddProduction((int) SyntaxConstants.PROD_LV_INTER_VALUE, 1, 1);
         alt.AddProduction((int) SyntaxConstants.PROD_ADD_LC_INTER_TAIL, 0, 1);
         pattern.AddAlternative(alt);
-        alt = new ProductionPatternAlternative();
-        alt.AddProduction((int) SyntaxConstants.PROD_LC_INTER_ARRAY_DEC, 1, 1);
-        pattern.AddAlternative(alt);
+        // alt = new ProductionPatternAlternative();
+        // alt.AddProduction((int) SyntaxConstants.PROD_LC_INTER_ARRAY_DEC, 1, 1);
+        // pattern.AddAlternative(alt);
         AddPattern(pattern);
 
         pattern = new ProductionPattern((int) SyntaxConstants.PROD_ADD_LC_INTER_TAIL,
@@ -1934,46 +1934,46 @@ public class SyntaxParser : RecursiveDescentParser {
         pattern.AddAlternative(alt);
         AddPattern(pattern);
 
-        pattern = new ProductionPattern((int) SyntaxConstants.PROD_LC_INTER_ARRAY_DEC,
-                                        "Prod_lc_inter_array_dec");
-        alt = new ProductionPatternAlternative();
-        alt.AddToken((int) SyntaxConstants.O_SQR, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_INDEX_VALUE, 1, 1);
-        alt.AddToken((int) SyntaxConstants.C_SQR, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_LC_INTER_1D_TAIL, 1, 1);
-        pattern.AddAlternative(alt);
-        AddPattern(pattern);
+        // pattern = new ProductionPattern((int) SyntaxConstants.PROD_LC_INTER_ARRAY_DEC,
+        //                                 "Prod_lc_inter_array_dec");
+        // alt = new ProductionPatternAlternative();
+        // alt.AddToken((int) SyntaxConstants.O_SQR, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_INDEX_VALUE, 1, 1);
+        // alt.AddToken((int) SyntaxConstants.C_SQR, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_LC_INTER_1D_TAIL, 1, 1);
+        // pattern.AddAlternative(alt);
+        // AddPattern(pattern);
 
-        pattern = new ProductionPattern((int) SyntaxConstants.PROD_LC_INTER_1D_TAIL,
-                                        "Prod_lc_inter_1D_tail");
-        alt = new ProductionPatternAlternative();
-        alt.AddToken((int) SyntaxConstants.ASSIGN, 1, 1);
-        alt.AddToken((int) SyntaxConstants.O_BRACE, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_L_INTER_ELEMENT, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_L_ADD_INTER_1D, 0, 1);
-        alt.AddToken((int) SyntaxConstants.C_BRACE, 1, 1);
-        pattern.AddAlternative(alt);
-        alt = new ProductionPatternAlternative();
-        alt.AddToken((int) SyntaxConstants.O_SQR, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_INDEX_VALUE, 1, 1);
-        alt.AddToken((int) SyntaxConstants.C_SQR, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_LC_INTER_2D_TAIL, 1, 1);
-        pattern.AddAlternative(alt);
-        AddPattern(pattern);
+        // pattern = new ProductionPattern((int) SyntaxConstants.PROD_LC_INTER_1D_TAIL,
+        //                                 "Prod_lc_inter_1D_tail");
+        // alt = new ProductionPatternAlternative();
+        // alt.AddToken((int) SyntaxConstants.ASSIGN, 1, 1);
+        // alt.AddToken((int) SyntaxConstants.O_BRACE, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_L_INTER_ELEMENT, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_L_ADD_INTER_1D, 0, 1);
+        // alt.AddToken((int) SyntaxConstants.C_BRACE, 1, 1);
+        // pattern.AddAlternative(alt);
+        // alt = new ProductionPatternAlternative();
+        // alt.AddToken((int) SyntaxConstants.O_SQR, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_INDEX_VALUE, 1, 1);
+        // alt.AddToken((int) SyntaxConstants.C_SQR, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_LC_INTER_2D_TAIL, 1, 1);
+        // pattern.AddAlternative(alt);
+        // AddPattern(pattern);
 
-        pattern = new ProductionPattern((int) SyntaxConstants.PROD_LC_INTER_2D_TAIL,
-                                        "Prod_lc_inter_2D_tail");
-        alt = new ProductionPatternAlternative();
-        alt.AddToken((int) SyntaxConstants.ASSIGN, 1, 1);
-        alt.AddToken((int) SyntaxConstants.O_BRACE, 1, 1);
-        alt.AddToken((int) SyntaxConstants.O_BRACE, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_L_INTER_ELEMENT, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_L_ADD_INTER_1D, 0, 1);
-        alt.AddToken((int) SyntaxConstants.C_BRACE, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_L_ADD_INTER_2D, 1, 1);
-        alt.AddToken((int) SyntaxConstants.C_BRACE, 1, 1);
-        pattern.AddAlternative(alt);
-        AddPattern(pattern);
+        // pattern = new ProductionPattern((int) SyntaxConstants.PROD_LC_INTER_2D_TAIL,
+        //                                 "Prod_lc_inter_2D_tail");
+        // alt = new ProductionPatternAlternative();
+        // alt.AddToken((int) SyntaxConstants.ASSIGN, 1, 1);
+        // alt.AddToken((int) SyntaxConstants.O_BRACE, 1, 1);
+        // alt.AddToken((int) SyntaxConstants.O_BRACE, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_L_INTER_ELEMENT, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_L_ADD_INTER_1D, 0, 1);
+        // alt.AddToken((int) SyntaxConstants.C_BRACE, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_L_ADD_INTER_2D, 1, 1);
+        // alt.AddToken((int) SyntaxConstants.C_BRACE, 1, 1);
+        // pattern.AddAlternative(alt);
+        // AddPattern(pattern);
 
         pattern = new ProductionPattern((int) SyntaxConstants.PROD_LC_BLOAT_TAIL,
                                         "Prod_lc_bloat_tail");
@@ -1982,9 +1982,9 @@ public class SyntaxParser : RecursiveDescentParser {
         alt.AddProduction((int) SyntaxConstants.PROD_LV_BLOAT_VALUE, 1, 1);
         alt.AddProduction((int) SyntaxConstants.PROD_ADD_LC_BLOAT_TAIL, 0, 1);
         pattern.AddAlternative(alt);
-        alt = new ProductionPatternAlternative();
-        alt.AddProduction((int) SyntaxConstants.PROD_LC_BLOAT_ARRAY_DEC, 1, 1);
-        pattern.AddAlternative(alt);
+        // alt = new ProductionPatternAlternative();
+        // alt.AddProduction((int) SyntaxConstants.PROD_LC_BLOAT_ARRAY_DEC, 1, 1);
+        // pattern.AddAlternative(alt);
         AddPattern(pattern);
 
         pattern = new ProductionPattern((int) SyntaxConstants.PROD_ADD_LC_BLOAT_TAIL,
@@ -2005,46 +2005,46 @@ public class SyntaxParser : RecursiveDescentParser {
         pattern.AddAlternative(alt);
         AddPattern(pattern);
 
-        pattern = new ProductionPattern((int) SyntaxConstants.PROD_LC_BLOAT_ARRAY_DEC,
-                                        "Prod_lc_bloat_array_dec");
-        alt = new ProductionPatternAlternative();
-        alt.AddToken((int) SyntaxConstants.O_SQR, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_INDEX_VALUE, 1, 1);
-        alt.AddToken((int) SyntaxConstants.C_SQR, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_LC_BLOAT_1D_TAIL, 1, 1);
-        pattern.AddAlternative(alt);
-        AddPattern(pattern);
+        // pattern = new ProductionPattern((int) SyntaxConstants.PROD_LC_BLOAT_ARRAY_DEC,
+        //                                 "Prod_lc_bloat_array_dec");
+        // alt = new ProductionPatternAlternative();
+        // alt.AddToken((int) SyntaxConstants.O_SQR, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_INDEX_VALUE, 1, 1);
+        // alt.AddToken((int) SyntaxConstants.C_SQR, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_LC_BLOAT_1D_TAIL, 1, 1);
+        // pattern.AddAlternative(alt);
+        // AddPattern(pattern);
 
-        pattern = new ProductionPattern((int) SyntaxConstants.PROD_LC_BLOAT_1D_TAIL,
-                                        "Prod_lc_bloat_1D_tail");
-        alt = new ProductionPatternAlternative();
-        alt.AddToken((int) SyntaxConstants.ASSIGN, 1, 1);
-        alt.AddToken((int) SyntaxConstants.O_BRACE, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_L_BLOAT_ELEMENT, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_L_ADD_BLOAT_1D, 0, 1);
-        alt.AddToken((int) SyntaxConstants.C_BRACE, 1, 1);
-        pattern.AddAlternative(alt);
-        alt = new ProductionPatternAlternative();
-        alt.AddToken((int) SyntaxConstants.O_SQR, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_INDEX_VALUE, 1, 1);
-        alt.AddToken((int) SyntaxConstants.C_SQR, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_LC_BLOAT_2D_TAIL, 1, 1);
-        pattern.AddAlternative(alt);
-        AddPattern(pattern);
+        // pattern = new ProductionPattern((int) SyntaxConstants.PROD_LC_BLOAT_1D_TAIL,
+        //                                 "Prod_lc_bloat_1D_tail");
+        // alt = new ProductionPatternAlternative();
+        // alt.AddToken((int) SyntaxConstants.ASSIGN, 1, 1);
+        // alt.AddToken((int) SyntaxConstants.O_BRACE, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_L_BLOAT_ELEMENT, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_L_ADD_BLOAT_1D, 0, 1);
+        // alt.AddToken((int) SyntaxConstants.C_BRACE, 1, 1);
+        // pattern.AddAlternative(alt);
+        // alt = new ProductionPatternAlternative();
+        // alt.AddToken((int) SyntaxConstants.O_SQR, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_INDEX_VALUE, 1, 1);
+        // alt.AddToken((int) SyntaxConstants.C_SQR, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_LC_BLOAT_2D_TAIL, 1, 1);
+        // pattern.AddAlternative(alt);
+        // AddPattern(pattern);
 
-        pattern = new ProductionPattern((int) SyntaxConstants.PROD_LC_BLOAT_2D_TAIL,
-                                        "Prod_lc_bloat_2D_tail");
-        alt = new ProductionPatternAlternative();
-        alt.AddToken((int) SyntaxConstants.ASSIGN, 1, 1);
-        alt.AddToken((int) SyntaxConstants.O_BRACE, 1, 1);
-        alt.AddToken((int) SyntaxConstants.O_BRACE, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_L_BLOAT_ELEMENT, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_L_ADD_BLOAT_1D, 0, 1);
-        alt.AddToken((int) SyntaxConstants.C_BRACE, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_L_ADD_BLOAT_2D, 1, 1);
-        alt.AddToken((int) SyntaxConstants.C_BRACE, 1, 1);
-        pattern.AddAlternative(alt);
-        AddPattern(pattern);
+        // pattern = new ProductionPattern((int) SyntaxConstants.PROD_LC_BLOAT_2D_TAIL,
+        //                                 "Prod_lc_bloat_2D_tail");
+        // alt = new ProductionPatternAlternative();
+        // alt.AddToken((int) SyntaxConstants.ASSIGN, 1, 1);
+        // alt.AddToken((int) SyntaxConstants.O_BRACE, 1, 1);
+        // alt.AddToken((int) SyntaxConstants.O_BRACE, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_L_BLOAT_ELEMENT, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_L_ADD_BLOAT_1D, 0, 1);
+        // alt.AddToken((int) SyntaxConstants.C_BRACE, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_L_ADD_BLOAT_2D, 1, 1);
+        // alt.AddToken((int) SyntaxConstants.C_BRACE, 1, 1);
+        // pattern.AddAlternative(alt);
+        // AddPattern(pattern);
 
         pattern = new ProductionPattern((int) SyntaxConstants.PROD_LC_PING_TAIL,
                                         "Prod_lc_ping_tail");
@@ -2053,9 +2053,9 @@ public class SyntaxParser : RecursiveDescentParser {
         alt.AddProduction((int) SyntaxConstants.PROD_LV_PING_VALUE, 1, 1);
         alt.AddProduction((int) SyntaxConstants.PROD_ADD_LC_PING_TAIL, 0, 1);
         pattern.AddAlternative(alt);
-        alt = new ProductionPatternAlternative();
-        alt.AddProduction((int) SyntaxConstants.PROD_LC_PING_ARRAY_DEC, 1, 1);
-        pattern.AddAlternative(alt);
+        // alt = new ProductionPatternAlternative();
+        // alt.AddProduction((int) SyntaxConstants.PROD_LC_PING_ARRAY_DEC, 1, 1);
+        // pattern.AddAlternative(alt);
         AddPattern(pattern);
 
         pattern = new ProductionPattern((int) SyntaxConstants.PROD_ADD_LC_PING_TAIL,
@@ -2076,46 +2076,46 @@ public class SyntaxParser : RecursiveDescentParser {
         pattern.AddAlternative(alt);
         AddPattern(pattern);
 
-        pattern = new ProductionPattern((int) SyntaxConstants.PROD_LC_PING_ARRAY_DEC,
-                                        "Prod_lc_ping_array_dec");
-        alt = new ProductionPatternAlternative();
-        alt.AddToken((int) SyntaxConstants.O_SQR, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_INDEX_VALUE, 1, 1);
-        alt.AddToken((int) SyntaxConstants.C_SQR, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_LC_PING_1D_TAIL, 1, 1);
-        pattern.AddAlternative(alt);
-        AddPattern(pattern);
+        // pattern = new ProductionPattern((int) SyntaxConstants.PROD_LC_PING_ARRAY_DEC,
+        //                                 "Prod_lc_ping_array_dec");
+        // alt = new ProductionPatternAlternative();
+        // alt.AddToken((int) SyntaxConstants.O_SQR, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_INDEX_VALUE, 1, 1);
+        // alt.AddToken((int) SyntaxConstants.C_SQR, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_LC_PING_1D_TAIL, 1, 1);
+        // pattern.AddAlternative(alt);
+        // AddPattern(pattern);
 
-        pattern = new ProductionPattern((int) SyntaxConstants.PROD_LC_PING_1D_TAIL,
-                                        "Prod_lc_ping_1D_tail");
-        alt = new ProductionPatternAlternative();
-        alt.AddToken((int) SyntaxConstants.ASSIGN, 1, 1);
-        alt.AddToken((int) SyntaxConstants.O_BRACE, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_L_PING_ELEMENT, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_L_ADD_PING_1D, 0, 1);
-        alt.AddToken((int) SyntaxConstants.C_BRACE, 1, 1);
-        pattern.AddAlternative(alt);
-        alt = new ProductionPatternAlternative();
-        alt.AddToken((int) SyntaxConstants.O_SQR, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_INDEX_VALUE, 1, 1);
-        alt.AddToken((int) SyntaxConstants.C_SQR, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_LC_PING_2D_TAIL, 1, 1);
-        pattern.AddAlternative(alt);
-        AddPattern(pattern);
+        // pattern = new ProductionPattern((int) SyntaxConstants.PROD_LC_PING_1D_TAIL,
+        //                                 "Prod_lc_ping_1D_tail");
+        // alt = new ProductionPatternAlternative();
+        // alt.AddToken((int) SyntaxConstants.ASSIGN, 1, 1);
+        // alt.AddToken((int) SyntaxConstants.O_BRACE, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_L_PING_ELEMENT, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_L_ADD_PING_1D, 0, 1);
+        // alt.AddToken((int) SyntaxConstants.C_BRACE, 1, 1);
+        // pattern.AddAlternative(alt);
+        // alt = new ProductionPatternAlternative();
+        // alt.AddToken((int) SyntaxConstants.O_SQR, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_INDEX_VALUE, 1, 1);
+        // alt.AddToken((int) SyntaxConstants.C_SQR, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_LC_PING_2D_TAIL, 1, 1);
+        // pattern.AddAlternative(alt);
+        // AddPattern(pattern);
 
-        pattern = new ProductionPattern((int) SyntaxConstants.PROD_LC_PING_2D_TAIL,
-                                        "Prod_lc_ping_2D_tail");
-        alt = new ProductionPatternAlternative();
-        alt.AddToken((int) SyntaxConstants.ASSIGN, 1, 1);
-        alt.AddToken((int) SyntaxConstants.O_BRACE, 1, 1);
-        alt.AddToken((int) SyntaxConstants.O_BRACE, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_L_PING_ELEMENT, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_L_ADD_PING_1D, 0, 1);
-        alt.AddToken((int) SyntaxConstants.C_BRACE, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_L_ADD_PING_2D, 0, 1);
-        alt.AddToken((int) SyntaxConstants.C_BRACE, 1, 1);
-        pattern.AddAlternative(alt);
-        AddPattern(pattern);
+        // pattern = new ProductionPattern((int) SyntaxConstants.PROD_LC_PING_2D_TAIL,
+        //                                 "Prod_lc_ping_2D_tail");
+        // alt = new ProductionPatternAlternative();
+        // alt.AddToken((int) SyntaxConstants.ASSIGN, 1, 1);
+        // alt.AddToken((int) SyntaxConstants.O_BRACE, 1, 1);
+        // alt.AddToken((int) SyntaxConstants.O_BRACE, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_L_PING_ELEMENT, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_L_ADD_PING_1D, 0, 1);
+        // alt.AddToken((int) SyntaxConstants.C_BRACE, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_L_ADD_PING_2D, 0, 1);
+        // alt.AddToken((int) SyntaxConstants.C_BRACE, 1, 1);
+        // pattern.AddAlternative(alt);
+        // AddPattern(pattern);
 
         pattern = new ProductionPattern((int) SyntaxConstants.PROD_LC_POOL_TAIL,
                                         "Prod_lc_pool_tail");
@@ -2124,9 +2124,9 @@ public class SyntaxParser : RecursiveDescentParser {
         alt.AddProduction((int) SyntaxConstants.PROD_LV_POOL_VALUE, 1, 1);
         alt.AddProduction((int) SyntaxConstants.PROD_ADD_LC_POOL_TAIL, 0, 1);
         pattern.AddAlternative(alt);
-        alt = new ProductionPatternAlternative();
-        alt.AddProduction((int) SyntaxConstants.PROD_LC_POOL_ARRAY_DEC, 1, 1);
-        pattern.AddAlternative(alt);
+        // alt = new ProductionPatternAlternative();
+        // alt.AddProduction((int) SyntaxConstants.PROD_LC_POOL_ARRAY_DEC, 1, 1);
+        // pattern.AddAlternative(alt);
         AddPattern(pattern);
 
         pattern = new ProductionPattern((int) SyntaxConstants.PROD_ADD_LC_POOL_TAIL,
@@ -2147,46 +2147,46 @@ public class SyntaxParser : RecursiveDescentParser {
         pattern.AddAlternative(alt);
         AddPattern(pattern);
 
-        pattern = new ProductionPattern((int) SyntaxConstants.PROD_LC_POOL_ARRAY_DEC,
-                                        "Prod_lc_pool_array_dec");
-        alt = new ProductionPatternAlternative();
-        alt.AddToken((int) SyntaxConstants.O_SQR, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_INDEX_VALUE, 1, 1);
-        alt.AddToken((int) SyntaxConstants.C_SQR, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_LC_POOL_1D_TAIL, 1, 1);
-        pattern.AddAlternative(alt);
-        AddPattern(pattern);
+        // pattern = new ProductionPattern((int) SyntaxConstants.PROD_LC_POOL_ARRAY_DEC,
+        //                                 "Prod_lc_pool_array_dec");
+        // alt = new ProductionPatternAlternative();
+        // alt.AddToken((int) SyntaxConstants.O_SQR, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_INDEX_VALUE, 1, 1);
+        // alt.AddToken((int) SyntaxConstants.C_SQR, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_LC_POOL_1D_TAIL, 1, 1);
+        // pattern.AddAlternative(alt);
+        // AddPattern(pattern);
 
-        pattern = new ProductionPattern((int) SyntaxConstants.PROD_LC_POOL_1D_TAIL,
-                                        "Prod_lc_pool_1D_tail");
-        alt = new ProductionPatternAlternative();
-        alt.AddToken((int) SyntaxConstants.ASSIGN, 1, 1);
-        alt.AddToken((int) SyntaxConstants.O_BRACE, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_L_POOL_ELEMENT, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_L_ADD_POOL_1D, 0, 1);
-        alt.AddToken((int) SyntaxConstants.C_BRACE, 1, 1);
-        pattern.AddAlternative(alt);
-        alt = new ProductionPatternAlternative();
-        alt.AddToken((int) SyntaxConstants.O_SQR, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_INDEX_VALUE, 1, 1);
-        alt.AddToken((int) SyntaxConstants.C_SQR, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_LC_POOL_2D_TAIL, 1, 1);
-        pattern.AddAlternative(alt);
-        AddPattern(pattern);
+        // pattern = new ProductionPattern((int) SyntaxConstants.PROD_LC_POOL_1D_TAIL,
+        //                                 "Prod_lc_pool_1D_tail");
+        // alt = new ProductionPatternAlternative();
+        // alt.AddToken((int) SyntaxConstants.ASSIGN, 1, 1);
+        // alt.AddToken((int) SyntaxConstants.O_BRACE, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_L_POOL_ELEMENT, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_L_ADD_POOL_1D, 0, 1);
+        // alt.AddToken((int) SyntaxConstants.C_BRACE, 1, 1);
+        // pattern.AddAlternative(alt);
+        // alt = new ProductionPatternAlternative();
+        // alt.AddToken((int) SyntaxConstants.O_SQR, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_INDEX_VALUE, 1, 1);
+        // alt.AddToken((int) SyntaxConstants.C_SQR, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_LC_POOL_2D_TAIL, 1, 1);
+        // pattern.AddAlternative(alt);
+        // AddPattern(pattern);
 
-        pattern = new ProductionPattern((int) SyntaxConstants.PROD_LC_POOL_2D_TAIL,
-                                        "Prod_lc_pool_2D_tail");
-        alt = new ProductionPatternAlternative();
-        alt.AddToken((int) SyntaxConstants.ASSIGN, 1, 1);
-        alt.AddToken((int) SyntaxConstants.O_BRACE, 1, 1);
-        alt.AddToken((int) SyntaxConstants.O_BRACE, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_L_POOL_ELEMENT, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_L_ADD_POOL_1D, 0, 1);
-        alt.AddToken((int) SyntaxConstants.C_BRACE, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_L_ADD_POOL_2D, 1, 1);
-        alt.AddToken((int) SyntaxConstants.C_BRACE, 1, 1);
-        pattern.AddAlternative(alt);
-        AddPattern(pattern);
+        // pattern = new ProductionPattern((int) SyntaxConstants.PROD_LC_POOL_2D_TAIL,
+        //                                 "Prod_lc_pool_2D_tail");
+        // alt = new ProductionPatternAlternative();
+        // alt.AddToken((int) SyntaxConstants.ASSIGN, 1, 1);
+        // alt.AddToken((int) SyntaxConstants.O_BRACE, 1, 1);
+        // alt.AddToken((int) SyntaxConstants.O_BRACE, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_L_POOL_ELEMENT, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_L_ADD_POOL_1D, 0, 1);
+        // alt.AddToken((int) SyntaxConstants.C_BRACE, 1, 1);
+        // alt.AddProduction((int) SyntaxConstants.PROD_L_ADD_POOL_2D, 1, 1);
+        // alt.AddToken((int) SyntaxConstants.C_BRACE, 1, 1);
+        // pattern.AddAlternative(alt);
+        // AddPattern(pattern);
 
         pattern = new ProductionPattern((int) SyntaxConstants.PROD_LOCAL_TOWER,
                                         "Prod_local_tower");
