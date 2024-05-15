@@ -689,7 +689,22 @@ public partial class Form1 : Form
 
                             while (TempGrid.Rows[x].Cells[2].Value.ToString() != ";")
                             {
-                                codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                                if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Pool Literal")
+                                {
+                                    if (TempGrid.Rows[x].Cells[1].Value.ToString() == "buff")
+                                    {
+                                        codeTemp += " true";
+                                    }
+                                    else
+                                    {
+                                        codeTemp += " false";
+                                    }
+                                }
+                                else
+                                {
+                                    codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                                }
+                            
                                 x++;
                             }
 
@@ -819,12 +834,7 @@ public partial class Form1 : Form
                         tempId = "";
                         while (TempGrid.Rows[x].Cells[2].Value.ToString() != ";")
                         {
-                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == "=")
-                            {
-                                codeTemp += " = " + TempGrid.Rows[x + 1].Cells[1].Value.ToString();
-                                x = x + 2;
-                            }
-                            else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "," && TempGrid.Rows[x - 1].Cells[2].Value.ToString() == "Identifier")
+                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == "," && TempGrid.Rows[x - 1].Cells[2].Value.ToString() == "Identifier")
                             {
                                 codeTemp += "= default, ";
                                 x++;
@@ -937,12 +947,7 @@ public partial class Form1 : Form
                         tempId = "";
                         while (TempGrid.Rows[x].Cells[2].Value.ToString() != ";")
                         {
-                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == "=")
-                            {
-                                codeTemp += " = " + TempGrid.Rows[x + 1].Cells[1].Value.ToString();
-                                x = x + 2;
-                            }
-                            else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "," && TempGrid.Rows[x - 1].Cells[2].Value.ToString() == "Identifier")
+                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == "," && TempGrid.Rows[x - 1].Cells[2].Value.ToString() == "Identifier")
                             {
                                 codeTemp += "= default, ";
                                 x++;
@@ -1055,12 +1060,7 @@ public partial class Form1 : Form
                         tempId = "";
                         while (TempGrid.Rows[x].Cells[2].Value.ToString() != ";")
                         {
-                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == "=")
-                            {
-                                codeTemp += " = " + TempGrid.Rows[x + 1].Cells[1].Value.ToString();
-                                x = x + 2;
-                            }
-                            else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "," && TempGrid.Rows[x - 1].Cells[2].Value.ToString() == "Identifier")
+                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == "," && TempGrid.Rows[x - 1].Cells[2].Value.ToString() == "Identifier")
                             {
                                 codeTemp += "= default, ";
                                 x++;
@@ -1153,7 +1153,22 @@ public partial class Form1 : Form
                             x++;
                             while (TempGrid.Rows[x].Cells[2].Value.ToString() != ";")
                             {
-                                codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                                if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Pool Literal")
+                                {
+                                    if (TempGrid.Rows[x].Cells[1].Value.ToString() == "buff")
+                                    {
+                                        codeTemp += " true";
+                                    }
+                                    else
+                                    {
+                                        codeTemp += " false";
+                                    }
+                                }
+                                else
+                                {
+                                    codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                                }
+
                                 x++;
                             }
                         }
@@ -1173,19 +1188,29 @@ public partial class Form1 : Form
                         tempId = "";
                         while (TempGrid.Rows[x].Cells[2].Value.ToString() != ";")
                         {
-                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == "=")
-                            {
-                                codeTemp += " = " + TempGrid.Rows[x + 1].Cells[1].Value.ToString();
-                                x = x + 2;
-                            }
-                            else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "," && TempGrid.Rows[x - 1].Cells[2].Value.ToString() == "Identifier")
+                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == "," && TempGrid.Rows[x - 1].Cells[2].Value.ToString() == "Identifier")
                             {
                                 codeTemp += "= default, ";
                                 x++;
                             }
                             else
                             {
-                                codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                                if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Pool Literal")
+                                {
+                                    if (TempGrid.Rows[x].Cells[1].Value.ToString() == "buff")
+                                    {
+                                        codeTemp += " true";
+                                    }
+                                    else
+                                    {
+                                        codeTemp += " false";
+                                    }
+                                }
+                                else
+                                {
+                                    codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                                }
+
                                 x++;
                             }
                         }
@@ -1731,6 +1756,22 @@ public partial class Form1 : Form
                                     {
                                         codeTemp += " false";
                                     }
+                                }
+                                else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "inter")
+                                {
+                                    codeTemp += "Convert.ToInt32";
+                                }
+                                else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "bloat")
+                                {
+                                    codeTemp += "Convert.ToDouble";
+                                }
+                                else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "ping")
+                                {
+                                    codeTemp += "Convert.ToString";
+                                }
+                                else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "pool")
+                                {
+                                    codeTemp += "Convert.ToBoolean";
                                 }
                                 else
                                 {
