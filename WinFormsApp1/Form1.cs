@@ -2469,7 +2469,7 @@ public partial class Form1 : Form
                     }
                     else
                     {
-                        if (openDo != 0)
+                        if (openDo != 0 && TempGrid.Rows[x+1].Cells[2].Value.ToString() == "while")
                         {
                             codeTemp += "} while (";
                             x = x + 3;
