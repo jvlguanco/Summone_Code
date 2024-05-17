@@ -2258,8 +2258,9 @@ public partial class Form1 : Form
                 case "if":
                     codeTemp += "if (";
                     x = x + 2;
+                    int openParen = 1;
 
-                    while (TempGrid.Rows[x].Cells[2].Value.ToString() != ")")
+                    do
                     {
                         if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Pool Literal")
                         {
@@ -2272,13 +2273,23 @@ public partial class Form1 : Form
                                 codeTemp += "false";
                             }
                         }
+                        else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "(")
+                        {
+                            codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                            openParen++;
+                        }
+                        else if (TempGrid.Rows[x].Cells[2].Value.ToString() == ")")
+                        {
+                            codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                            openParen--;
+                        }
                         else
                         {
                             codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
                         }
 
                         x++;
-                    }
+                    } while (openParen != 0);
 
                     if (TempGrid.Rows[x].Cells[2].Value.ToString() == ")")
                     {
