@@ -2505,7 +2505,7 @@ public class SyntaxParser : RecursiveDescentParser {
         alt.AddProduction((int) SyntaxConstants.PROD_PARAMETER, 0, 1);
         alt.AddToken((int) SyntaxConstants.C_PAREN, 1, 1);
         alt.AddToken((int) SyntaxConstants.O_BRACE, 1, 1);
-        alt.AddProduction((int) SyntaxConstants.PROD_USER_BODY, 1, 1);
+        alt.AddProduction((int) SyntaxConstants.PROD_USER_BODY, 0, 1);
         alt.AddToken((int) SyntaxConstants.C_BRACE, 1, 1);
         pattern.AddAlternative(alt);
         AddPattern(pattern);

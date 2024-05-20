@@ -50,7 +50,6 @@ partial class Form1
         dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
         dataGridViewTextBoxColumn7 = new DataGridViewTextBoxColumn();
         dataGridViewTextBoxColumn8 = new DataGridViewTextBoxColumn();
-        OutputText = new RichTextBox();
         tabPage4 = new TabPage();
         DataSyntaxError = new DataGridView();
         dataGridViewTextBoxColumn6 = new DataGridViewTextBoxColumn();
@@ -61,6 +60,7 @@ partial class Form1
         dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
         dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
         Line = new DataGridViewTextBoxColumn();
+        OutputText = new RichTextBox();
         run = new Button();
         button1 = new Button();
         tabControl1.SuspendLayout();
@@ -212,6 +212,7 @@ partial class Form1
         // 
         tabPage3.Controls.Add(DataLexicalError);
         tabPage3.Controls.Add(TempGrid);
+        tabPage3.Controls.Add(OutputText);
         tabPage3.Location = new Point(4, 30);
         tabPage3.Name = "tabPage3";
         tabPage3.Padding = new Padding(3);
@@ -281,14 +282,6 @@ partial class Form1
         dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
         dataGridViewTextBoxColumn8.ReadOnly = true;
         dataGridViewTextBoxColumn8.Width = 140;
-        // 
-        // OutputText
-        // 
-        OutputText.Location = new Point(546, 444);
-        OutputText.Name = "OutputText";
-        OutputText.Size = new Size(392, 105);
-        OutputText.TabIndex = 9;
-        OutputText.Text = "";
         // 
         // tabPage4
         // 
@@ -380,6 +373,14 @@ partial class Form1
         Line.Name = "Line";
         Line.ReadOnly = true;
         // 
+        // OutputText
+        // 
+        OutputText.Location = new Point(552, 14);
+        OutputText.Name = "OutputText";
+        OutputText.Size = new Size(392, 105);
+        OutputText.TabIndex = 9;
+        OutputText.Text = "";
+        // 
         // run
         // 
         run.Location = new Point(189, 70);
@@ -407,7 +408,6 @@ partial class Form1
         ClientSize = new Size(1170, 759);
         Controls.Add(button1);
         Controls.Add(run);
-        Controls.Add(OutputText);
         Controls.Add(tabControl2);
         Controls.Add(tabControl1);
         Controls.Add(Code);
