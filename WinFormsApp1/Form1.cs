@@ -1773,6 +1773,24 @@ public partial class Form1 : Form
                                 {
                                     codeTemp += "Convert.ToBoolean";
                                 }
+                                else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "[")
+                                {
+                                    codeTemp += "[";
+                                    x++;
+
+                                    while (TempGrid.Rows[x].Cells[2].Value.ToString() != "]")
+                                    {
+                                        codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                                        x++;
+
+                                        if (TempGrid.Rows[x + 1].Cells[2].Value.ToString() == "[")
+                                        {
+                                            codeTemp += ", ";
+                                            x = x + 2;
+                                        }
+                                    }
+                                    codeTemp += "]";
+                                }
                                 else
                                 {
                                     codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
@@ -1802,6 +1820,23 @@ public partial class Form1 : Form
                                 codeTemp += " = ";
                                 openAssign--;
                                 x++;
+                            }
+                            else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "[")
+                            {
+                                codeTemp += "[";
+                                x++;
+
+                                while (TempGrid.Rows[x].Cells[2].Value.ToString() != "]")
+                                {
+                                    codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                                    x++;
+
+                                    if (TempGrid.Rows[x + 1].Cells[2].Value.ToString() == "[")
+                                    {
+                                        codeTemp += ", ";
+                                        x = x + 2;
+                                    }
+                                }
                             }
                             else if (TempGrid.Rows[x].Cells[2].Value.ToString() == ",")
                             { 
@@ -2080,20 +2115,6 @@ public partial class Form1 : Form
 
                             codeTemp += "Convert.To" + tempData;
                             x++;
-
-                            while (TempGrid.Rows[x].Cells[2].Value.ToString() != ")")
-                            {
-                                if (TempGrid.Rows[x].Cells[2].Value.ToString() == "hold")
-                                {
-                                    codeTemp += "Console.ReadLine()";
-                                    x = x + 3;
-                                }
-                                else
-                                {
-                                    codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
-                                    x++;
-                                }
-                            }
                         }
                         else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Pool Literal")
                         {
@@ -2691,7 +2712,7 @@ public partial class Form1 : Form
                                 result = result.Replace("double", "bloat");
                                 result = result.Replace("string", "ping");
                                 result = result.Replace(",property or indexer", "");
-                                result = result.Replace("The type", "");
+                                // result = result.Replace("The type", "");
 
                                 semanticError.Rows.Add(id, result, codeLine);
                                 id++;
