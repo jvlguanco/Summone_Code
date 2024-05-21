@@ -2725,7 +2725,7 @@ public partial class Form1 : Form
 
                 process.Start();
                 process.BeginOutputReadLine();
-                bool exited = await Task.Run(() => process.WaitForExit(1500));
+                bool exited = await Task.Run(() => process.WaitForExit(3000));
                 if (!exited)
                 {
                     process.Kill();
@@ -2740,11 +2740,11 @@ public partial class Form1 : Form
         {
             if (Directory.Exists(tempDir))
             {
-                await Task.Delay(100);
+                await Task.Delay(300);
 
                 bool deleted = false;
                 int attempts = 0;
-                const int maxAttempts = 5;
+                const int maxAttempts = 10;
 
                 while (!deleted && attempts < maxAttempts)
                 {
@@ -2756,12 +2756,12 @@ public partial class Form1 : Form
                     catch (UnauthorizedAccessException)
                     {
                         attempts++;
-                        await Task.Delay(100);
+                        await Task.Delay(300);
                     }
                     catch (IOException)
                     {
                         attempts++;
-                        await Task.Delay(100);
+                        await Task.Delay(300);
                     }
                 }
             }
