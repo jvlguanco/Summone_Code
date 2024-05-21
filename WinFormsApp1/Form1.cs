@@ -2725,7 +2725,7 @@ public partial class Form1 : Form
 
                 process.Start();
                 process.BeginOutputReadLine();
-                bool exited = await Task.Run(() => process.WaitForExit(3000));
+                bool exited = await Task.Run(() => process.WaitForExit(3500));
                 if (!exited)
                 {
                     process.Kill();
