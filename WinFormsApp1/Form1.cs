@@ -2661,6 +2661,8 @@ public partial class Form1 : Form
         semanticError.Rows.Clear();
         int id = 0;
 
+        string temp = "";
+
         try
         {
             string tempFilePath = Path.Combine(tempDir, "Program.cs");
@@ -2724,10 +2726,22 @@ public partial class Form1 : Form
                                 result = result.Replace(",property or indexer", "");
                                 // result = result.Replace("The type", "");
 
-                                semanticError.Rows.Add(id, result, codeLine);
-                                id++;
-
+                                if (result.Contains("The type or namespace name"))
+                                {
+                                    if(result != temp)
+                                    {
+                                        semanticError.Rows.Add(id, result, codeLine);
+                                        id++;
+                                    }
+                                }
+                                else
+                                {
+                                    semanticError.Rows.Add(id, result, codeLine);
+                                    id++;
+                                }
+                                
                                 hasError = true;
+                                temp = result;
                             }
                         }
                     }
