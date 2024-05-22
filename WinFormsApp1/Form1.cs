@@ -46,6 +46,8 @@ public partial class Form1 : Form
 
             lex = Lexical.InitializeAnalyzer(txt, lex);
 
+            tabControl2.SelectTab("tabPage3");
+
             DisplayTokens(lex);
 
             if (lex._invalid == 0 && lex._token.Count != 0)
@@ -2061,8 +2063,11 @@ public partial class Form1 : Form
                 case "tower":
                     x++;
 
+                    string tempStruct = "";
+
                     if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Identifier")
                     {
+                        tempStruct = TempGrid.Rows[x].Cells[1].Value.ToString();
                         codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString() + " ";
                         x++;
                     }
@@ -2072,6 +2077,9 @@ public partial class Form1 : Form
                         codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
                         x++;
                     }
+
+                    codeTemp += "= new " + tempStruct + "()";
+                    tempStruct = "";
 
                     if (TempGrid.Rows[x].Cells[2].Value.ToString() == ";")
                     {
@@ -2725,7 +2733,7 @@ public partial class Form1 : Form
 
                 process.Start();
                 process.BeginOutputReadLine();
-                bool exited = await Task.Run(() => process.WaitForExit(3500));
+                bool exited = await Task.Run(() => process.WaitForExit(3000));
                 if (!exited)
                 {
                     process.Kill();
