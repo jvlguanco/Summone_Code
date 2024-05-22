@@ -44,6 +44,8 @@ public partial class Form1 : Form
             Initializer Lexical = new Initializer();
             txt = Code.RichTextBox.Text + " ";
 
+            tabControl2.SelectTab("tabPage3");
+
             lex = Lexical.InitializeAnalyzer(txt, lex);
 
             DisplayTokens(lex);
@@ -2725,7 +2727,7 @@ public partial class Form1 : Form
 
                 process.Start();
                 process.BeginOutputReadLine();
-                bool exited = await Task.Run(() => process.WaitForExit(3500));
+                bool exited = await Task.Run(() => process.WaitForExit(3000));
                 if (!exited)
                 {
                     process.Kill();
