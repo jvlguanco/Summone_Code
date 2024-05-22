@@ -44,6 +44,8 @@ public partial class Form1 : Form
             Initializer Lexical = new Initializer();
             txt = Code.RichTextBox.Text + " ";
 
+            tabControl2.SelectTab("tabPage3");
+
             lex = Lexical.InitializeAnalyzer(txt, lex);
 
             tabControl2.SelectTab("tabPage3");
