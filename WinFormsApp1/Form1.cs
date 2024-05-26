@@ -2255,7 +2255,9 @@ public partial class Form1 : Form
                     codeTemp += "while (";
                     x = x + 2;
 
-                    while (TempGrid.Rows[x].Cells[2].Value.ToString() != ")")
+                    int openP = 1;
+
+                    do
                     {
                         if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Pool Literal")
                         {
@@ -2268,23 +2270,47 @@ public partial class Form1 : Form
                                 codeTemp += "false";
                             }
                         }
+                        else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "(")
+                        {
+                            codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                            openP++;
+                        }
+                        else if (TempGrid.Rows[x].Cells[2].Value.ToString() == ")")
+                        {
+                            codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                            openP--;
+                        }
+                        else if(TempGrid.Rows[x].Cells[2].Value.ToString() == "ping")
+                        {
+                            codeTemp += "Convert.ToString";
+                        }
+                        else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "inter")
+                        {
+                            codeTemp += "Convert.ToInt32";
+                        }
+                        else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "bloat")
+                        {
+                            codeTemp += "Convert.ToDouble";
+                        }
+                        else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "pool")
+                        {
+                            codeTemp += "Convert.ToBoolean";
+                        }
                         else
                         {
                             codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
                         }
 
                         x++;
-                    }
+                    } while (openP != 0);
 
-                    if (TempGrid.Rows[x].Cells[2].Value.ToString() == ")")
-                    {
-                        codeTemp += ") {\n";
-                        OutputText.Text += codeTemp;
-                        codeTemp = "";
-                        lineMapping.Add(lineTracker, currentLine);
-                        lineTracker++;
-                        openBrace++;
-                    }
+                    codeTemp += "{\n";
+                    OutputText.Text += codeTemp;
+                    codeTemp = "";
+                    lineMapping.Add(lineTracker, currentLine);
+                    lineTracker++;
+                    openBrace++;
+
                     break;
                 case "if":
                     codeTemp += "if (";
@@ -2313,6 +2339,22 @@ public partial class Form1 : Form
                         {
                             codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
                             openParen--;
+                        }
+                        else if(TempGrid.Rows[x].Cells[2].Value.ToString() == "ping")
+                        {
+                            codeTemp += "Convert.ToString";
+                        }
+                        else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "inter")
+                        {
+                            codeTemp += "Convert.ToInt32";
+                        }
+                        else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "bloat")
+                        {
+                            codeTemp += "Convert.ToDouble";
+                        }
+                        else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "pool")
+                        {
+                            codeTemp += "Convert.ToBoolean";
                         }
                         else
                         {
@@ -2557,7 +2599,9 @@ public partial class Form1 : Form
                             codeTemp += "} while (";
                             x = x + 3;
 
-                            while (TempGrid.Rows[x].Cells[2].Value.ToString() != ")")
+                            int openPa = 1;
+
+                            do
                             {
                                 if (TempGrid.Rows[x].Cells[2].Value.ToString() == "Pool Literal")
                                 {
@@ -2570,24 +2614,48 @@ public partial class Form1 : Form
                                         codeTemp += "false";
                                     }
                                 }
+                                else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "(")
+                                {
+                                    codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                                    openPa++;
+                                }
+                                else if (TempGrid.Rows[x].Cells[2].Value.ToString() == ")")
+                                {
+                                    codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
+                                    openPa--;
+                                }
+                                else if(TempGrid.Rows[x].Cells[2].Value.ToString() == "ping")
+                                {
+                                    codeTemp += "Convert.ToString";
+                                }
+                                else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "inter")
+                                {
+                                    codeTemp += "Convert.ToInt32";
+                                }
+                                else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "bloat")
+                                {
+                                    codeTemp += "Convert.ToDouble";
+                                }
+                                else if (TempGrid.Rows[x].Cells[2].Value.ToString() == "pool")
+                                {
+                                    codeTemp += "Convert.ToBoolean";
+                                }
                                 else
                                 {
                                     codeTemp += TempGrid.Rows[x].Cells[1].Value.ToString();
                                 }
 
                                 x++;
-                            }
+                            } while (openPa != 0);
 
-                            if (TempGrid.Rows[x].Cells[2].Value.ToString() == ")")
-                            {
-                                codeTemp += ");\n";
-                                OutputText.Text += codeTemp;
-                                codeTemp = "";
-                                lineMapping.Add(lineTracker, currentLine);
-                                lineTracker++;
-                                openBrace--;
-                                openDo--;
-                            }
+
+                            codeTemp += ";\n";
+                            OutputText.Text += codeTemp;
+                            codeTemp = "";
+                            lineMapping.Add(lineTracker, currentLine);
+                            lineTracker++;
+                            openBrace--;
+                            openDo--;
                         }
                         else
                         {
